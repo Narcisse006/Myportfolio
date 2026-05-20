@@ -99,6 +99,8 @@ Render → votre service → **Settings** → **Custom Domains** → suivez les 
 | Build échoue | Vérifier que `composer.lock` est sur GitHub |
 | `composer:2-php8.2: not found` | Tag Docker inexistant — le Dockerfile utilise `php:8.2-cli-alpine` + Composer installé manuellement |
 | `php version does not satisfy` | Le build doit tourner avec PHP 8.2 (étape `vendor` du Dockerfile) |
+| Build échoue sur `docker-php-ext-install` | Ne pas installer `fileinfo` (déjà inclus) ; le Dockerfile utilise `$PHPIZE_DEPS` |
+| Build échoue sur `package:discover` | Normal au build sans `.env` — exécuté au démarrage dans `docker/start.sh` |
 
 ## Commandes utiles en local
 

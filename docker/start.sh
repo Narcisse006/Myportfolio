@@ -8,6 +8,7 @@ if [ -z "$APP_KEY" ]; then
     exit 1
 fi
 
+php artisan package:discover --ansi
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache

@@ -1,10 +1,11 @@
-# Étape 1 — PHP 8.2 + extensions Laravel + Composer
+# Étape 1 — dépendances Composer (PHP 8.2)
 FROM php:8.2-cli-alpine AS vendor
 
 ENV COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_MEMORY_LIMIT=-1
 
 RUN apk add --no-cache \
+    $PHPIZE_DEPS \
     git \
     unzip \
     curl-dev \
@@ -12,20 +13,18 @@ RUN apk add --no-cache \
     libxml2-dev \
     icu-dev \
     oniguruma-dev \
-    linux-headers \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) \
         bcmath \
         curl \
         dom \
-        fileinfo \
         mbstring \
         pdo \
-        xml \
         zip \
         intl \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && rm -rf /var/cache/apk/* /tmp/*
+    && apk del $PHPIZE_DEPS \
+    && rm -rf /var/cache/apk/* /tmp/* /usr/local/lib/php/test
 
 WORKDIR /app
 
@@ -38,13 +37,13 @@ RUN composer install \
     --optimize-autoloader
 
 COPY . .
-RUN composer dump-autoload --optimize --classmap-authoritative \
-    && php artisan package:discover --ansi
+RUN composer dump-autoload --optimize --classmap-authoritative
 
-# Étape 2 — image de production
+# Étape 2 — production
 FROM php:8.2-cli-alpine
 
 RUN apk add --no-cache \
+    $PHPIZE_DEPS \
     libzip-dev \
     icu-dev \
     oniguruma-dev \
@@ -56,14 +55,13 @@ RUN apk add --no-cache \
         bcmath \
         curl \
         dom \
-        fileinfo \
         mbstring \
         pdo_sqlite \
-        xml \
         zip \
         intl \
         opcache \
-    && rm -rf /var/cache/apk/* /tmp/*
+    && apk del $PHPIZE_DEPS \
+    && rm -rf /var/cache/apk/* /tmp/* /usr/local/lib/php/test
 
 WORKDIR /app
 
