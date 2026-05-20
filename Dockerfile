@@ -1,5 +1,5 @@
-# Build des dépendances PHP
-FROM composer:2 AS vendor
+# Build des dépendances PHP (PHP 8.2 requis par Laravel 12)
+FROM composer:2-php8.2 AS vendor
 
 WORKDIR /app
 

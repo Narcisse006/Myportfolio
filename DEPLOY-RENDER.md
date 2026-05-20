@@ -96,7 +96,8 @@ Render → votre service → **Settings** → **Custom Domains** → suivez les 
 | Erreur 500 | Vérifier `APP_KEY`, logs dans l’onglet **Logs** Render |
 | CSS/JS cassés | `APP_URL` doit être l’URL HTTPS Render exacte |
 | Contact ne part pas | Vérifier toutes les variables `MAIL_*` |
-| Build échoue | Vérifier que `composer.lock` est bien sur GitHub |
+| Build échoue | Vérifier que `composer.lock` est sur GitHub ; le Dockerfile doit utiliser `composer:2-php8.2` (pas `composer:2` seul → PHP 8.0) |
+| `php version does not satisfy` | Même cause : image Composer trop ancienne → mettre à jour le `Dockerfile` et redéployer |
 
 ## Commandes utiles en local
 
