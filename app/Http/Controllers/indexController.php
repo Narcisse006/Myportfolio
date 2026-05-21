@@ -23,6 +23,16 @@ class indexController extends Controller
 
     public function store(ContactRequest $request)
     {
+        if (config('mail.default') === 'log' && app()->environment('production')) {
+            report(new \RuntimeException('MAIL_MAILER non configuré en production (mode log actif).'));
+
+            return redirect()
+                ->route('home')
+                ->withFragment('contact-section')
+                ->withInput()
+                ->with('error', 'Le serveur mail n\'est pas encore configuré. Contactez-moi sur WhatsApp ou par email directement.');
+        }
+
         try {
             Mail::to('ogoudikpenarcisse@gmail.com')
                 ->send(new ContactMail($request->validated()));
@@ -33,7 +43,7 @@ class indexController extends Controller
                 ->route('home')
                 ->withFragment('contact-section')
                 ->withInput()
-                ->with('error', 'L\'envoi a échoué (vérifiez la configuration email du serveur). Vous pouvez aussi me joindre sur WhatsApp.');
+                ->with('error', 'L\'envoi a échoué. Vérifiez la configuration SMTP sur Render (Gmail + mot de passe d\'application). Vous pouvez aussi me joindre sur WhatsApp.');
         }
 
         return redirect()
