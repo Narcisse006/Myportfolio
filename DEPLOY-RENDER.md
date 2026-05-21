@@ -50,33 +50,27 @@ Dans **Environment** du service, ajoutez ou vérifiez :
 | `CACHE_STORE` | `file` |
 | `QUEUE_CONNECTION` | `sync` |
 
-### Email (formulaire de contact) — obligatoire
+### Email (formulaire de contact) — Resend
 
-Sans ces variables, Laravel utilise le mode **`log`** : le site affiche parfois « succès » mais **aucun email** n’arrive dans votre boîte.
+Sans `RESEND_KEY`, le contact ne part pas (mode `log` ou erreur).
 
-**Gmail (recommandé si vous avez un compte Google)**
+1. Créez un compte sur [resend.com](https://resend.com) (gratuit : ~100 emails/jour).
+2. **API Keys** → créez une clé → copiez `re_...`
+3. Pour les **tests** (sans domaine) : utilisez `onboarding@resend.dev` comme expéditeur.
+4. Pour la **prod** : ajoutez et vérifiez votre domaine dans Resend → utilisez par ex. `contact@votredomaine.com`.
 
-1. Compte Google → Sécurité → **Validation en 2 étapes** (activée)
-2. **Mots de passe des applications** → créer un mot de passe pour « Mail »
-3. Dans Render → **Environment**, ajoutez :
+Dans Render → **Environment** :
 
 | Variable | Valeur |
 |----------|--------|
-| `MAIL_MAILER` | `smtp` |
-| `MAIL_SCHEME` | `smtp` |
-| `MAIL_HOST` | `smtp.gmail.com` |
-| `MAIL_PORT` | `587` |
-| `MAIL_ENCRYPTION` | `tls` |
-| `MAIL_USERNAME` | `narcisseportfolio@gmail.com` (même compte que le mot de passe app) |
-| `MAIL_PASSWORD` | le mot de passe d’application (16 caractères, **sans espaces**) |
-| `MAIL_FROM_ADDRESS` | `narcisseportfolio@gmail.com` |
+| `MAIL_MAILER` | `resend` |
+| `RESEND_KEY` | `re_votre_cle_api` |
+| `MAIL_FROM_ADDRESS` | `onboarding@resend.dev` *(tests)* ou email vérifié sur votre domaine |
 | `MAIL_FROM_NAME` | `Portfolio Narcisse` |
 
-4. **Save** puis **Manual Deploy** (redéploiement) pour appliquer les variables.
+5. **Save** puis **Manual Deploy**.
 
-> `MAIL_FROM_ADDRESS` et `MAIL_USERNAME` doivent être **le même compte Gmail** que le mot de passe d’application.
-
-**Alternative Brevo (gratuit)** : `MAIL_HOST=smtp-relay.brevo.com`, identifiants SMTP Brevo.
+> Les messages du formulaire arrivent sur `ogoudikpenarcisse@gmail.com` (défini dans le code). L’expéditeur (`MAIL_FROM_ADDRESS`) doit être autorisé par Resend.
 
 ## 4. Déployer
 

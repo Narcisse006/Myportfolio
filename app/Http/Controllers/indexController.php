@@ -23,14 +23,19 @@ class indexController extends Controller
 
     public function store(ContactRequest $request)
     {
-        if (config('mail.default') === 'log' && app()->environment('production')) {
-            report(new \RuntimeException('MAIL_MAILER non configuré en production (mode log actif).'));
+        if (app()->environment('production')) {
+            $mailer = config('mail.default');
+            $resendMissing = $mailer === 'resend' && empty(config('services.resend.key'));
 
-            return redirect()
-                ->route('home')
-                ->withFragment('contact-section')
-                ->withInput()
-                ->with('error', 'Le serveur mail n\'est pas encore configuré. Contactez-moi sur WhatsApp ou par email directement.');
+            if ($mailer === 'log' || $resendMissing) {
+                report(new \RuntimeException('Configuration mail manquante en production (Resend).'));
+
+                return redirect()
+                    ->route('home')
+                    ->withFragment('contact-section')
+                    ->withInput()
+                    ->with('error', 'Le serveur mail n\'est pas configuré (clé Resend manquante sur Render). Contactez-moi sur WhatsApp.');
+            }
         }
 
         try {
@@ -43,7 +48,7 @@ class indexController extends Controller
                 ->route('home')
                 ->withFragment('contact-section')
                 ->withInput()
-                ->with('error', 'L\'envoi a échoué. Vérifiez la configuration SMTP sur Render (Gmail + mot de passe d\'application). Vous pouvez aussi me joindre sur WhatsApp.');
+                ->with('error', 'L\'envoi a échoué. Vérifiez la clé Resend (RESEND_KEY) sur Render. Vous pouvez aussi me joindre sur WhatsApp.');
         }
 
         return redirect()
