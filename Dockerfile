@@ -1,84 +1,47 @@
-# Étape 1 — dépendances Composer (PHP 8.2)
-FROM php:8.2-cli-alpine AS vendor
+FROM php:8.2-cli
 
-ENV COMPOSER_ALLOW_SUPERUSER=1 \
-    COMPOSER_MEMORY_LIMIT=-1
-
-RUN apk add --no-cache \
-    $PHPIZE_DEPS \
+# Installer dépendances système
+RUN apt-get update && apt-get install -y \
     git \
     unzip \
-    curl-dev \
+    zip \
+    curl \
     libzip-dev \
-    libxml2-dev \
-    icu-dev \
-    oniguruma-dev \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install -j$(nproc) \
-        bcmath \
-        curl \
-        dom \
-        mbstring \
-        pdo \
-        zip \
-        intl \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && apk del $PHPIZE_DEPS \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/local/lib/php/test
+    libicu-dev \
+    sqlite3 \
+    libsqlite3-dev
 
+# Extensions PHP nécessaires
+RUN docker-php-ext-install \
+    pdo \
+    pdo_sqlite \
+    mbstring \
+    zip \
+    intl \
+    bcmath
+
+# Installer Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Dossier app
 WORKDIR /app
 
-COPY composer.json composer.lock ./
+# Copier projet
+COPY . .
+
+# Installer dépendances Laravel
 RUN composer install \
     --no-dev \
-    --no-scripts \
-    --prefer-dist \
-    --no-interaction \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-interaction
 
-COPY . .
-RUN composer dump-autoload --optimize --classmap-authoritative
+# Permissions
+RUN chmod -R 775 storage bootstrap/cache
 
-# Étape 2 — production
-FROM php:8.2-cli-alpine
-
-RUN apk add --no-cache \
-    $PHPIZE_DEPS \
-    libzip-dev \
-    icu-dev \
-    oniguruma-dev \
-    sqlite \
-    curl-dev \
-    libxml2-dev \
-    && docker-php-ext-configure intl \
-    && docker-php-ext-install -j$(nproc) \
-        bcmath \
-        curl \
-        dom \
-        mbstring \
-        pdo_sqlite \
-        zip \
-        intl \
-        opcache \
-    && apk del $PHPIZE_DEPS \
-    && rm -rf /var/cache/apk/* /tmp/* /usr/local/lib/php/test
-
-WORKDIR /app
-
-COPY --from=vendor /app /app
-
-RUN mkdir -p \
-    storage/framework/sessions \
-    storage/framework/views \
-    storage/framework/cache \
-    storage/logs \
-    bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
-
-COPY docker/start.sh /usr/local/bin/start
-RUN chmod +x /usr/local/bin/start
-
+# Port Render
 ENV PORT=10000
+
 EXPOSE 10000
 
-CMD ["/usr/local/bin/start"]
+# Lancement Laravel
+CMD php artisan serve --host=0.0.0.0 --port=$PORT
