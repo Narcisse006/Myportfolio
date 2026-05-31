@@ -16,7 +16,7 @@ class indexController extends Controller
     public function cv()
     {
         return view('cv', [
-            'pdfUrl' => asset('CV_Narcisse_Ogoudikpe_DevWeb.pdf'),
+            'pdfUrl' => asset('CV-Narcisse.pdf'),
             'pageUrl' => route('cv'),
         ]);
     }
