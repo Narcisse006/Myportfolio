@@ -39,7 +39,7 @@ class indexController extends Controller
         }
 
         try {
-            Mail::to('ogoudikpenarcisse@gmail.com')
+            Mail::to('narcisseportfolio@gmail.com')
                 ->send(new ContactMail($request->validated()));
         } catch (\Throwable $e) {
             report($e);
