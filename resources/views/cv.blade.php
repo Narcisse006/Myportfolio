@@ -14,9 +14,8 @@
 	<link rel="stylesheet" href="css/animate.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
-<body class="cv-page-body dev-preloader-active">
+<body class="cv-page-body">
 
-	@include('partials.preloader')
 	@include('partials.custom-cursor')
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -95,7 +94,6 @@
 
 	<div id="cv-toast" class="cv-toast" role="status" aria-live="polite" hidden></div>
 
-	<script src="js/dev-preloader.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>

@@ -18,12 +18,14 @@
 		if (!name || id === currentId) return;
 		currentId = id;
 		setTitle(name);
+	var hash = '#' + id;
+	if (location.hash !== hash) {
+		if (history.replaceState) {
+			history.replaceState(null, null, hash);
+		} else {
+			location.hash = hash;
+		}
 	}
-
-	function pickActiveSection() {
-		var bestId = null;
-		var bestRatio = 0;
-		visibleSections.forEach(function (ratio, id) {
 			if (ratio > bestRatio) {
 				bestRatio = ratio;
 				bestId = id;
