@@ -1,33 +1,39 @@
+# --- Dépendances Composer ---
+FROM composer:2 AS vendor
+
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev \
+    --no-scripts \
+    --no-autoloader \
+    --prefer-dist \
+    --no-interaction
+
+COPY . .
+RUN composer dump-autoload --optimize --no-dev --no-scripts
+
+# --- Runtime PHP ---
 FROM php:8.2-cli
 
-# Installer dépendances système
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    curl \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
     sqlite3 \
     libsqlite3-dev \
-    && docker-php-ext-install pdo pdo_sqlite zip
-
-# Installer Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+    && docker-php-ext-install pdo pdo_sqlite zip \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Copier projet
-COPY . .
+COPY --from=vendor /app /app
+COPY docker/start.sh /usr/local/bin/portfolio-start
+RUN chmod +x /usr/local/bin/portfolio-start \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R ug+rwx storage bootstrap/cache
 
-# Installer dépendances Laravel
-RUN composer install --no-dev --optimize-autoloader
+USER www-data
 
-# Permissions Laravel
-RUN chmod -R 777 storage bootstrap/cache
-
-# Port Render
 ENV PORT=10000
-
 EXPOSE 10000
 
-# Lancer Laravel
-CMD php artisan serve --host=0.0.0.0 --port=$PORT
+CMD ["portfolio-start"]

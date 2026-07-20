@@ -37,3 +37,5 @@ services:
         sync: false
       - key: MAIL_FROM_NAME
         value: Narcisse Portfolio
+      - key: MAIL_TO_ADDRESS
+        value: ogoudikpenarcisse@gmail.com

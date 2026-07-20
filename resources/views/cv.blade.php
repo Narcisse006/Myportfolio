@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Mon CV — Narcisse OGOUDIKPE</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Consultez le CV de Narcisse OGOUDIKPE, développeur Laravel junior. Téléchargement et partage disponibles.">
-
+	@include('partials.seo', [
+		'pageTitle' => 'Mon CV — Narcisse OGOUDIKPE',
+		'pageDescription' => 'Consultez le CV de Narcisse OGOUDIKPE, développeur Laravel junior. Téléchargement et partage disponibles.',
+	])
 	@include('partials.favicon')
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="css/animate.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body class="cv-page-body">
 
@@ -94,12 +94,12 @@
 
 	<div id="cv-toast" class="cv-toast" role="status" aria-live="polite" hidden></div>
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery-migrate-3.0.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
-	<script src="js/custom-cursor.js"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+	<script src="{{ asset('js/popper.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/custom-cursor.js') }}"></script>
 	<script>
 	(function () {
 		var pageUrl = @json($pageUrl);

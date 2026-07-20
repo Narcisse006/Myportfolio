@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>Narcisse OGOUDIKPE</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Portfolio de Narcisse OGOUDIKPE, développeur Laravel junior à Porto-Novo. Applications web métier, API REST, projets et contact.">
-
+	@include('partials.seo', [
+		'pageTitle' => 'Narcisse OGOUDIKPE — Développeur Laravel',
+		'pageDescription' => 'Portfolio de Narcisse OGOUDIKPE, développeur Laravel junior à Porto-Novo. Applications web métier, API REST, projets et contact.',
+	])
 	@include('partials.favicon')
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-	<link rel="stylesheet" href="css/animate.css">
-	
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	
-	<link rel="stylesheet" href="css/flaticon.css">
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/flaticon.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -54,7 +47,7 @@
 			<div class="overlay"></div>
 			<div class="container-fluid px-md-0">
 				<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-					<div class="one-third order-md-last img" style="background-image:url(images/hero1.png);">
+					<div class="one-third order-md-last img" style="background-image:url({{ asset('images/hero1.webp') }});">
 						<div class="overlay"></div>
 						<div class="overlay-1"></div>
 					</div>
@@ -81,7 +74,7 @@
 			<div class="overlay"></div>
 			<div class="container-fluid px-md-0">
 				<div class="row d-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-					<div class="one-third order-md-last img" style="background-image:url(images/hero2.png);">
+					<div class="one-third order-md-last img" style="background-image:url({{ asset('images/hero2.webp') }});">
 						<div class="overlay"></div>
 						<div class="overlay-1"></div>
 					</div>
@@ -167,7 +160,7 @@
 				<div class="img-about img d-flex align-items-stretch">
 					<div class="overlay"></div>
 					<div class="img d-flex align-self-stretch align-items-center"
-						style="background-image:url(images/Moi2.png); background-size: cover; background-position: center;">
+						style="background-image:url({{ asset('images/Moi2.webp') }}); background-size: cover; background-position: center;">
 					</div>
 				</div>
 			</div>
@@ -206,9 +199,12 @@
 
 							<ul class="about-info mt-4 px-md-0 px-2">
 								<li class="d-flex"><span data-i18n="about.info.location">Localisation :</span> <span>Porto-Novo, Bénin</span></li>
-								<li class="d-flex"><span data-i18n="about.info.email">Email :</span> <span><a href="mailto:ogoudikpenarcisse@gmail.com">ogoudikpenarcisse@gmail.com</a></span></li>
-								<li class="d-flex"><span data-i18n="about.info.phone">Téléphone :</span> <span><a href="" target="_blank" rel="noopener">+226 77 50 30 15</a> <br> <a href="">+229 0199 0510 03</a></span></li>
-								<li class="d-flex"><span data-i18n="about.info.github">GitHub :</span> <span><a href="https://github.com/Narcisse006" target="_blank" rel="noopener">Narcisse006</a></span></li>
+								<li class="d-flex"><span data-i18n="about.info.email">Email :</span> <span><a href="mailto:{{ config('portfolio.email') }}">{{ config('portfolio.email') }}</a></span></li>
+								<li class="d-flex"><span data-i18n="about.info.phone">Téléphone :</span> <span>
+									<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener">{{ config('portfolio.whatsapp.display') }}</a> (WhatsApp)<br>
+									<a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a>
+								</span></li>
+								<li class="d-flex"><span data-i18n="about.info.github">GitHub :</span> <span><a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener">Narcisse006</a></span></li>
 								<li class="d-flex"><span data-i18n="about.info.status">Statut :</span> <span class="text-primary font-weight-bold" data-i18n="about.status.available">Disponible</span></li>
 							</ul>
 
@@ -395,7 +391,7 @@
 
 				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url(images/time.jpg);"></div>
+						<div class="project-card-img" style="background-image: url({{ asset('images/time.jpg') }});"></div>
 						<div class="project-card-body p-4">
 							<span class="project-category" data-i18n="projects.category.frontend">Front-end</span>
 							<h3 class="mb-2">TimeLux</h3>
@@ -404,14 +400,14 @@
 								<span class="project-tag">HTML5</span>
 								<span class="project-tag">CSS3</span>
 							</div>
-							<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							<a href="{{ config('portfolio.projects.timelux') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
 						</div>
 					</article>
 				</div>
 
 				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url(images/forum.jpg);"></div>
+						<div class="project-card-img" style="background-image: url({{ asset('images/forum.jpg') }});"></div>
 						<div class="project-card-body p-4">
 							<span class="project-category" data-i18n="projects.category.phpmysql">PHP · MySQL</span>
 							<h3 class="mb-2">Forum Dev</h3>
@@ -420,14 +416,14 @@
 								<span class="project-tag">PHP POO</span>
 								<span class="project-tag">MySQL</span>
 							</div>
-							<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							<a href="{{ config('portfolio.projects.forum') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
 						</div>
 					</article>
 				</div>
 
 				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url(images/stock.jpg);"></div>
+						<div class="project-card-img" style="background-image: url({{ asset('images/stock.jpg') }});"></div>
 						<div class="project-card-body p-4">
 							<span class="project-category" data-i18n="projects.category.laravel">Laravel</span>
 							<h3 class="mb-2">Gestion de stock</h3>
@@ -437,14 +433,14 @@
 								<span class="project-tag">Bootstrap</span>
 								<span class="project-tag">MySQL</span>
 							</div>
-							<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							<a href="{{ config('portfolio.projects.stock') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
 						</div>
 					</article>
 				</div>
 
 				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url(images/coli.jpg);"></div>
+						<div class="project-card-img" style="background-image: url({{ asset('images/coli.jpg') }});"></div>
 						<div class="project-card-body p-4">
 							<span class="project-category" data-i18n="projects.category.laravelAdmin">Laravel · Admin</span>
 							<h3 class="mb-2">Suivi de colis</h3>
@@ -454,7 +450,7 @@
 								<span class="project-tag">AdminLTE</span>
 								<span class="project-tag">Bootstrap</span>
 							</div>
-							<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							<a href="{{ config('portfolio.projects.colis') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
 						</div>
 					</article>
 				</div>
@@ -462,7 +458,7 @@
 			</div>
 			<div class="row justify-content-center mt-2">
 				<div class="col-md-8 text-center ftco-animate">
-					<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="btn btn-primary py-3 px-5">
+					<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener" class="btn btn-primary py-3 px-5">
 						<i class="fab fa-github mr-2"></i> <span data-i18n="projects.more">Tous mes projets sur GitHub</span>
 					</a>
 				</div>
@@ -508,6 +504,11 @@
 
 					<form action="{{ route('contact.store') }}" method="POST" class="contact-form-card bg-light p-4 p-md-5 contact-form" novalidate>
 						@csrf
+						{{-- Honeypot anti-spam : invisible pour les humains --}}
+						<div class="contact-hp" aria-hidden="true">
+							<label for="company_website">Site web</label>
+							<input type="text" name="company_website" id="company_website" value="" tabindex="-1" autocomplete="off">
+						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -577,7 +578,7 @@
 							</div>
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.email">Email</span>
-								<p class="mb-0"><a href="mailto:ogoudikpenarcisse@gmail.com">ogoudikpenarcisse@gmail.com</a></p>
+								<p class="mb-0"><a href="mailto:{{ config('portfolio.email') }}">{{ config('portfolio.email') }}</a></p>
 							</div>
 						</div>
 
@@ -588,7 +589,7 @@
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.phone">Téléphone</span>
 								<p class="mb-0">
-									<a href="tel:+2290199051003" target="_blank" rel="noopener">+229 99 05 10 03</a>
+									<a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a>
 								</p>
 							</div>
 						</div>
@@ -599,11 +600,11 @@
 							</div>
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.github">GitHub</span>
-								<p class="mb-0"><a href="https://github.com/Narcisse006" target="_blank" rel="noopener">Narcisse006</a></p>
+								<p class="mb-0"><a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener">Narcisse006</a></p>
 							</div>
 						</div>
 
-						<a href="https://wa.me/22677503015?text=Bonjour%20Narcisse%2C%20je%20souhaite%20vous%20contacter%20concernant%20" target="_blank" rel="noopener" class="btn btn-outline-primary btn-block py-3 mb-3" data-i18n="contact.whatsapp">
+						<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener" class="btn btn-outline-primary btn-block py-3 mb-3" data-i18n="contact.whatsapp">
 							<i class="fab fa-whatsapp mr-2"></i> Discuter sur WhatsApp
 						</a>
 						<p class="contact-note mb-0" data-i18n="contact.note">
@@ -660,19 +661,19 @@
 								Porto-Novo, Bénin
 							</li>
 							<li>
-								<a href="mailto:ogoudikpenarcisse@gmail.com">
+								<a href="mailto:{{ config('portfolio.email') }}">
 									<span class="fa fa-envelope mr-2"></span>
 									Mon mail
 								</a>
 							</li>
 							<li>
-								<a href="tel:+2290199051003" target="_blank" rel="noopener">
+								<a href="tel:{{ config('portfolio.phone_bj.tel') }}">
 									<span class="fa fa-phone mr-2"></span>
-									+229 01 99 05 10 03
+									{{ config('portfolio.phone_bj.display') }}
 								</a>
 							</li>
 							<li>
-								<a href="https://github.com/Narcisse006" target="_blank" rel="noopener">
+								<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener">
 									<span class="fab fa-github mr-2"></span>
 									GitHub
 								</a>
@@ -687,7 +688,7 @@
 						<p class="footer-tagline mb-3" data-i18n="footer.follow">Suivez mon parcours et mes projets en ligne.</p>
 						<ul class="ftco-footer-social list-unstyled">
 							<li class="ftco-animate">
-								<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" aria-label="GitHub">
+								<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener" aria-label="GitHub">
 									<i class="fab fa-github"></i>
 								</a>
 							</li>
@@ -728,20 +729,18 @@
 		
 
 
-		<script src="js/jquery.min.js"></script>
-		<script src="js/jquery-migrate-3.0.1.min.js"></script>
-		<script src="js/popper.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/jquery.easing.1.3.js"></script>
-		<script src="js/jquery.waypoints.min.js"></script>
-		<script src="js/jquery.stellar.min.js"></script>
-		<script src="js/owl.carousel.min.js"></script>
-		<script src="js/jquery.magnific-popup.min.js"></script>
-		<script src="js/jquery.animateNumber.min.js"></script>
-		<script src="js/scrollax.min.js"></script>
-		<script src="js/main.js"></script>
-		<script src="js/custom-cursor.js"></script>
-		<script src="js/page-title.js"></script>
+		<script src="{{ asset('js/jquery.min.js') }}"></script>
+		<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+		<script src="{{ asset('js/popper.min.js') }}"></script>
+		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+		<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+		<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
+		<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+		<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+		<script src="{{ asset('js/scrollax.min.js') }}"></script>
+		<script src="{{ asset('js/main.js') }}"></script>
+		<script src="{{ asset('js/custom-cursor.js') }}"></script>
+		<script src="{{ asset('js/page-title.js') }}"></script>
 
 		@if($errors->any() || session('success') || session('error'))
 		<script>

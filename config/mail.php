@@ -117,4 +117,12 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact form recipient
+    |--------------------------------------------------------------------------
+    */
+
+    'contact_to' => env('MAIL_TO_ADDRESS', 'ogoudikpenarcisse@gmail.com'),
+
 ];

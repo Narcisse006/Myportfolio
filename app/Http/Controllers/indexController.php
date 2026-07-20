@@ -23,6 +23,14 @@ class indexController extends Controller
 
     public function store(ContactRequest $request)
     {
+        // Honeypot rempli = bot : faux succès, aucun mail envoyé
+        if ($request->filled('company_website')) {
+            return redirect()
+                ->route('home')
+                ->withFragment('contact-section')
+                ->with('success', 'Message envoyé avec succès ! Je vous réponds dès que possible.');
+        }
+
         if (app()->environment('production')) {
             $mailer = config('mail.default');
             $resendMissing = $mailer === 'resend' && empty(config('services.resend.key'));
@@ -39,7 +47,7 @@ class indexController extends Controller
         }
 
         try {
-            Mail::to('narcisseportfolio@gmail.com')
+            Mail::to(config('mail.contact_to'))
                 ->send(new ContactMail($request->validated()));
         } catch (\Throwable $e) {
             report($e);

@@ -9985,6 +9985,16 @@ textarea.form-control {
   font-weight: 600;
 }
 
+/* Honeypot anti-spam : hors écran, invisible */
+#contact-section .contact-hp {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 #contact-section .form-control.is-invalid {
   border-color: #dc3545;
 }
