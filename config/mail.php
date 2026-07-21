@@ -117,4 +117,12 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    | Destinataire du formulaire de contact (ne pas utiliser mail.to :
+    | Laravel le traite comme alwaysTo et exige aussi une clé "name").
+    */
+    'contact' => [
+        'address' => env('MAIL_TO_ADDRESS', 'ogoudikpenarcisse@gmail.com'),
+    ],
+
 ];

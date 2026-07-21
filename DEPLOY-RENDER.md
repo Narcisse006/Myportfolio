@@ -70,7 +70,7 @@ Dans Render → **Environment** :
 
 5. **Save** puis **Manual Deploy**.
 
-> Les messages du formulaire arrivent sur `ogoudikpenarcisse@gmail.com` (défini dans le code). L’expéditeur (`MAIL_FROM_ADDRESS`) doit être autorisé par Resend.
+> Les messages du formulaire arrivent sur l’adresse définie par `MAIL_TO_ADDRESS` (par défaut `ogoudikpenarcisse@gmail.com`). L’expéditeur (`MAIL_FROM_ADDRESS`) doit être autorisé par Resend.
 
 ## 4. Déployer
 
@@ -92,9 +92,62 @@ Dans Render → **Environment** :
 - Le disque est **éphémère** : pas de base MySQL locale persistante (le portfolio n’en a pas besoin avec `SESSION_DRIVER=file`).
 - Pour un usage pro continu, un petit plan payant ou un domaine personnalisé reste optionnel.
 
-## Domaine personnalisé (optionnel)
+## Domaine personnalisé (ex. narcisseogoudikpe.com)
 
-Render → votre service → **Settings** → **Custom Domains** → suivez les instructions DNS.
+L’URL `https://xxx.onrender.com` est fournie par Render. Pour avoir **narcisseogoudikpe.com**, il faut **acheter** le nom de domaine, puis le brancher sur Render.
+
+### A. Acheter le domaine
+
+1. Choisissez un registrar (ex. [Namecheap](https://www.namecheap.com), [OVH](https://www.ovh.com), [Cloudflare Registrar](https://www.cloudflare.com/products/registrar/), [Google Domains / Squarespace](https://domains.squarespace.com)).
+2. Cherchez `narcisseogoudikpe.com` (ou `.bj`, `.fr`, `.dev` si `.com` est pris).
+3. Achetez-le (souvent ~10–15 € / an pour un `.com`).
+
+### B. Brancher le domaine sur Render
+
+1. Dashboard Render → votre service (**myportfolio-lvn8** ou équivalent) → **Settings** → **Custom Domains**.
+2. **Add Custom Domain** → entrez `narcisseogoudikpe.com` (et idéalement aussi `www.narcisseogoudikpe.com`).
+3. Render affiche les enregistrements DNS à créer (souvent un **CNAME** vers `xxx.onrender.com`, ou des **A/AAAA** selon le cas).
+
+### C. Configurer le DNS chez le registrar
+
+Chez Namecheap / OVH / Cloudflare, créez exactement ce que Render indique, par exemple :
+
+| Type | Nom / Host | Valeur |
+|------|------------|--------|
+| CNAME | `www` | `myportfolio-lvn8.onrender.com` |
+| CNAME ou A | `@` (racine) | selon les instructions Render |
+
+Attendez la propagation DNS (quelques minutes à 48 h). Render émet ensuite un certificat HTTPS gratuit (Let’s Encrypt).
+
+### D. Mettre à jour Laravel
+
+Dans Render → **Environment** :
+
+| Variable | Nouvelle valeur |
+|----------|-----------------|
+| `APP_URL` | `https://narcisseogoudikpe.com` |
+
+Puis **Save** → **Manual Deploy** (ou redémarrage).
+
+Le sitemap et les balises canonical suivront automatiquement `APP_URL`.
+
+## Être trouvé sur Google (SEO)
+
+Le code inclut déjà : titres/meta, Open Graph, sitemap, `robots.txt`, schema Person (JSON-LD).
+
+Ensuite, côté Google :
+
+1. [Google Search Console](https://search.google.com/search-console) → **Ajouter une propriété** → votre domaine (ou l’URL).
+2. Vérifiez la propriété (DNS TXT ou balise HTML).
+3. **Sitemaps** → soumettez `https://votredomaine.com/sitemap.xml`.
+4. Demandez l’indexation de la page d’accueil (Inspection d’URL → **Demander une indexation**).
+
+Astuces pour apparaître sur « Narcisse OGOUDIKPE » :
+
+- Gardez votre **nom complet** dans le titre et le H1 (déjà le cas).
+- Liez le site depuis GitHub, LinkedIn, Facebook (lien « Portfolio » / site web).
+- Publiez / mettez à jour le profil LinkedIn avec la même orthographe du nom.
+- L’indexation n’est **pas instantanée** (souvent quelques jours).
 
 ## Dépannage
 

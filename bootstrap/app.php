@@ -14,5 +14,13 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, $request) {
+            if ($request->routeIs('contact.store')) {
+                return redirect()
+                    ->route('home')
+                    ->withFragment('contact-section')
+                    ->withInput()
+                    ->with('error', 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.');
+            }
+        });
     })->create();

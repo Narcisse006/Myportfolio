@@ -23,6 +23,18 @@ class indexController extends Controller
 
     public function store(ContactRequest $request)
     {
+        $recipient = config('mail.contact.address');
+
+        if (blank($recipient)) {
+            report(new \RuntimeException('MAIL_TO_ADDRESS manquant.'));
+
+            return redirect()
+                ->route('home')
+                ->withFragment('contact-section')
+                ->withInput()
+                ->with('error', 'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.');
+        }
+
         if (app()->environment('production')) {
             $mailer = config('mail.default');
             $resendMissing = $mailer === 'resend' && empty(config('services.resend.key'));
@@ -34,21 +46,27 @@ class indexController extends Controller
                     ->route('home')
                     ->withFragment('contact-section')
                     ->withInput()
-                    ->with('error', 'Le serveur mail n\'est pas configuré (clé Resend manquante sur Render). Contactez-moi sur WhatsApp.');
+                    ->with('error', 'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.');
             }
         }
 
         try {
-            Mail::to('narcisseportfolio@gmail.com')
+            Mail::mailer(config('mail.default'))
+                ->to($recipient)
                 ->send(new ContactMail($request->validated()));
         } catch (\Throwable $e) {
             report($e);
+
+            $message = 'L\'envoi a échoué. Réessayez plus tard ou contactez-moi sur WhatsApp.';
+            if (app()->hasDebugModeEnabled()) {
+                $message .= ' ('.$e->getMessage().')';
+            }
 
             return redirect()
                 ->route('home')
                 ->withFragment('contact-section')
                 ->withInput()
-                ->with('error', 'L\'envoi a échoué. Vérifiez la clé Resend (RESEND_KEY) sur Render. Vous pouvez aussi me joindre sur WhatsApp.');
+                ->with('error', $message);
         }
 
         return redirect()
