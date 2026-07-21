@@ -460,7 +460,9 @@
 	// i18n d'abord : doit marcher même sans plugins (page CV)
 	initLanguageSwitcher();
 
-	if (typeof $.fn.stellar === 'function') {
+	var isTouchLayout = window.matchMedia('(max-width: 991.98px), (hover: none)').matches;
+
+	if (!isTouchLayout && typeof $.fn.stellar === 'function') {
 		$(window).stellar({
 			responsive: true,
 			parallaxBackgrounds: true,
@@ -493,8 +495,8 @@
 	};
 	loader();
 
-	// Scrollax
-	if (typeof $.Scrollax === 'function') {
+	// Scrollax (désactivé sur mobile : bloque / fausse le scroll tactile)
+	if (!isTouchLayout && typeof $.Scrollax === 'function') {
 		$.Scrollax();
 	}
 
@@ -549,7 +551,8 @@
 
 	var carousel = function() {
 		if (typeof $.fn.owlCarousel !== 'function' || !$('.home-slider').length) return;
-		$('.home-slider').owlCarousel({
+		var $slider = $('.home-slider');
+		$slider.owlCarousel({
 	    loop:true,
 	    autoplay: true,
 	    margin:0,
@@ -558,6 +561,11 @@
 	    nav:false,
 	    autoplayHoverPause: false,
 	    items: 1,
+	    // Sur mobile, le drag horizontal empêche de scroller la page
+	    mouseDrag: !isTouchLayout,
+	    touchDrag: !isTouchLayout,
+	    pullDrag: !isTouchLayout,
+	    freeDrag: false,
 	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
 	    responsive:{
 	      0:{
@@ -571,6 +579,18 @@
 	      }
 	    }
 		});
+
+		// Forcer la hauteur viewport sur mobile (évite le trou gris Owl)
+		if (isTouchLayout) {
+			var syncHeroHeight = function () {
+				var h = window.innerHeight;
+				$slider.find('.owl-stage-outer, .owl-item, .slider-item, .slider-text, .container-fluid')
+					.css({ height: h + 'px', minHeight: h + 'px' });
+			};
+			syncHeroHeight();
+			$(window).on('resize.heroMobile orientationchange.heroMobile', syncHeroHeight);
+			$slider.on('resized.owl.carousel refreshed.owl.carousel', syncHeroHeight);
+		}
 	};
 	carousel();
 

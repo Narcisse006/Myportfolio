@@ -32,13 +32,13 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}?v=5">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 	@include('partials.custom-cursor')
 
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="#home-section">Narcisse<span>.</span></a>
 			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +67,8 @@
 		<div class="slider-item">
 			<div class="overlay"></div>
 			<div class="container-fluid px-md-0">
-				<div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-					<div class="one-third order-md-last img" style="background-image: url({{ asset('images/hero1.jpg') }}); background-size: cover; background-position: center;">
+				<div class="row d-md-flex no-gutters slider-text align-items-stretch justify-content-end" data-scrollax-parent="true">
+					<div class="one-third order-md-last img" style="background-image: url({{ asset('images/hero1.jpg') }}); background-size: cover; background-position: center top;">
 						<div class="overlay"></div>
 						<div class="overlay-1"></div>
 					</div>
@@ -93,8 +93,8 @@
 		<div class="slider-item">
 			<div class="overlay"></div>
 			<div class="container-fluid px-md-0">
-				<div class="row d-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-					<div class="one-third order-md-last img" style="background-image: url({{ asset('images/hero2.jpg') }}); background-size: cover; background-position: center;">
+				<div class="row d-flex no-gutters slider-text align-items-stretch justify-content-end" data-scrollax-parent="true">
+					<div class="one-third order-md-last img" style="background-image: url({{ asset('images/hero2.jpg') }}); background-size: cover; background-position: center top;">
 						<div class="overlay"></div>
 						<div class="overlay-1"></div>
 					</div>
@@ -767,7 +767,7 @@
 		<script src="{{ asset('js/owl.carousel.min.js') }}" defer></script>
 		<script src="{{ asset('js/jquery.magnific-popup.min.js') }}" defer></script>
 		<script src="{{ asset('js/scrollax.min.js') }}" defer></script>
-		<script src="{{ asset('js/main.js') }}" defer></script>
+		<script src="{{ asset('js/main.js') }}?v=4" defer></script>
 		<script src="{{ asset('js/custom-cursor.js') }}" defer></script>
 		<script src="{{ asset('js/page-title.js') }}" defer></script>
 
