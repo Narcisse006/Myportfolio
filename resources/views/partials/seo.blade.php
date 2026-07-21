@@ -10,6 +10,7 @@
 <title>{{ $pageTitle }}</title>
 <meta name="description" content="{{ $pageDescription }}">
 <meta name="author" content="Narcisse OGOUDIKPE">
+<meta name="google-site-verification" content="TL-3KRW7hnVXSn5JWTUtonUuqAKRrc3kXecTySGnRpc">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="{{ $canonical }}">
 
