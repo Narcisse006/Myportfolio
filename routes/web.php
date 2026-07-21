@@ -15,10 +15,25 @@ Route::get('/sitemap.xml', function () {
 		['loc' => url('/cv'), 'changefreq' => 'monthly', 'priority' => '0.8'],
 	];
 
-	$content = view('sitemap', compact('urls'))->render();
+	$xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+	$xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
 
-	return response($content, 200)->header('Content-Type', 'application/xml');
-})->name('sitemap');
+	foreach ($urls as $url) {
+		$xml .= "\t<url>\n";
+		$xml .= "\t\t<loc>".e($url['loc'])."</loc>\n";
+		$xml .= "\t\t<changefreq>".e($url['changefreq'])."</changefreq>\n";
+		$xml .= "\t\t<priority>".e($url['priority'])."</priority>\n";
+		$xml .= "\t</url>\n";
+	}
+
+	$xml .= '</urlset>';
+
+	return response($xml, 200)
+		->header('Content-Type', 'application/xml; charset=UTF-8');
+})->name('sitemap')->withoutMiddleware([
+	\Illuminate\Session\Middleware\StartSession::class,
+	\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+]);
 
 Route::get('/robots.txt', function () {
 	$lines = [
@@ -31,4 +46,7 @@ Route::get('/robots.txt', function () {
 
 	return response(implode("\n", $lines), 200)
 		->header('Content-Type', 'text/plain; charset=UTF-8');
-});
+})->withoutMiddleware([
+	\Illuminate\Session\Middleware\StartSession::class,
+	\Illuminate\View\Middleware\ShareErrorsFromSession::class,
+]);
