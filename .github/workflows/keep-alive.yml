@@ -1,0 +1,23 @@
+name: Keep Render awake
+
+# Empêche le plan gratuit Render de s'endormir (nécessaire pour Google SEO)
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping health + robots.txt
+        run: |
+          set -e
+          for url in \
+            "https://narcisseogoudikpe.onrender.com/up" \
+            "https://narcisseogoudikpe.onrender.com/robots.txt" \
+            "https://narcisseogoudikpe.onrender.com/"
+          do
+            echo "Pinging $url"
+            curl -fsS --max-time 90 -A "GitHub-Actions-KeepAlive" -o /dev/null -w "%{http_code} %{time_total}s\n" "$url" || true
+          done
