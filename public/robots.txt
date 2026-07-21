@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://narcisseogoudikpe.onrender.com/sitemap.xml
