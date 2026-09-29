@@ -157,8 +157,8 @@ Astuces pour apparaître sur « Narcisse OGOUDIKPE » :
 | CSS/JS cassés | `APP_URL` doit être l’URL HTTPS Render exacte |
 | Contact ne part pas | Vérifier toutes les variables `MAIL_*` |
 | Build échoue | Vérifier que `composer.lock` est sur GitHub |
-| `composer:2-php8.2: not found` | Tag Docker inexistant — le Dockerfile utilise `php:8.2-cli-alpine` + Composer installé manuellement |
-| `php version does not satisfy` | Le build doit tourner avec PHP 8.2 (étape `vendor` du Dockerfile) |
+| `PHP version ">= 8.4.1"` au démarrage | Le conteneur doit être `php:8.4-cli`. Symfony 8.1 du lock ne tourne pas sur PHP 8.2 |
+| Build Composer et runtime divergents | Les deux étapes du Dockerfile utilisent `php:8.4-cli`, avec `intl` installé avant `composer install` |
 | Build échoue sur `docker-php-ext-install` | Ne pas installer `fileinfo` (déjà inclus) ; le Dockerfile utilise `$PHPIZE_DEPS` |
 | Build échoue sur `package:discover` | Normal au build sans `.env` — exécuté au démarrage dans `docker/start.sh` |
 

@@ -1,7 +1,20 @@
-# --- Dépendances Composer ---
-# L'image composer:2 est Alpine : elle n'a pas apt-get.
-# intl est requis par Filament au runtime (étape php:8.2-cli), pas pendant le téléchargement des paquets.
-FROM composer:2 AS vendor
+# PHP 8.4 partout : le composer.lock tire Symfony 8.1, qui exige PHP >= 8.4.1.
+# Les deux étapes utilisent la même image Debian, pour que Composer et le runtime
+# voient les mêmes extensions (intl inclus).
+
+FROM php:8.4-cli AS vendor
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    unzip \
+    libicu-dev \
+    libzip-dev \
+    && docker-php-ext-install intl zip \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 WORKDIR /app
 COPY composer.json composer.lock ./
@@ -10,14 +23,12 @@ RUN composer install \
     --no-scripts \
     --no-autoloader \
     --prefer-dist \
-    --no-interaction \
-    --ignore-platform-req=ext-intl
+    --no-interaction
 
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --no-scripts
 
-# --- Runtime PHP ---
-FROM php:8.2-cli
+FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libzip-dev \
