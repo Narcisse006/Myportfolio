@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->route('home')
                     ->withFragment('contact-section')
                     ->withInput()
-                    ->with('error', 'Trop de tentatives. Réessayez dans une minute, ou contactez-moi sur WhatsApp.');
+                    ->with('error', 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.');
             }
         });
     })->create();

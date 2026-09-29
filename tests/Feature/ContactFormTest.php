@@ -31,7 +31,7 @@ class ContactFormTest extends TestCase
         $response->assertSessionHas('success');
 
         Mail::assertSent(ContactMail::class, function (ContactMail $mail) {
-            return $mail->hasTo(config('mail.contact_to'));
+            return $mail->hasTo(config('mail.contact.address'));
         });
 
         $this->assertDatabaseHas(Contact::class, [

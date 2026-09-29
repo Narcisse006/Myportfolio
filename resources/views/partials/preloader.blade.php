@@ -5,14 +5,14 @@
 				<span class="dev-dot dev-dot-red" aria-hidden="true"></span>
 				<span class="dev-dot dev-dot-yellow" aria-hidden="true"></span>
 				<span class="dev-dot dev-dot-green" aria-hidden="true"></span>
-				<span class="dev-terminal-title">portfolio@narcisse — zsh</span>
+				<span class="dev-terminal-title">portfolio@narcisse · zsh</span>
 			</div>
 			<div class="dev-terminal-body">
 				<p class="dev-line dev-line-1"><span class="dev-prompt">$</span> cd ~/portfolio</p>
 				<p class="dev-line dev-line-2"><span class="dev-prompt">$</span> php artisan serve</p>
 				<p class="dev-line dev-line-3"><span class="dev-prompt">&gt;</span> Chargement des assets<span class="dev-dots"><span>.</span><span>.</span><span>.</span></span></p>
 				<p class="dev-line dev-line-4"><span class="dev-prompt">&gt;</span> <span id="dev-preloader-status">Initialisation du portfolio</span><span class="dev-cursor" aria-hidden="true">_</span></p>
-				<p class="dev-line dev-line-5 dev-line-success"><span class="dev-prompt">✓</span> Prêt — bienvenue</p>
+				<p class="dev-line dev-line-5 dev-line-success"><span class="dev-prompt">✓</span> Prêt. Bienvenue</p>
 			</div>
 		</div>
 		<div class="dev-progress-wrap" aria-hidden="true">
@@ -22,7 +22,7 @@
 			<span class="dev-progress-label" id="dev-progress-label">0%</span>
 		</div>
 		<div class="dev-preloader-brand">
-			<img src="{{ asset('images/icon.png') }}" alt="" width="36" height="36" class="dev-preloader-icon">
+			<img src="{{ asset('images/icon-32.png') }}" alt="" width="32" height="32" class="dev-preloader-icon" loading="eager">
 			<span class="dev-preloader-name">Narcisse<span class="dev-accent">.</span>dev</span>
 		</div>
 	</div>

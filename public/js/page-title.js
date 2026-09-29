@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	var suffix = ' — Narcisse OGOUDIKPE';
+	var suffix = ' | Narcisse OGOUDIKPE';
 	var sections = document.querySelectorAll('[data-page-title]');
 	if (!sections.length) return;
 
@@ -18,7 +18,6 @@
 		if (!name || id === currentId) return;
 		currentId = id;
 		setTitle(name);
-
 		var hash = '#' + id;
 		if (location.hash !== hash) {
 			if (history.replaceState) {
@@ -31,8 +30,7 @@
 
 	function pickActiveSection() {
 		var bestId = null;
-		var bestRatio = -1;
-
+		var bestRatio = 0;
 		visibleSections.forEach(function (ratio, id) {
 			if (ratio > bestRatio) {
 				bestRatio = ratio;
