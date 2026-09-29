@@ -1,10 +1,7 @@
 # --- Dépendances Composer ---
+# L'image composer:2 est Alpine : elle n'a pas apt-get.
+# intl est requis par Filament au runtime (étape php:8.2-cli), pas pendant le téléchargement des paquets.
 FROM composer:2 AS vendor
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libicu-dev \
-    && docker-php-ext-install intl \
-    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY composer.json composer.lock ./
@@ -13,7 +10,8 @@ RUN composer install \
     --no-scripts \
     --no-autoloader \
     --prefer-dist \
-    --no-interaction
+    --no-interaction \
+    --ignore-platform-req=ext-intl
 
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --no-scripts
