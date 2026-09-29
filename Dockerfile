@@ -43,8 +43,8 @@ WORKDIR /app
 COPY --from=vendor /app /app
 COPY docker/start.sh /usr/local/bin/portfolio-start
 RUN chmod +x /usr/local/bin/portfolio-start \
-    && chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R ug+rwx storage bootstrap/cache
+    && chown -R www-data:www-data storage bootstrap/cache database \
+    && chmod -R ug+rwx storage bootstrap/cache database
 
 USER www-data
 
