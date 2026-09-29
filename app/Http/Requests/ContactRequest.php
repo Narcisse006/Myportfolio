@@ -15,6 +15,11 @@ class ContactRequest extends FormRequest
 
     public function rules(): array
     {
+        // Bot : on saute la validation pour renvoyer un faux succès dans le contrôleur
+        if ($this->filled('company_website')) {
+            return [];
+        }
+
         return [
             'name' => ['required', 'string', 'min:2', 'max:100'],
             'email' => ['required', 'email'],

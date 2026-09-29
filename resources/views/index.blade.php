@@ -175,77 +175,38 @@
 				</div>
 			</div>
 			<div class="row">
-
-					<div class="col-12 col-md-6 col-lg-3 mb-4 ftco-animate">
+				@forelse ($projects as $project)
+				<div class="col-12 col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/stock.jpg') }});"></div>
+						<div class="project-card-img" @if ($project->image_url) style="background-image: url('{{ $project->image_url }}');" @endif></div>
 						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.laravel">Laravel</span>
-							<h3 class="mb-2">Gestion de stock</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.stock">Application métier avec caisse intégrée, gestion des produits et suivi des ventes.</p>
+							<span class="project-category">{{ $project->tech_stack[0] ?? 'Projet' }}</span>
+							<h3 class="mb-2">{{ $project->title }}</h3>
+							<p class="project-desc mb-3">{{ $project->description }}</p>
 							<div class="project-tags mb-3">
-								<span class="project-tag">Laravel</span>
-								<span class="project-tag">Bootstrap</span>
-								<span class="project-tag">MySQL</span>
+								@foreach ($project->tech_stack ?? [] as $tech)
+								<span class="project-tag">{{ $tech }}</span>
+								@endforeach
 							</div>
-							<a href="https://github.com/Narcisse006/ProjetGestionDeStock" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							@php $projectLink = $project->github_url ?: $project->url; @endphp
+							@if ($projectLink)
+							<a href="{{ $projectLink }}" target="_blank" rel="noopener" class="project-link">
+								<span>{{ $project->github_url ? 'Voir sur GitHub' : 'Voir le projet' }}</span>
+								<i class="fa fa-arrow-right ml-1"></i>
+							</a>
+							@endif
 						</div>
 					</article>
 				</div>
-
-					<div class="col-12 col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/coli.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.laravelAdmin">Laravel · Admin</span>
-							<h3 class="mb-2">Suivi de colis</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.colis">Système de tracking pour transporteur : statuts, tableau de bord et interface admin.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">Laravel</span>
-								<span class="project-tag">AdminLTE</span>
-								<span class="project-tag">Bootstrap</span>
-							</div>
-							<a href="https://github.com/Narcisse006/Projet_suivi_colis" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
+				@empty
+				<div class="col-12 text-center">
+					<p class="mb-0">Aucun projet publié pour le moment.</p>
 				</div>
-
-					<div class="col-12 col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/forum.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.phpmysql">PHP · MySQL</span>
-							<h3 class="mb-2">Forum Dev</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.forum">Plateforme d’échange entre développeurs : publications, réponses et espace communautaire.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">PHP POO</span>
-								<span class="project-tag">MySQL</span>
-							</div>
-							<a href="https://github.com/Narcisse006/forum" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
-				</div>
-
-					<div class="col-12 col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/time.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.frontend">Front-end</span>
-							<h3 class="mb-2">TimeLux</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.time">Site e-commerce vitrine pour montres haut de gamme, design soigné et navigation fluide.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">HTML5</span>
-								<span class="project-tag">CSS3</span>
-							</div>
-							<a href="https://github.com/Narcisse006/Projet_perso_site" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
-				</div>
-
+				@endforelse
 			</div>
 			<div class="row justify-content-center mt-2">
 				<div class="col-md-8 text-center ftco-animate">
-					<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" class="btn btn-primary py-3 px-5">
+					<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener" class="btn btn-primary py-3 px-5">
 						<i class="fab fa-github mr-2"></i> <span data-i18n="projects.more">Tous mes projets sur GitHub</span>
 					</a>
 				</div>
@@ -541,6 +502,11 @@
 
 					<form action="{{ route('contact.store') }}" method="POST" class="contact-form-card bg-light p-4 p-md-5 contact-form" novalidate>
 						@csrf
+						{{-- Honeypot anti-spam : invisible pour les humains --}}
+						<div class="contact-hp" aria-hidden="true">
+							<label for="company_website">Site web</label>
+							<input type="text" name="company_website" id="company_website" value="" tabindex="-1" autocomplete="off">
+						</div>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
@@ -610,7 +576,7 @@
 							</div>
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.email">Email</span>
-								<p class="mb-0"><a href="mailto:ogoudikpenarcisse@gmail.com">ogoudikpenarcisse@gmail.com</a></p>
+								<p class="mb-0"><a href="mailto:{{ config('portfolio.email') }}">{{ config('portfolio.email') }}</a></p>
 							</div>
 						</div>
 
@@ -621,7 +587,7 @@
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.phone">Téléphone</span>
 								<p class="mb-0">
-									<a href="tel:+2290199051003">+229 01 99 05 10 03</a>
+									<a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a>
 								</p>
 							</div>
 						</div>
@@ -632,11 +598,11 @@
 							</div>
 							<div>
 								<span class="contact-info-label" data-i18n="contact.sidebar.github">GitHub</span>
-								<p class="mb-0"><a href="https://github.com/Narcisse006" target="_blank" rel="noopener">Narcisse006</a></p>
+								<p class="mb-0"><a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener">Narcisse006</a></p>
 							</div>
 						</div>
 
-						<a href="https://wa.me/22677503015?text=Bonjour%20Narcisse%2C%20je%20souhaite%20vous%20contacter%20concernant%20" target="_blank" rel="noopener" class="btn btn-outline-primary btn-block py-3 mb-3" data-i18n="contact.whatsapp">
+						<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener" class="btn btn-outline-primary btn-block py-3 mb-3" data-i18n="contact.whatsapp">
 							<i class="fab fa-whatsapp mr-2"></i> Discuter sur WhatsApp
 						</a>
 						<p class="contact-note mb-0" data-i18n="contact.note">
@@ -694,19 +660,19 @@
 								<span data-i18n="contact.sidebar.locationValue">Afrique de l’Ouest · Remote</span>
 							</li>
 							<li>
-								<a href="mailto:ogoudikpenarcisse@gmail.com" class="footer-contact-row" title="ogoudikpenarcisse@gmail.com">
+								<a href="mailto:{{ config('portfolio.email') }}" class="footer-contact-row" title="{{ config('portfolio.email') }}">
 									<span class="footer-contact-icon" aria-hidden="true"><span class="fa fa-envelope"></span></span>
 									<span class="footer-contact-text">ogoudikpe…@gmail.com</span>
 								</a>
 							</li>
 							<li>
-								<a href="tel:+2290199051003" target="_blank" rel="noopener">
+								<a href="tel:{{ config('portfolio.phone_bj.tel') }}">
 									<span class="fa fa-phone mr-2"></span>
-									+229 01 99 05 10 03
+									{{ config('portfolio.phone_bj.display') }}
 								</a>
 							</li>
 							<li>
-								<a href="https://github.com/Narcisse006" target="_blank" rel="noopener">
+								<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener">
 									<span class="fab fa-github mr-2"></span>
 									GitHub
 								</a>
@@ -721,7 +687,7 @@
 						<p class="footer-tagline mb-3" data-i18n="footer.follow">Suivez mon parcours et mes projets en ligne.</p>
 						<ul class="ftco-footer-social list-unstyled">
 							<li class="ftco-animate">
-								<a href="https://github.com/Narcisse006" target="_blank" rel="noopener" aria-label="GitHub">
+								<a href="{{ config('portfolio.github') }}" target="_blank" rel="noopener" aria-label="GitHub">
 									<i class="fab fa-github"></i>
 								</a>
 							</li>

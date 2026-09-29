@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
+use App\Models\Contact;
+use App\Models\Project;
 use Illuminate\Support\Facades\Mail;
 
 class indexController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $projects = Project::query()
+            ->where('is_published', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('index', compact('projects'));
     }
 
     public function cv()
@@ -23,6 +30,23 @@ class indexController extends Controller
 
     public function store(ContactRequest $request)
     {
+        // Honeypot rempli = bot : faux succès, aucun mail envoyé
+        if ($request->filled('company_website')) {
+            return redirect()
+                ->route('home')
+                ->withFragment('contact-section')
+                ->with('success', 'Message envoyé avec succès ! Je vous réponds dès que possible.');
+        }
+
+        $data = $request->validated();
+
+        Contact::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'subject' => $data['subject'],
+            'message' => $data['message'],
+        ]);
+
         $recipient = config('mail.contact.address');
 
         if (blank($recipient)) {
@@ -53,7 +77,7 @@ class indexController extends Controller
         try {
             Mail::mailer(config('mail.default'))
                 ->to($recipient)
-                ->send(new ContactMail($request->validated()));
+                ->send(new ContactMail($data));
         } catch (\Throwable $e) {
             report($e);
 

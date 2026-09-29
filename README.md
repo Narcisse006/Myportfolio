@@ -64,9 +64,25 @@ Le site est accessible sur `http://127.0.0.1:8000`.
 - formulaire de contact avec validation backend,
 - page CV dédiée accessible via `/cv`.
 
+## Espace admin
+
+L’administration Filament est disponible sur `/admin`.
+
+1. Créer la base MySQL `portfolio_narcisse` et renseigner `DB_*`, `ADMIN_EMAIL` et `ADMIN_PASSWORD` dans `.env`.
+2. Lancer les migrations et le compte admin :
+
+```bash
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+```
+
+Les projets publiés de la page d’accueil viennent de la table `projects`. Les messages du formulaire sont enregistrés dans `contacts`, en plus de l’email.
+
 ## Routes principales
 
 - `/` : page portfolio principale.
+- `/admin` : espace d’administration.
 - `/cv` : page CV.
 - `/contact` : route POST pour soumettre le formulaire de contact.
 

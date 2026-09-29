@@ -37,6 +37,7 @@
 				bestId = id;
 			}
 		});
+
 		if (bestId) {
 			applySection(document.getElementById(bestId));
 		}
