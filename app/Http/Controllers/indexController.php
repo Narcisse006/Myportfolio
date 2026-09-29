@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
+use App\Models\Contact;
+use App\Models\Project;
 use Illuminate\Support\Facades\Mail;
 
 class indexController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $projects = Project::query()
+            ->where('is_published', true)
+            ->orderBy('order')
+            ->get();
+
+        return view('index', compact('projects'));
     }
 
     public function cv()
@@ -31,6 +38,15 @@ class indexController extends Controller
                 ->with('success', 'Message envoyé avec succès ! Je vous réponds dès que possible.');
         }
 
+        $data = $request->validated();
+
+        Contact::query()->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'subject' => $data['subject'],
+            'message' => $data['message'],
+        ]);
+
         if (app()->environment('production')) {
             $mailer = config('mail.default');
             $resendMissing = $mailer === 'resend' && empty(config('services.resend.key'));
@@ -48,7 +64,7 @@ class indexController extends Controller
 
         try {
             Mail::to(config('mail.contact_to'))
-                ->send(new ContactMail($request->validated()));
+                ->send(new ContactMail($data));
         } catch (\Throwable $e) {
             report($e);
 

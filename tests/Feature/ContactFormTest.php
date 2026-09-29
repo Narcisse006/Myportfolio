@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Mail\ContactMail;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
@@ -32,6 +33,11 @@ class ContactFormTest extends TestCase
         Mail::assertSent(ContactMail::class, function (ContactMail $mail) {
             return $mail->hasTo(config('mail.contact_to'));
         });
+
+        $this->assertDatabaseHas(Contact::class, [
+            'email' => 'jean@example.com',
+            'subject' => 'Proposition de stage',
+        ]);
     }
 
     public function test_contact_form_validates_required_fields(): void
@@ -49,6 +55,7 @@ class ContactFormTest extends TestCase
         $response->assertRedirect(route('home').'#contact-section');
         $response->assertSessionHasErrors(['name', 'email', 'subject', 'message']);
         Mail::assertNothingSent();
+        $this->assertDatabaseCount(Contact::class, 0);
     }
 
     public function test_honeypot_returns_fake_success_without_sending_mail(): void
@@ -63,6 +70,7 @@ class ContactFormTest extends TestCase
         $response->assertRedirect(route('home').'#contact-section');
         $response->assertSessionHas('success');
         Mail::assertNothingSent();
+        $this->assertDatabaseCount(Contact::class, 0);
     }
 
     public function test_contact_form_is_rate_limited(): void

@@ -388,73 +388,34 @@
 				</div>
 			</div>
 			<div class="row">
-
+				@forelse ($projects as $project)
 				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
 					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/time.jpg') }});"></div>
+						<div class="project-card-img" @if ($project->image_url) style="background-image: url('{{ $project->image_url }}');" @endif></div>
 						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.frontend">Front-end</span>
-							<h3 class="mb-2">TimeLux</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.time">Site e-commerce vitrine pour montres haut de gamme, design soigné et navigation fluide.</p>
+							<span class="project-category">{{ $project->tech_stack[0] ?? 'Projet' }}</span>
+							<h3 class="mb-2">{{ $project->title }}</h3>
+							<p class="project-desc mb-3">{{ $project->description }}</p>
 							<div class="project-tags mb-3">
-								<span class="project-tag">HTML5</span>
-								<span class="project-tag">CSS3</span>
+								@foreach ($project->tech_stack ?? [] as $tech)
+								<span class="project-tag">{{ $tech }}</span>
+								@endforeach
 							</div>
-							<a href="{{ config('portfolio.projects.timelux') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
+							@php $projectLink = $project->github_url ?: $project->url; @endphp
+							@if ($projectLink)
+							<a href="{{ $projectLink }}" target="_blank" rel="noopener" class="project-link">
+								<span>{{ $project->github_url ? 'Voir sur GitHub' : 'Voir le projet' }}</span>
+								<i class="fa fa-arrow-right ml-1"></i>
+							</a>
+							@endif
 						</div>
 					</article>
 				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/forum.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.phpmysql">PHP · MySQL</span>
-							<h3 class="mb-2">Forum Dev</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.forum">Plateforme d’échange entre développeurs : publications, réponses et espace communautaire.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">PHP POO</span>
-								<span class="project-tag">MySQL</span>
-							</div>
-							<a href="{{ config('portfolio.projects.forum') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
+				@empty
+				<div class="col-12 text-center">
+					<p class="mb-0">Aucun projet publié pour le moment.</p>
 				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/stock.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.laravel">Laravel</span>
-							<h3 class="mb-2">Gestion de stock</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.stock">Application métier avec caisse intégrée, gestion des produits et suivi des ventes.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">Laravel</span>
-								<span class="project-tag">Bootstrap</span>
-								<span class="project-tag">MySQL</span>
-							</div>
-							<a href="{{ config('portfolio.projects.stock') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
-				</div>
-
-				<div class="col-md-6 col-lg-3 mb-4 ftco-animate">
-					<article class="project-card h-100 shadow-sm">
-						<div class="project-card-img" style="background-image: url({{ asset('images/coli.jpg') }});"></div>
-						<div class="project-card-body p-4">
-							<span class="project-category" data-i18n="projects.category.laravelAdmin">Laravel · Admin</span>
-							<h3 class="mb-2">Suivi de colis</h3>
-							<p class="project-desc mb-3" data-i18n="projects.description.colis">Système de tracking pour transporteur : statuts, tableau de bord et interface admin.</p>
-							<div class="project-tags mb-3">
-								<span class="project-tag">Laravel</span>
-								<span class="project-tag">AdminLTE</span>
-								<span class="project-tag">Bootstrap</span>
-							</div>
-							<a href="{{ config('portfolio.projects.colis') }}" target="_blank" rel="noopener" class="project-link"><span data-i18n="projects.github">Voir sur GitHub</span> <i class="fa fa-arrow-right ml-1"></i></a>
-						</div>
-					</article>
-				</div>
-
+				@endforelse
 			</div>
 			<div class="row justify-content-center mt-2">
 				<div class="col-md-8 text-center ftco-animate">
