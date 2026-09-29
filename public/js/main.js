@@ -25,15 +25,17 @@
 				'highlights.card3.desc': 'Modélisation MySQL, migrations, relations Eloquent et requêtes optimisées.',
 				'highlights.card4.title': 'Mise en ligne',
 				'highlights.card4.desc': 'Versioning Git, tests manuels, déploiement et suivi après livraison.',
-				'hero.role': 'Développeur Laravel Junior',
-				'hero.title1': 'Spécialisé en <span>applications web métier</span>',
-				'hero.desc1': 'Je développe des applications Laravel pour des besoins concrets en entreprise.',
-				'hero.cv': 'Voir mon CV',
-				'hero.slide2.role': 'Missions · Collaborations · Remote',
-				'hero.slide2.title': 'Du besoin métier au <span>produit livré</span>',
-				'hero.slide2.desc1': 'Code clair, livraisons progressives, projets concrets visibles sur GitHub.',
+				'hero.title': 'FULL-STACK DEVELOPER',
+				'hero.stack': 'Laravel · PHP · MySQL · Git',
+				'hero.scroll': 'ENGAGE',
+				'hero.watermark': 'ENGINEERING · PRECISION · SYSTEMS',
+				'hero.missionLabel': 'MISSION',
+				'hero.mission': 'SHIP CLEAN SYSTEMS',
 				'about.profile': 'À propos',
-				'about.roleLine': 'Développeur Laravel Junior <br><span class="profile-location">Disponible · remote ou présentiel</span>',
+				'about.heading': 'Qui je suis',
+				'about.lead': 'Full-Stack Developer : backends clairs, applications métier et livraison jusqu’en production.',
+				'about.hello': 'Bonjour',
+				'about.roleLine': 'FULL-STACK DEVELOPER <br><span class="shell-profile__location">Disponible · remote ou présentiel</span>',
 				'about.intro1': 'Formé chez Simplon, j’ai construit des applications concrètes : gestion de stock, suivi de colis, forum. Mon fil rouge, c’est le backend Laravel.',
 				'about.intro2': 'Ce qui m’intéresse : comprendre le besoin, structurer la base de données, et livrer une interface claire jusqu’au déploiement.',
 				'about.download': 'Voir mon CV',
@@ -61,8 +63,6 @@
 				'skills.card1.title': 'Backend',
 				'skills.card2.title': 'Front & UI',
 				'skills.card3.title': 'Outils',
-				'skills.level.strong': 'Solide',
-				'skills.level.comfortable': 'À l’aise',
 				'projects.subheading': 'Réalisations',
 				'projects.heading': 'Projets sélectionnés',
 				'projects.paragraph': 'Surtout des applications Laravel métier. Le code est disponible sur GitHub.',
@@ -74,7 +74,8 @@
 				'projects.description.forum': 'Plateforme d’échange entre développeurs : publications, réponses et espace communautaire.',
 				'projects.description.stock': 'Application métier avec caisse intégrée, gestion des produits et suivi des ventes.',
 				'projects.description.colis': 'Système de tracking pour transporteur : statuts, tableau de bord et interface admin.',
-				'projects.github': 'Voir sur GitHub',
+				'projects.view': 'Voir le projet',
+				'projects.github': 'GitHub',
 				'projects.more': 'Tous mes projets sur GitHub',
 				'casestudy.subheading': 'Étude de cas',
 				'casestudy.heading': 'Gestion de stock',
@@ -108,7 +109,7 @@
 				'contact.sidebar.github': 'GitHub',
 				'contact.whatsapp': 'Discuter sur WhatsApp',
 				'contact.note': 'Réponse habituelle sous 24–48 h.',
-				'footer.tagline': 'Développeur Laravel junior : applications web métier, API REST et outils sécurisés. Ouvert aux missions et collaborations.',
+				'footer.tagline': 'Full-Stack Developer : applications web métier, API REST et outils sécurisés. Ouvert aux missions et collaborations.',
 				'footer.cv': 'Voir mon CV',
 				'footer.navigation': 'Navigation',
 				'footer.contactTitle': 'Me contacter',
@@ -127,7 +128,7 @@
 				'cv.download': 'Télécharger le PDF',
 				'cv.share': 'Partager',
 				'cv.back': 'Portfolio',
-				'cv.role': 'Développeur Laravel Junior',
+				'cv.role': 'FULL-STACK DEVELOPER',
 				'cv.availability': 'Ouvert aux missions · remote ou présentiel',
 				'cv.profile': 'Profil',
 				'cv.profile.p1': 'Développeur web spécialisé en PHP et Laravel. Je construis des applications métier concrètes : stock, suivi de colis, forums, avec une base de données claire.',
@@ -182,8 +183,6 @@
 			documentTitle: 'Narcisse OGOUDIKPE | Portfolio',
 			pageTitles: {
 				'home-section': 'Accueil',
-				'pro-section': 'Professionnel',
-				'highlights-section': 'Expertise',
 				'about-section': 'À propos',
 				'skills-section': 'Compétences',
 				'projects-section': 'Projets',
@@ -213,15 +212,17 @@
 				'highlights.card3.desc': 'MySQL modeling, migrations, Eloquent relations and optimized queries.',
 				'highlights.card4.title': 'Deployment',
 				'highlights.card4.desc': 'Git versioning, manual testing, deployment and post-delivery monitoring.',
-				'hero.role': 'Laravel Junior Developer',
-				'hero.title1': 'Specialized in <span>business web applications</span>',
-				'hero.desc1': 'I build Laravel applications for real business needs.',
-				'hero.cv': 'View my resume',
-				'hero.slide2.role': 'Missions · Collaborations · Remote',
-				'hero.slide2.title': 'From business need to <span>shipped product</span>',
-				'hero.slide2.desc1': 'Clear code, progressive delivery, concrete projects on GitHub.',
+				'hero.title': 'FULL-STACK DEVELOPER',
+				'hero.stack': 'Laravel · PHP · MySQL · Git',
+				'hero.scroll': 'ENGAGE',
+				'hero.watermark': 'ENGINEERING · PRECISION · SYSTEMS',
+				'hero.missionLabel': 'MISSION',
+				'hero.mission': 'SHIP CLEAN SYSTEMS',
 				'about.profile': 'About',
-				'about.roleLine': 'Junior Laravel Developer <br><span class="profile-location">Available · remote or on-site</span>',
+				'about.heading': 'Who I am',
+				'about.lead': 'Full-Stack Developer: clear backends, business apps and delivery through to production.',
+				'about.hello': 'Hello',
+				'about.roleLine': 'FULL-STACK DEVELOPER <br><span class="shell-profile__location">Available · remote or on-site</span>',
 				'about.intro1': 'Trained at Simplon, I have built concrete apps: stock management, parcel tracking, forums. Laravel backend is my focus.',
 				'about.intro2': 'What drives me: understanding the need, structuring the database, and shipping a clear interface through to deployment.',
 				'about.download': 'View my resume',
@@ -249,8 +250,6 @@
 				'skills.card1.title': 'Backend',
 				'skills.card2.title': 'Front & UI',
 				'skills.card3.title': 'Tools',
-				'skills.level.strong': 'Strong',
-				'skills.level.comfortable': 'Comfortable',
 				'projects.subheading': 'Achievements',
 				'projects.heading': 'Selected Projects',
 				'projects.paragraph': 'Mostly Laravel business apps. Code is available on GitHub.',
@@ -262,7 +261,8 @@
 				'projects.description.forum': 'Developer exchange platform: posts, replies and community space.',
 				'projects.description.stock': 'Business application with integrated checkout, product management and sales tracking.',
 				'projects.description.colis': 'Shipping tracking system for carriers: statuses, dashboard and admin interface.',
-				'projects.github': 'View on GitHub',
+				'projects.view': 'View project',
+				'projects.github': 'GitHub',
 				'projects.more': 'All my projects on GitHub',
 				'casestudy.subheading': 'Case study',
 				'casestudy.heading': 'Stock management',
@@ -296,7 +296,7 @@
 				'contact.sidebar.github': 'GitHub',
 				'contact.whatsapp': 'Chat on WhatsApp',
 				'contact.note': 'Typical response within 24–48h.',
-				'footer.tagline': 'Laravel junior developer: business web apps, REST APIs and secure tools. Open to missions and collaborations.',
+				'footer.tagline': 'Full-Stack Developer: business web apps, REST APIs and secure tools. Open to missions and collaborations.',
 				'footer.cv': 'View my resume',
 				'footer.navigation': 'Navigation',
 				'footer.contactTitle': 'Contact me',
@@ -315,7 +315,7 @@
 				'cv.download': 'Download PDF',
 				'cv.share': 'Share',
 				'cv.back': 'Portfolio',
-				'cv.role': 'Junior Laravel Developer',
+				'cv.role': 'FULL-STACK DEVELOPER',
 				'cv.availability': 'Open to missions · remote or on-site',
 				'cv.profile': 'Profile',
 				'cv.profile.p1': 'Web developer specialized in PHP and Laravel. I build concrete business apps: stock, parcel tracking, forums, with a clear database.',
@@ -370,8 +370,6 @@
 			documentTitle: 'Narcisse OGOUDIKPE | Portfolio',
 			pageTitles: {
 				'home-section': 'Home',
-				'pro-section': 'Professional',
-				'highlights-section': 'Expertise',
 				'about-section': 'About',
 				'skills-section': 'Skills',
 				'projects-section': 'Projects',
@@ -460,6 +458,364 @@
 	// i18n d'abord : doit marcher même sans plugins (page CV)
 	initLanguageSwitcher();
 
+	/**
+	 * Hero HUD — parallaxe + particules.
+	 * Un seul pointermove + un seul rAF. Écrit --mx/--my sur #home-section.
+	 * Sort immédiatement si le Hero HUD n'est pas sur la page (ex. CV).
+	 */
+	function initHeroHud() {
+		var section = document.getElementById('home-section');
+		if (!section || !section.classList.contains('hero-hud')) return;
+		if (!section.querySelector('.hud-stage')) return;
+
+		var canvas = section.querySelector('.hud-particles');
+		var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		var canParallax = window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reduced;
+		var isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+
+		var targetX = 0;
+		var targetY = 0;
+		var currentX = 0;
+		var currentY = 0;
+		var rafId = null;
+		var visible = true;
+		var pageVisible = true;
+		var particlesOn = false;
+		var particles = [];
+		var ctx = null;
+		var dpr = 1;
+		var pointerInside = false;
+		var pointerPx = 0;
+		var pointerPy = 0;
+		var LERP = 0.08;
+
+		function writeVars() {
+			section.style.setProperty('--mx', currentX.toFixed(4));
+			section.style.setProperty('--my', currentY.toFixed(4));
+		}
+
+		function resizeCanvas() {
+			if (!canvas || !ctx) return;
+			dpr = Math.min(window.devicePixelRatio || 1, 2);
+			var w = section.clientWidth;
+			var h = section.clientHeight;
+			canvas.width = Math.floor(w * dpr);
+			canvas.height = Math.floor(h * dpr);
+			canvas.style.width = w + 'px';
+			canvas.style.height = h + 'px';
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		}
+
+		function createParticles() {
+			particles = [];
+			if (reduced || !canvas) return;
+			var count = isMobile ? 15 : 40;
+			var cx = section.clientWidth * 0.5;
+			var cy = section.clientHeight * 0.55;
+			for (var i = 0; i < count; i++) {
+				var angle = Math.random() * Math.PI * 2;
+				var radius = 60 + Math.random() * Math.min(section.clientWidth, section.clientHeight) * 0.32;
+				particles.push({
+					angle: angle,
+					radius: radius,
+					speed: 0.002 + Math.random() * 0.004,
+					size: 1 + Math.random() * 1.8,
+					color: Math.random() > 0.45 ? '#00d4ff' : '#ff6b00',
+					ox: cx,
+					oy: cy,
+					alpha: 0.25 + Math.random() * 0.55
+				});
+			}
+		}
+
+		function drawParticles() {
+			if (!ctx || !particlesOn || !particles.length) return;
+			var w = section.clientWidth;
+			var h = section.clientHeight;
+			ctx.clearRect(0, 0, w, h);
+			var cx = w * 0.5;
+			var cy = h * 0.55;
+
+			for (var i = 0; i < particles.length; i++) {
+				var p = particles[i];
+				p.angle += p.speed;
+				var x = cx + Math.cos(p.angle) * p.radius;
+				var y = cy + Math.sin(p.angle) * p.radius * 0.85;
+
+				if (pointerInside) {
+					var dx = x - pointerPx;
+					var dy = y - pointerPy;
+					var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+					if (dist < 120) {
+						var force = (120 - dist) / 120;
+						x += (dx / dist) * force * 28;
+						y += (dy / dist) * force * 28;
+					}
+				}
+
+				ctx.beginPath();
+				ctx.fillStyle = p.color;
+				ctx.globalAlpha = p.alpha;
+				ctx.arc(x, y, p.size, 0, Math.PI * 2);
+				ctx.fill();
+			}
+			ctx.globalAlpha = 1;
+		}
+
+		function tick() {
+			rafId = null;
+			if (!visible || !pageVisible) return;
+
+			if (canParallax) {
+				currentX += (targetX - currentX) * LERP;
+				currentY += (targetY - currentY) * LERP;
+				writeVars();
+			}
+
+			drawParticles();
+
+			var moving = Math.abs(targetX - currentX) > 0.001 || Math.abs(targetY - currentY) > 0.001;
+			if (moving || particlesOn) {
+				rafId = requestAnimationFrame(tick);
+			}
+		}
+
+		function startLoop() {
+			if (rafId == null && visible && pageVisible) {
+				rafId = requestAnimationFrame(tick);
+			}
+		}
+
+		function stopLoop() {
+			if (rafId != null) {
+				cancelAnimationFrame(rafId);
+				rafId = null;
+			}
+		}
+
+		if (canParallax) {
+			section.addEventListener('pointermove', function (e) {
+				var rect = section.getBoundingClientRect();
+				var nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+				var ny = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+				targetX = Math.max(-1, Math.min(1, nx));
+				targetY = Math.max(-1, Math.min(1, ny));
+				pointerInside = true;
+				pointerPx = e.clientX - rect.left;
+				pointerPy = e.clientY - rect.top;
+				startLoop();
+			}, { passive: true });
+
+			section.addEventListener('pointerleave', function () {
+				targetX = 0;
+				targetY = 0;
+				pointerInside = false;
+				startLoop();
+			});
+		}
+
+		if (canvas && !reduced) {
+			ctx = canvas.getContext('2d');
+			resizeCanvas();
+			createParticles();
+			window.addEventListener('resize', function () {
+				isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+				resizeCanvas();
+				createParticles();
+			}, { passive: true });
+
+			setTimeout(function () {
+				particlesOn = true;
+				canvas.classList.add('is-active');
+				startLoop();
+			}, 1800);
+		}
+
+		if ('IntersectionObserver' in window) {
+			var io = new IntersectionObserver(function (entries) {
+				visible = entries[0] && entries[0].isIntersecting;
+				if (visible) startLoop();
+				else stopLoop();
+			}, { threshold: 0.05 });
+			io.observe(section);
+		}
+
+		document.addEventListener('visibilitychange', function () {
+			pageVisible = document.visibilityState !== 'hidden';
+			if (pageVisible) startLoop();
+			else stopLoop();
+		});
+	}
+
+	initHeroHud();
+
+	function initSkillsMarquee() {
+		var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		var tracks = document.querySelectorAll('.skills-marquee__track');
+		if (!tracks.length) return;
+
+		function setupTrack(track) {
+			var viewport = track.parentElement;
+			var source = track.querySelector('.skills-marquee__group');
+			if (!viewport || !source) return;
+
+			track.classList.remove('is-ready');
+			track.querySelectorAll('.skills-marquee__group[data-clone="1"]').forEach(function (node) {
+				node.remove();
+			});
+
+			if (reduced) {
+				track.style.removeProperty('--marquee-distance');
+				return;
+			}
+
+			var gap = parseFloat(window.getComputedStyle(track).gap) || 16;
+			var need = viewport.clientWidth * 2 + source.offsetWidth + gap;
+			var guard = 0;
+
+			while (track.scrollWidth < need && guard < 24) {
+				var clone = source.cloneNode(true);
+				clone.setAttribute('aria-hidden', 'true');
+				clone.setAttribute('data-clone', '1');
+				track.appendChild(clone);
+				guard += 1;
+			}
+
+			var distance = source.offsetWidth + gap;
+			track.style.setProperty('--marquee-distance', distance + 'px');
+			track.classList.add('is-ready');
+		}
+
+		function setupAll() {
+			tracks.forEach(setupTrack);
+		}
+
+		setupAll();
+
+		var resizeTimer;
+		window.addEventListener('resize', function () {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(setupAll, 150);
+		});
+	}
+
+	initSkillsMarquee();
+
+	function prefersReducedMotion() {
+		return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	}
+
+	function initShellReveal() {
+		var targets = document.querySelectorAll([
+			'.shell-about__header',
+			'.shell-about__intro > *',
+			'.shell-about__card',
+			'.shell-projects__header',
+			'.shell-project',
+			'.shell-case__header',
+			'.shell-case__visual',
+			'.shell-case__panel',
+			'.shell-skills__header',
+			'.skills-marquee__row',
+			'.shell-contact__header',
+			'.shell-contact__aside',
+			'.shell-contact__form',
+			'.site-footer__brand',
+			'.site-footer__col',
+			'.shell-cv__top-copy',
+			'.shell-cv__actions',
+			'.shell-cv__identity',
+			'.shell-cv__main',
+			'.shell-cv__panel',
+			'.shell-cv__cta',
+			'.shell-readout'
+		].join(','));
+
+		if (!targets.length) return;
+
+		if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
+			targets.forEach(function (el) {
+				el.classList.add('shell-reveal', 'is-visible');
+			});
+			return;
+		}
+
+		var groupCounts = new WeakMap();
+
+		targets.forEach(function (el) {
+			el.classList.add('shell-reveal');
+			var parent = el.parentElement;
+			if (parent) {
+				var index = groupCounts.get(parent) || 0;
+				groupCounts.set(parent, index + 1);
+				el.style.setProperty('--reveal-delay', (index * 70) + 'ms');
+			}
+		});
+
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (!entry.isIntersecting) return;
+				entry.target.classList.add('is-visible');
+				io.unobserve(entry.target);
+			});
+		}, {
+			threshold: 0.14,
+			rootMargin: '0px 0px -8% 0px'
+		});
+
+		targets.forEach(function (el) {
+			io.observe(el);
+		});
+	}
+
+	function initShellPageMotion() {
+		document.documentElement.classList.add('shell-page-ready');
+
+		if (prefersReducedMotion()) return;
+
+		var supportsViewTransition = CSS && typeof CSS.supports === 'function'
+			&& CSS.supports('view-transition-name', 'none');
+
+		document.addEventListener('click', function (event) {
+			var link = event.target.closest('a[href]');
+			if (!link) return;
+			if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+			if (link.target === '_blank' || link.hasAttribute('download')) return;
+
+			var href = link.getAttribute('href');
+			if (!href || href.charAt(0) === '#') return;
+
+			var url;
+			try {
+				url = new URL(link.href, window.location.href);
+			} catch (err) {
+				return;
+			}
+
+			if (url.origin !== window.location.origin) return;
+			if (url.pathname === window.location.pathname && url.hash) return;
+			if (url.href === window.location.href) return;
+
+			var sameDocument = url.pathname === window.location.pathname
+				&& url.search === window.location.search
+				&& !url.hash;
+			if (sameDocument) return;
+
+			// Chromium : @view-transition navigation:auto gère le cross-document.
+			// Autres navigateurs : fade court avant navigation.
+			if (supportsViewTransition) return;
+
+			event.preventDefault();
+			document.documentElement.classList.add('shell-page-exit');
+			window.setTimeout(function () {
+				window.location.href = url.href;
+			}, 280);
+		});
+	}
+
+	initShellReveal();
+	initShellPageMotion();
+
 	var isTouchLayout = window.matchMedia('(max-width: 991.98px), (hover: none)').matches;
 
 	if (!isTouchLayout && typeof $.fn.stellar === 'function') {
@@ -495,13 +851,6 @@
 	};
 	loader();
 
-	// Scrollax (désactivé sur mobile : bloque / fausse le scroll tactile)
-	if (!isTouchLayout && typeof $.Scrollax === 'function') {
-		$.Scrollax();
-	}
-
-
-
    // Burger Menu
 	var burgerMenu = function() {
 
@@ -509,14 +858,31 @@
 
 			event.preventDefault();
 
-			if ( $('#ftco-nav').is(':visible') ) {
-				$(this).removeClass('active');
+			var $btn = $(this);
+			var open = $('#ftco-nav').hasClass('show') || $('#ftco-nav').is(':visible');
+
+			if ( open && !$btn.hasClass('collapsed') ) {
+				$btn.removeClass('active').attr('aria-expanded', 'false');
 			} else {
-				$(this).addClass('active');	
+				$btn.addClass('active').attr('aria-expanded', 'true');
 			}
 
-			
-			
+		});
+
+		// Fermer le panneau mobile après un clic d’ancre / langue
+		$(document).on('click', '#ftco-nav .nav-link', function () {
+			if (window.matchMedia('(max-width: 991.98px)').matches) {
+				$('#ftco-nav').collapse('hide');
+				$('.js-fh5co-nav-toggle').removeClass('active').attr('aria-expanded', 'false');
+			}
+		});
+
+		$('#ftco-nav').on('hidden.bs.collapse', function () {
+			$('.js-fh5co-nav-toggle').removeClass('active').attr('aria-expanded', 'false');
+		});
+
+		$('#ftco-nav').on('shown.bs.collapse', function () {
+			$('.js-fh5co-nav-toggle').addClass('active').attr('aria-expanded', 'true');
 		});
 
 	};
@@ -536,8 +902,8 @@
 	    event.preventDefault();
 
 	    $('html, body').animate({
-	        scrollTop: target.offset().top - 70
-	    }, 500, function() {
+	        scrollTop: Math.max(0, target.offset().top - 78)
+	    }, 720, 'swing', function() {
 	    	if (history.pushState) {
 				history.pushState(null, null, href);
 			} else {
@@ -548,51 +914,6 @@
 
 	};
 	onePageClick();
-
-	var carousel = function() {
-		if (typeof $.fn.owlCarousel !== 'function' || !$('.home-slider').length) return;
-		var $slider = $('.home-slider');
-		$slider.owlCarousel({
-	    loop:true,
-	    autoplay: true,
-	    margin:0,
-	    animateOut: 'fadeOut',
-	    animateIn: 'fadeIn',
-	    nav:false,
-	    autoplayHoverPause: false,
-	    items: 1,
-	    // Sur mobile, le drag horizontal empêche de scroller la page
-	    mouseDrag: !isTouchLayout,
-	    touchDrag: !isTouchLayout,
-	    pullDrag: !isTouchLayout,
-	    freeDrag: false,
-	    navText : ["<span class='ion-md-arrow-back'></span>","<span class='ion-chevron-right'></span>"],
-	    responsive:{
-	      0:{
-	        items:1
-	      },
-	      600:{
-	        items:1
-	      },
-	      1000:{
-	        items:1
-	      }
-	    }
-		});
-
-		// Forcer la hauteur viewport sur mobile (évite le trou gris Owl)
-		if (isTouchLayout) {
-			var syncHeroHeight = function () {
-				var h = window.innerHeight;
-				$slider.find('.owl-stage-outer, .owl-item, .slider-item, .slider-text, .container-fluid')
-					.css({ height: h + 'px', minHeight: h + 'px' });
-			};
-			syncHeroHeight();
-			$(window).on('resize.heroMobile orientationchange.heroMobile', syncHeroHeight);
-			$slider.on('resized.owl.carousel refreshed.owl.carousel', syncHeroHeight);
-		}
-	};
-	carousel();
 
 	// scroll
 	var scrollWindow = function() {

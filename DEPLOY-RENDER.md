@@ -7,7 +7,7 @@ Guide pour mettre en ligne **MyPortfolio** sur [Render](https://render.com).
 - Compte [GitHub](https://github.com)
 - Compte [Render](https://render.com) (gratuit)
 - Le projet poussé sur GitHub (sans le fichier `.env`)
-- Le PDF `public/CV_Narcisse_Ogoudikpe_DevWeb.pdf` présent dans le dépôt
+- Le PDF servi par le bouton du CV : `public/CV-Narcisse.pdf` (voir `indexController::cv`). Ce fichier n’est pas dans le dépôt tant qu’il n’a pas été ajouté.
 
 ## 1. Préparer GitHub
 

@@ -1,7 +1,7 @@
 @php
 	$siteName = 'Narcisse OGOUDIKPE';
 	$pageTitle = $seoTitle ?? $siteName;
-	$pageDescription = $seoDescription ?? 'Portfolio de Narcisse OGOUDIKPE, développeur Laravel junior. Applications web métier, API REST, projets et collaborations.';
+	$pageDescription = $seoDescription ?? 'Portfolio de Narcisse OGOUDIKPE, Full-Stack Developer. Applications web métier, API REST, projets et collaborations.';
 	$canonical = $seoCanonical ?? url()->current();
 	$ogImage = $seoImage ?? asset('images/Moi2.jpg');
 	$ogType = $seoType ?? 'website';
@@ -34,8 +34,8 @@
 	'name' => 'Narcisse OGOUDIKPE',
 	'url' => url('/'),
 	'image' => asset('images/Moi2.jpg'),
-	'jobTitle' => 'Développeur Laravel',
-	'description' => 'Développeur Laravel junior : applications web métier, API REST, sécurité et bases de données.',
+	'jobTitle' => 'Full-Stack Developer',
+	'description' => 'Full-Stack Developer : applications web métier, API REST, Laravel, sécurité et bases de données.',
 	'email' => 'mailto:ogoudikpenarcisse@gmail.com',
 	'address' => [
 		'@type' => 'PostalAddress',

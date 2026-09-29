@@ -1,0 +1,65 @@
+# Journal des évolutions
+
+Les petits correctifs de build ne sont pas listés un par un. Le détail des commits reste dans Git.
+
+## 2026-05-20
+
+### Ajouté
+
+- Première version du portfolio Laravel.
+- Image Docker et déploiement Render.
+
+## 2026-05-21
+
+### Ajouté
+
+- Envoi des messages de contact avec Resend.
+
+## 2026-07-21
+
+### Modifié
+
+- Refonte de la page publique, hero mobile, favicon.
+- Balises SEO, vérification Google, `robots.txt` et `sitemap.xml` statiques.
+- Workflow GitHub qui ping le site Render toutes les 10 minutes.
+
+## 2026-09-29
+
+### Ajouté
+
+- Panneau Filament `/admin` : tableau de bord, projets, messages, profil.
+- Tables `projects` et `contacts`, colonne `users.last_login_at`.
+- Les projets publiés de l’accueil viennent de la base.
+- Le formulaire de contact enregistre une ligne avant d’envoyer l’e-mail.
+- Documentation dans `docs/` et règles de travail dans `AGENTS.md`.
+- Hero HUD immersif : Iron Man centré, anneaux / panneaux / particules, parallaxe curseur, séquence d’entrée 2,5 s. Assets dans `public/images/hero/` (PNG + WebP).
+- Thème sombre premium des sections post-Hero (`--section-*`), chips compétences avec icônes, portrait `images/profile/` (WebP).
+- Coquille Premium tech : navbar glass + footer signature (typo mono, CTA `.shell-btn`), alignés sur le langage du Hero sans HUD.
+- Skills en marquee 2 rangées (tuiles icônes, défilement lent, pause hover).
+- Sections Professionnel / À propos en composition Premium tech (`.shell-profile`).
+- Fusion Professionnel + À propos + Expertise dans `#about-section` (`.shell-about`, photo moi2, 4 cards).
+- Section Projets en composition Premium tech (`.shell-projects` / `.shell-project`).
+- Étude de cas restylée en `.shell-case` (image + panel tech, CTA shell).
+- Contact restylé en `.shell-contact` (formulaire + aside Premium tech) ; en-tête Skills aligné sur le shell (`.shell-skills`).
+- Page CV restylée en dossier Premium tech (`shell-cv__*` : identité photo, panneaux, entries rail).
+- Motion shell : reveals au scroll entre sections + transition légère entre pages (accueil ↔ CV).
+- Titre de rôle harmonisé partout : « FULL-STACK DEVELOPER » (UI + SEO / schema.org).
+- Fil narratif HUD hors Hero : readouts section, cue scroll ENGAGE, accent orange secondaire.
+- Hero : watermark métaphore + panneau MISSION bas-droite.
+- Fonds pro des sections post-Hero : icônes métier (plus de grille carrée), halos discrets.
+
+### Modifié
+
+- Le conteneur de production passe sur PHP 8.4, avec l’extension `intl`.
+- `www-data` peut écrire dans `database/` pour créer le fichier SQLite au démarrage.
+- Curseur personnalisé en réticule HUD (cyan dans le Hero, accent `#52a6c4` ailleurs).
+- Cartes projets : liens séparés `url` / `github_url` ; sections post-Hero en thème sombre.
+
+### Retiré
+
+- Carrousel Owl et Scrollax de la page d’accueil (remplacés par le Hero HUD).
+
+### Architecture
+
+- Le site public (Blade, Bootstrap, `public/css/style.css`) et l’admin Filament restent séparés.
+- Production Render : SQLite éphémère. Développement local : MySQL.
