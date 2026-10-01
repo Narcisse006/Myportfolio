@@ -18,7 +18,7 @@ Le compte initial vient de `AdminUserSeeder` :
 - mot de passe : `ADMIN_PASSWORD`
 - nom : `ADMIN_NAME`, ou « Narcisse OGOUDIKPE » si la variable est absente
 
-Sur Render, ces trois variables ne sont pas dans `render.yaml`. Sans elles dans l’onglet Environment, le seeder ne crée personne et `/admin/login` n’a aucun compte. Le site public, lui, fonctionne quand même.
+Sur Render, ces trois variables ne sont pas dans `render.yaml`. Sans elles dans l’onglet Environment, le seeder ne crée personne et `/admin/login` n’a aucun compte. Le site public, lui, fonctionne quand même. Si le compte existe déjà, un nouveau démarrage du conteneur ne réécrit ni le mot de passe ni le nom.
 
 ## Déconnexion
 

@@ -19,7 +19,9 @@ Il n’y a pas de couche « service ». Le contrôleur public et les ressources 
 | `app/Filament/` | Écrans d’administration |
 | `app/Providers/Filament/AdminPanelProvider.php` | Réglage du panneau `/admin` |
 | `app/Providers/AppServiceProvider.php` | HTTPS forcé en production, date de dernière connexion |
-| `config/portfolio.php` | Liens publics : GitHub, e-mail, téléphone, WhatsApp |
+| `app/Http/Middleware/SecurityHeaders.php` | En-têtes HTTP sur toutes les réponses |
+| `bootstrap/app.php` | Proxy de confiance, en-têtes HTTP, message quand une route est trop sollicitée |
+| `config/portfolio.php` | Liens publics de repli : GitHub, e-mail, adresse, téléphones, WhatsApp |
 | `config/mail.php` | Destinataire du formulaire : `mail.contact.address` |
 | `resources/views/` | HTML du site, de l’e-mail et de quelques bouts d’admin |
 | `public/css/style.css` | Feuille de style réelle du site public |
@@ -44,7 +46,7 @@ Fichier : `routes/web.php`.
 | GET | `/contact` | `contact` | `indexController@index` |
 | GET | `/cv` | `cv` | `indexController@cv` |
 | POST | `/contact` | `contact.store` | `indexController@store`, limité à 5 requêtes par minute |
-| POST | `/ai/chat` | `ai.chat` | `AiChatController`, limité à 20 requêtes par minute |
+| POST | `/ai/chat` | `ai.chat` | `AiChatController`, limité à 8 requêtes par minute |
 
 `bootstrap/app.php` ajoute aussi `GET /up`. C’est le contrôle de santé utilisé par Render (`healthCheckPath` dans `render.yaml`). Ce n’est pas une page du portfolio.
 
@@ -80,7 +82,7 @@ Une ressource Filament remplace, pour l’admin, le trio contrôleur + vue + for
 
 - Pas de dossier `app/Services`.
 - Pas de policies.
-- Pas de middleware écrit dans `app/Http/Middleware`. Le rate limit du contact est déclaré sur la route. Le panneau admin utilise les middleware fournis par Filament (session, CSRF, authentification).
+- Un middleware applicatif : `App\Http\Middleware\SecurityHeaders` (en-têtes HTTP, branché dans `bootstrap/app.php`). Le rate limit du contact et du chat est déclaré sur la route. Le panneau admin utilise les middleware fournis par Filament (session, CSRF, authentification).
 - Pas d’API JSON publique hors `POST /ai/chat` (assistant portfolio).
 - `routes/console.php` ne contient que la commande d’exemple `inspire`.
 

@@ -247,6 +247,7 @@ Gérer les projets, lire les messages et modifier le compte qui sert à se conne
 - `app/Filament/Widgets/StatsOverview.php`
 - `app/Filament/Widgets/LatestContacts.php`
 - `app/Filament/Widgets/RecentProjects.php`
+- `app/Filament/Pages/PortfolioSettings.php`
 - `resources/views/filament/dashboard-header.blade.php`
 - `resources/views/filament/portfolio-button.blade.php`
 - `app/Filament/PortfolioLink.php`
@@ -302,7 +303,7 @@ Table `projects`. `tech_stack` est un tableau JSON. `order` décide de l’ordre
 
 ### Points d’attention
 
-L’image est limitée à 2 Mo, stockée sur le disque `public`, dossier `projects`.
+L’image est limitée à 2 Mo, stockée sur le disque `public`, dossier `projects`. Types acceptés : JPEG, PNG, WebP.
 
 ## Boîte de messages
 
@@ -325,8 +326,9 @@ Menu « Messages » : `/admin/contacts`. Le badge du menu compte les lignes dont
 
 1. La liste est triée du plus récent au plus ancien.
 2. « Voir le message » ouvre une fenêtre et appelle `markAsRead()`.
-3. « Marquer comme lu » fait la même chose sans ouvrir le texte. Le bouton est masqué si le message est déjà lu.
-4. La suppression retire la ligne. Elle ne prévient pas l’expéditeur.
+3. « Répondre » ouvre Gmail dans un nouvel onglet (`Contact::gmailReplyUrl()`), avec le destinataire, le sujet `Re: …` et le message cité. Même action dans le pied de la fenêtre et sur le widget « Derniers messages » du tableau de bord.
+4. « Marquer comme lu » fait la même chose que l’ouverture, sans afficher le texte. Le bouton est masqué si le message est déjà lu.
+5. La suppression retire la ligne. Elle ne prévient pas l’expéditeur.
 
 ### Données
 
@@ -338,7 +340,39 @@ La vue `filament.contacts.message` pour le contenu de la fenêtre.
 
 ### Points d’attention
 
-`canCreate()` retourne `false`. Il n’y a pas de page d’édition.
+`canCreate()` retourne `false`. Il n’y a pas de page d’édition. Aucun envoi de mail depuis l’admin : la réponse se fait dans Gmail.
+
+## Réglages de contact
+
+### Objectif
+
+Modifier depuis l’admin les deux numéros, l’adresse affichée et le numéro WhatsApp. L’e-mail du formulaire reste dans `.env` (`MAIL_TO_ADDRESS`).
+
+### Point d’entrée
+
+Menu « Réglages » : `/admin/portfolio-settings`.
+
+### Fichiers principaux
+
+- `app/Filament/Pages/PortfolioSettings.php`
+- `resources/views/filament/pages/portfolio-settings.blade.php`
+- `app/Models/PortfolioSetting.php`
+- `config/portfolio.php` (repli si aucune ligne en base)
+
+### Flux
+
+1. La page charge la ligne `portfolio_settings` ou les valeurs de `config/portfolio.php`.
+2. À l’enregistrement, une seule ligne est créée ou mise à jour.
+3. L’accueil, le CV et le chat lisent `PortfolioSetting::current()` (affichage, `tel:`, `wa.me`).
+4. L’adresse n’a plus de `data-i18n` : le texte saisi reste le même en FR et EN.
+
+### Données
+
+Table `portfolio_settings` (`phone_bj`, `phone_bf`, `address`, `whatsapp`).
+
+### Points d’attention
+
+Sans ligne en base, le site affiche exactement les valeurs de `config/portfolio.php`. Sur Render, les réglages disparaissent si le fichier SQLite est recréé.
 
 ## Profil admin
 
@@ -387,14 +421,14 @@ Bouton flottant bas droite sur l’accueil. `POST /ai/chat`, nom de route `ai.ch
 - `resources/views/index.blade.php` (markup `.ai-chat`)
 - `public/css/style.css` (bloc AI CHAT HUD)
 - `public/js/main.js` (`initAiChat`)
-- `config/services.php` (`gemini.key`, `gemini.model`)
+- `config/services.php` (`gemini.key`, `gemini.model`, `gemini.daily_limit`)
 
 ### Flux
 
 1. Le visiteur ouvre le panneau, saisit une question.
-2. Le navigateur envoie un JSON vers `/ai/chat` avec le jeton CSRF.
-3. Avec `GEMINI_API_KEY`, le contrôleur tente Gemini (`generateContent`), avec quelques modèles de secours si le premier échoue.
-4. Sans clé, ou si Gemini échoue (surcharge, quota, timeout), réponse locale basée sur les projets publiés et une FAQ portfolio (`source: local`).
+2. Le navigateur envoie un JSON vers `/ai/chat` avec le jeton CSRF. Huit questions par minute et par visiteur. Au-delà, JSON 429 en français.
+3. Avec `GEMINI_API_KEY`, le contrôleur tente Gemini (`generateContent`), avec quelques modèles de secours si le premier échoue. Un plafond commun (`GEMINI_DAILY_LIMIT`, défaut 200 par jour) évite d’épuiser la clé : au-delà, la FAQ locale répond.
+4. Sans clé, quota journalier atteint, ou si Gemini échoue (surcharge, timeout), réponse locale basée sur les projets publiés et une FAQ portfolio (`source: local`).
 5. Historique plafonné en session ; JSON `reply` (+ `source`). Si la question ou la réponse parle de contact / profil / dispo, le JSON inclut `actions_intro` et `actions` (bouton WhatsApp uniquement, via `config/portfolio.php`). Les boutons n’apparaissent que sous une réponse bot, pas sur le message d’accueil.
 
 ### Données

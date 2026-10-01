@@ -4,9 +4,22 @@ Les petits correctifs de build ne sont pas listés un par un. Le détail des com
 
 ## 2026-10-01
 
+### Modifié
+
+- En-têtes HTTP sur toutes les pages (anti-iframe, nosniff, politique de contenu, HSTS en HTTPS).
+- Le chat accepte 8 questions par minute, et au plus 200 appels Gemini par jour pour tout le site.
+- Le seeder admin ne réécrit plus le mot de passe d’un compte déjà créé.
+- Le seeder projets ne republie plus un projet masqué.
+- Images de projets : JPEG, PNG ou WebP uniquement.
+- Le conteneur Render sert le site avec FrankenPHP, plus avec `php artisan serve`.
+- E-mail du formulaire limité à 255 caractères.
+
 ### Ajouté
 
 - Trois projets publiés : Scolaris, Gestion Présence, Scanner Multi-Fonctions.
+- Favicon de l’onglet : initiales « NO », style armure (or, coins cyan, point réacteur).
+- Bouton « Répondre » (lien Gmail prérempli) sur Messages et le tableau de bord.
+- Page admin « Réglages » pour les numéros, l’adresse et WhatsApp (`portfolio_settings`).
 
 ## 2026-09-30
 

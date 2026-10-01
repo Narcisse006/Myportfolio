@@ -26,4 +26,24 @@ class Contact extends Model
 
         $this->forceFill(['read_at' => now()])->save();
     }
+
+    public function gmailReplyUrl(): string
+    {
+        $subject = str_starts_with(mb_strtolower((string) $this->subject), 're:')
+            ? (string) $this->subject
+            : 'Re: '.$this->subject;
+
+        $body = "Bonjour {$this->name},\n\n\n\n"
+            ."----------\n"
+            ."Message reçu :\n"
+            .$this->message;
+
+        return 'https://mail.google.com/mail/?'.http_build_query([
+            'view' => 'cm',
+            'fs' => '1',
+            'to' => (string) $this->email,
+            'su' => $subject,
+            'body' => $body,
+        ], '', '&', PHP_QUERY_RFC3986);
+    }
 }

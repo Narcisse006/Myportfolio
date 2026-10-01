@@ -609,7 +609,7 @@
 							<span class="shell-contact__info-icon" aria-hidden="true"><i class="fa fa-map-marker"></i></span>
 							<div>
 								<span class="shell-contact__info-label" data-i18n="contact.sidebar.location">Adresse</span>
-								<p data-i18n="contact.sidebar.locationValue">Bénin</p>
+								<p>{{ $portfolio->addressDisplay() }}</p>
 							</div>
 						</li>
 						<li>
@@ -623,8 +623,8 @@
 							<span class="shell-contact__info-icon" aria-hidden="true"><i class="fa fa-phone"></i></span>
 							<div>
 								<span class="shell-contact__info-label" data-i18n="contact.sidebar.phone">Téléphone</span>
-								<p><a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a></p>
-								<p><a href="tel:{{ config('portfolio.phone_bf.tel') }}">{{ config('portfolio.phone_bf.display') }}</a></p>
+								<p><a href="tel:{{ $portfolio->phoneBjTel() }}">{{ $portfolio->phoneBjDisplay() }}</a></p>
+								<p><a href="tel:{{ $portfolio->phoneBfTel() }}">{{ $portfolio->phoneBfDisplay() }}</a></p>
 							</div>
 						</li>
 						<li>
@@ -637,7 +637,7 @@
 					</ul>
 
 					<div class="shell-contact__aside-foot">
-						<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener" class="shell-btn shell-btn--ghost shell-contact__whatsapp" data-i18n="contact.whatsapp">
+						<a href="{{ $portfolio->whatsappUrl() }}" target="_blank" rel="noopener" class="shell-btn shell-btn--ghost shell-contact__whatsapp" data-i18n="contact.whatsapp">
 							<i class="fab fa-whatsapp" aria-hidden="true"></i>
 							Discuter sur WhatsApp
 						</a>
@@ -728,15 +728,15 @@
 				<div class="site-footer__col">
 					<h2 class="site-footer__label" data-i18n="footer.contactTitle">Me contacter</h2>
 					<ul class="site-footer__contact">
-						<li data-i18n="contact.sidebar.locationValue">Bénin</li>
+						<li>{{ $portfolio->addressDisplay() }}</li>
 						<li>
 							<a href="mailto:{{ config('portfolio.email') }}">{{ config('portfolio.email') }}</a>
 						</li>
 						<li>
-							<a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a>
+							<a href="tel:{{ $portfolio->phoneBjTel() }}">{{ $portfolio->phoneBjDisplay() }}</a>
 						</li>
 						<li>
-							<a href="tel:{{ config('portfolio.phone_bf.tel') }}">{{ config('portfolio.phone_bf.display') }}</a>
+							<a href="tel:{{ $portfolio->phoneBfTel() }}">{{ $portfolio->phoneBfDisplay() }}</a>
 						</li>
 					</ul>
 					<ul class="site-footer__social">
@@ -778,7 +778,7 @@
 		id="ai-chat"
 		data-endpoint="{{ route('ai.chat') }}"
 		data-contact-url="{{ route('contact') }}"
-		data-whatsapp-url="{{ config('portfolio.whatsapp.url') }}"
+		data-whatsapp-url="{{ $portfolio->whatsappUrl() }}"
 	>
 		<button
 			type="button"

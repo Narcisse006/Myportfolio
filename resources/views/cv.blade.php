@@ -108,15 +108,15 @@
 								</a>
 							</li>
 							<li>
-								<a href="tel:{{ config('portfolio.phone_bj.tel') }}">
+								<a href="tel:{{ $portfolio->phoneBjTel() }}">
 									<span class="shell-cv__contact-icon" aria-hidden="true"><i class="fa fa-phone"></i></span>
-									<span>{{ config('portfolio.phone_bj.display') }}</span>
+									<span>{{ $portfolio->phoneBjDisplay() }}</span>
 								</a>
 							</li>
 							<li>
-								<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener">
+								<a href="{{ $portfolio->whatsappUrl() }}" target="_blank" rel="noopener">
 									<span class="shell-cv__contact-icon" aria-hidden="true"><i class="fab fa-whatsapp"></i></span>
-									<span>{{ config('portfolio.phone_bf.display') }}</span>
+									<span>{{ $portfolio->whatsappDisplay() }}</span>
 								</a>
 							</li>
 							<li>

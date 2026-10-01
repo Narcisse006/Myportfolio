@@ -14,5 +14,5 @@ Route::post('/contact', [indexController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('contact.store');
 Route::post('/ai/chat', AiChatController::class)
-    ->middleware('throttle:20,1')
+    ->middleware('throttle:8,1')
     ->name('ai.chat');

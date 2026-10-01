@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
 use App\Models\Contact;
+use App\Models\PortfolioSetting;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +20,9 @@ class indexController extends Controller
             ->orderBy('order')
             ->get();
 
-        return view('index', compact('projects'));
+        $portfolio = PortfolioSetting::current();
+
+        return view('index', compact('projects', 'portfolio'));
     }
 
     public function cv()
@@ -27,6 +30,7 @@ class indexController extends Controller
         return view('cv', [
             'pdfUrl' => asset('CV-Narcisse.pdf'),
             'pageUrl' => route('cv'),
+            'portfolio' => PortfolioSetting::current(),
         ]);
     }
 

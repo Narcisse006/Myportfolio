@@ -17,7 +17,7 @@ Avant d’ajouter un partial, un widget ou un bouton d’admin, regarder cette l
 ### `partials.favicon`
 
 - Emplacement : `resources/views/partials/favicon.blade.php`
-- Rôle : favicon `.ico`, PNG 32 et 64, icône Apple, `theme-color` `#52a6c4`.
+- Rôle : favicon `.ico`, PNG 32 et 64, icône Apple. Lettres « NO » or sur fond sombre, coins cyan et point réacteur. `theme-color` `#080a10`.
 - Pas de paramètre.
 - Réutiliser dans le `<head>` de toute page publique.
 
@@ -45,11 +45,11 @@ Avant d’ajouter un partial, un widget ou un bouton d’admin, regarder cette l
 
 ### `config/portfolio.php`
 
-- Clés : `github`, `email`, `phone_bj.display`, `phone_bj.tel`, `phone_bf.display`, `phone_bf.tel`, `whatsapp.display`, `whatsapp.url`, `projects.timelux`, `projects.forum`, `projects.stock`, `projects.colis`.
-- `phone_bf` est le même numéro que `whatsapp`. Les deux apparaissent dans les coordonnées, le pied de page et le CV.
-- `email` lit `MAIL_TO_ADDRESS`.
+- Clés : `github`, `email`, `address`, `phone_bj.display`, `phone_bj.tel`, `phone_bf.display`, `phone_bf.tel`, `whatsapp.display`, `whatsapp.url`, `projects.timelux`, `projects.forum`, `projects.stock`, `projects.colis`.
+- `address`, téléphones et WhatsApp sont le repli si `portfolio_settings` est vide. L’admin « Réglages » écrit en base via `PortfolioSetting`.
+- `email` lit `MAIL_TO_ADDRESS` (hors page Réglages).
 - Les quatre URL `projects.*` ne servent pas à l’affichage du site. `ProjectSeeder` les lit seulement si elles ne se terminent pas par `Narcisse006`. Sinon il utilise les dépôts écrits dans le seeder.
-- Réutiliser `config('portfolio...')` pour un nouveau lien de contact, plutôt que coller l’URL dans un Blade.
+- Pour l’affichage public, préférer `PortfolioSetting::current()` plutôt que coller un numéro dans un Blade.
 
 ## Formulaire et e-mail
 
@@ -139,6 +139,15 @@ Ils sont listés dans `Dashboard::getWidgets()`. `$isLazy = false` sur les trois
 Owl Carousel et Scrollax ne sont plus chargés sur l’accueil (l’ancien Hero carrousel a été remplacé par le Hero HUD). Les fichiers restent dans `public/js/` et `public/css/` mais ne sont plus référencés.
 
 Les fichiers `public/js/filament/` et `public/css/filament/` sont les assets publiés de Filament (`php artisan filament:upgrade` dans `composer.json`). On ne les édite pas à la main.
+
+## Middleware
+
+### `SecurityHeaders`
+
+- Emplacement : `app/Http/Middleware/SecurityHeaders.php`
+- Branché dans `bootstrap/app.php` sur toutes les réponses, site public et admin.
+- Pose `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` et une politique de contenu. `Strict-Transport-Security` seulement si la requête est en HTTPS.
+- Ne pas en créer un second. Étendre celui-ci si un nouvel en-tête est nécessaire.
 
 ## Ce qui ressemble à un composant mais n’en est pas un
 

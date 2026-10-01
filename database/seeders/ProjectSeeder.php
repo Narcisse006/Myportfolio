@@ -69,12 +69,16 @@ class ProjectSeeder extends Seeder
         ];
 
         foreach ($projects as $project) {
+            $exists = Project::query()->where('title', $project['title'])->exists();
+            $values = $project;
+
+            if (! $exists) {
+                $values['is_published'] = true;
+            }
+
             Project::query()->updateOrCreate(
                 ['title' => $project['title']],
-                [
-                    ...$project,
-                    'is_published' => true,
-                ],
+                $values,
             );
         }
     }

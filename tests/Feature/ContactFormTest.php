@@ -98,6 +98,22 @@ class ContactFormTest extends TestCase
         Mail::assertNothingSent();
     }
 
+    public function test_contact_form_rejects_an_email_longer_than_255_characters(): void
+    {
+        Mail::fake();
+
+        $response = $this->postJson(route('contact.store'), [
+            'name' => 'Jean',
+            'email' => str_repeat('a', 250).'@example.com',
+            'subject' => 'Sujet du message',
+            'message' => 'Bonjour, ceci est un message assez long.',
+        ]);
+
+        $response->assertStatus(422)->assertJsonValidationErrors(['email']);
+        Mail::assertNothingSent();
+        $this->assertDatabaseCount(Contact::class, 0);
+    }
+
     public function test_honeypot_returns_fake_success_without_sending_mail(): void
     {
         Mail::fake();

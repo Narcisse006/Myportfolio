@@ -56,8 +56,8 @@ Nouvelle table ou colonne : `php artisan make:migration`, puis `php artisan migr
 
 Les seeders sont idempotents :
 
-- l’admin est un `updateOrCreate` sur l’e-mail ;
-- les projets de démo sont un `firstOrCreate` sur le titre.
+- l’admin est créé seulement si l’e-mail n’existe pas encore (un mot de passe changé dans le profil n’est pas réécrit) ;
+- les projets de démo sont un `updateOrCreate` sur le titre, sans toucher `is_published` si la ligne existe déjà.
 
 `php artisan db:seed` rappelle les deux. Sur Render, `docker/start.sh` les rappelle à chaque démarrage.
 
@@ -94,10 +94,10 @@ Le guide pas à pas est `DEPLOY-RENDER.md`.
 
 En bref, le conteneur :
 
-1. est construit par le `Dockerfile` (`php:8.4-cli`, extensions `intl`, `pdo_sqlite`, `zip`) ;
+1. est construit par le `Dockerfile` (Composer sur `php:8.4-cli`, runtime FrankenPHP PHP 8.4, extensions `intl`, `pdo_sqlite`, `zip`) ;
 2. démarre avec `docker/start.sh` ;
 3. met la config en cache, crée le fichier SQLite si besoin, migre, seed, met les routes et les vues en cache ;
-4. lance `php artisan serve` sur le port `PORT` (10000 dans l’image, fourni par Render au runtime).
+4. lance FrankenPHP (`docker/Caddyfile`) sur le port `PORT` (10000 dans l’image, fourni par Render au runtime). Le serveur de développement `php artisan serve` n’est plus utilisé.
 
 Le processus tourne sous l’utilisateur `www-data`. Les dossiers `storage`, `bootstrap/cache` et `database` doivent lui appartenir. C’est fait dans le `Dockerfile`.
 

@@ -1,6 +1,6 @@
 # PHP 8.4 partout : le composer.lock tire Symfony 8.1, qui exige PHP >= 8.4.1.
-# Les deux étapes utilisent la même image Debian, pour que Composer et le runtime
-# voient les mêmes extensions (intl inclus).
+# L'étape Composer reste sur php:8.4-cli. Le runtime est FrankenPHP (PHP 8.4),
+# pour ne plus exposer le serveur de développement `php artisan serve`.
 
 FROM php:8.4-cli AS vendor
 
@@ -28,27 +28,24 @@ RUN composer install \
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --no-scripts
 
-FROM php:8.4-cli
+FROM dunglas/frankenphp:1-php8.4
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libzip-dev \
-    libicu-dev \
-    sqlite3 \
-    libsqlite3-dev \
-    && docker-php-ext-install intl pdo pdo_sqlite zip \
-    && rm -rf /var/lib/apt/lists/*
+RUN install-php-extensions intl pdo_sqlite zip opcache
 
 WORKDIR /app
 
 COPY --from=vendor /app /app
 COPY docker/start.sh /usr/local/bin/portfolio-start
+COPY docker/php-security.ini /usr/local/etc/php/conf.d/zz-security.ini
 RUN chmod +x /usr/local/bin/portfolio-start \
-    && chown -R www-data:www-data storage bootstrap/cache database \
-    && chmod -R ug+rwx storage bootstrap/cache database
+    && mkdir -p /data /config \
+    && chown -R www-data:www-data storage bootstrap/cache database /data /config \
+    && chmod -R ug+rwx storage bootstrap/cache database /data /config
 
 USER www-data
 
 ENV PORT=10000
 EXPOSE 10000
 
+ENTRYPOINT ["docker-php-entrypoint"]
 CMD ["portfolio-start"]

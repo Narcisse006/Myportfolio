@@ -193,4 +193,86 @@ class AiChatTest extends TestCase
         $response->assertDontSee('GEMINI_API_KEY');
         $response->assertDontSee('ANTHROPIC_API_KEY');
     }
+
+    public function test_ai_chat_stops_after_eight_questions_per_minute(): void
+    {
+        config(['services.gemini.key' => null]);
+
+        for ($i = 0; $i < 8; $i++) {
+            $this->postJson(route('ai.chat'), [
+                'message' => 'Bonjour '.$i,
+            ])->assertOk();
+        }
+
+        $this->postJson(route('ai.chat'), [
+            'message' => 'Encore une question',
+        ])->assertStatus(429)->assertJson([
+            'message' => 'Trop de questions. Réessayez dans une minute.',
+        ]);
+    }
+
+    public function test_ai_chat_falls_back_locally_when_the_daily_gemini_quota_is_spent(): void
+    {
+        config([
+            'services.gemini.key' => 'test-key',
+            'services.gemini.model' => 'gemini-flash-lite-latest',
+            'services.gemini.daily_limit' => 1,
+        ]);
+
+        Http::fake([
+            'generativelanguage.googleapis.com/*' => Http::response([
+                'candidates' => [
+                    [
+                        'content' => [
+                            'parts' => [
+                                ['text' => 'Réponse Gemini.'],
+                            ],
+                        ],
+                    ],
+                ],
+            ], 200),
+        ]);
+
+        $this->postJson(route('ai.chat'), [
+            'message' => 'Parle-moi de tes projets.',
+        ])->assertOk()->assertJsonPath('source', 'gemini');
+
+        $this->postJson(route('ai.chat'), [
+            'message' => 'Quels sont tes projets Laravel ?',
+        ])->assertOk()->assertJsonPath('source', 'local');
+
+        Http::assertSentCount(1);
+    }
+
+    public function test_ai_chat_strips_control_characters_before_calling_gemini(): void
+    {
+        config([
+            'services.gemini.key' => 'test-key',
+            'services.gemini.model' => 'gemini-flash-lite-latest',
+        ]);
+
+        Http::fake([
+            'generativelanguage.googleapis.com/*' => Http::response([
+                'candidates' => [
+                    [
+                        'content' => [
+                            'parts' => [
+                                ['text' => 'Réponse.'],
+                            ],
+                        ],
+                    ],
+                ],
+            ], 200),
+        ]);
+
+        $this->postJson(route('ai.chat'), [
+            'message' => "Bonjour\x00 le portfolio",
+        ])->assertOk();
+
+        Http::assertSent(function ($request): bool {
+            $text = (string) data_get($request->data(), 'contents.0.parts.0.text');
+
+            return $text === 'Bonjour le portfolio' && ! str_contains($text, "\x00");
+        });
+    }
 }

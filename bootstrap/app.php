@@ -12,9 +12,16 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->trustProxies(at: '*');
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, $request) {
+            if ($request->routeIs('ai.chat')) {
+                return response()->json([
+                    'message' => 'Trop de questions. Réessayez dans une minute.',
+                ], 429);
+            }
+
             if ($request->routeIs('contact.store')) {
                 $message = 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.';
 

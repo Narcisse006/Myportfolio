@@ -106,7 +106,7 @@ Ignorer le contrôle de version PHP laisserait démarrer un conteneur qui peut c
 
 ### Conséquences
 
-La machine de développement et Render doivent rester sur PHP 8.4. Changer l’image sans régénérer le lock, ou l’inverse, reproduit l’échec de démarrage.
+La machine de développement et Render doivent rester sur PHP 8.4. Changer l’image sans régénérer le lock, ou l’inverse, reproduit l’échec de démarrage. Depuis le 2026-10-01, le processus qui sert le site n’est plus `php:8.4-cli` : le runtime est FrankenPHP (toujours PHP 8.4). L’étape Composer reste `php:8.4-cli`.
 
 ## 2026-09-29 — SQLite sur Render, MySQL en local
 
@@ -157,6 +157,42 @@ Gmail SMTP local exige un mot de passe d’application souvent absent. Resend re
 ### Conséquences
 
 Le formulaire fonctionne sans domaine custom. Quand un domaine sera vérifié chez Resend, remplacer `MAIL_FROM_ADDRESS` par une adresse de ce domaine (local et Render).
+
+## 2026-10-01 — FrankenPHP à la place de `php artisan serve`
+
+### Contexte
+
+Le conteneur Render lançait `php artisan serve`. Ce serveur est prévu pour le développement : il annonce la version de PHP et exécute tout fichier `.php` placé sous `public/`.
+
+### Décision
+
+Le runtime Docker est `dunglas/frankenphp:1-php8.4`. `docker/start.sh` lance FrankenPHP avec `docker/Caddyfile`. L’étape Composer reste `php:8.4-cli`, toujours en PHP 8.4. `expose_php` est désactivé. Seul `public/index.php` peut être exécuté.
+
+### Raisonnement
+
+FrankenPHP sert les fichiers statiques et PHP sans ajouter Octane ni une dépendance Composer. Le healthcheck `/up` et le port `PORT` restent les mêmes, donc Render n’a pas à changer de type de service.
+
+### Conséquences
+
+Un déploiement est nécessaire pour que la production quitte `php artisan serve`. En local, `php artisan serve` reste la commande de développement.
+
+## 2026-10-01 — En-têtes HTTP et plafond du chat
+
+### Contexte
+
+Les réponses ne portaient aucun en-tête qui empêche d’afficher le site dans une fenêtre intégrée. Le chat public pouvait appeler Gemini vingt fois par minute et par adresse, sans plafond sur la journée.
+
+### Décision
+
+`SecurityHeaders` est ajouté à toutes les réponses. Le chat passe à 8 questions par minute, avec un plafond journalier Gemini (défaut 200, variable `GEMINI_DAILY_LIMIT`). `SESSION_SECURE_COOKIE=true` est écrit dans `render.yaml`.
+
+### Raisonnement
+
+Le blocage des iframes protège l’admin déjà connecté. Le plafond journalier protège la clé même si plusieurs adresses se relaient. Les scripts inline du site et Alpine (Filament) restent autorisés, sinon l’accueil et l’admin cessent de fonctionner.
+
+### Conséquences
+
+Une politique de contenu plus stricte (sans `unsafe-inline`) demanderait de sortir les scripts des vues Blade et de revoir Filament. Ce n’est pas fait ici.
 
 ## 2026-09-30 — Assistant portfolio (FAQ locale + Gemini optionnel)
 

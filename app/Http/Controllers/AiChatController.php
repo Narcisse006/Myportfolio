@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PortfolioSetting;
 use App\Models\Project;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 
 class AiChatController extends Controller
@@ -25,7 +27,14 @@ class AiChatController extends Controller
             'message.max' => 'La question est trop longue (1000 caractères max).',
         ]);
 
-        $userMessage = trim($data['message']);
+        $userMessage = $this->cleanMessage($data['message']);
+
+        if (mb_strlen($userMessage) < 2) {
+            return response()->json([
+                'message' => 'Écrivez une question.',
+            ], 422);
+        }
+
         $projects = Project::query()
             ->where('is_published', true)
             ->orderBy('order')
@@ -73,7 +82,7 @@ class AiChatController extends Controller
             [
                 'type' => 'whatsapp',
                 'label' => 'Discuter sur WhatsApp',
-                'url' => (string) config('portfolio.whatsapp.url'),
+                'url' => PortfolioSetting::current()->whatsappUrl(),
                 'external' => true,
             ],
         ];
@@ -118,6 +127,10 @@ class AiChatController extends Controller
 
     private function askGemini(string $apiKey, string $userMessage, Collection $projects): ?string
     {
+        if (! $this->consumeGeminiQuota()) {
+            return null;
+        }
+
         $history = session(self::SESSION_KEY, []);
 
         if (! is_array($history)) {
@@ -208,6 +221,36 @@ class AiChatController extends Controller
         return array_values(array_unique(array_filter($candidates)));
     }
 
+    private function cleanMessage(string $message): string
+    {
+        $cleaned = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $message) ?? '';
+
+        return trim($cleaned);
+    }
+
+    /**
+     * Plafond commun à tous les visiteurs, pour ne pas épuiser la clé Gemini.
+     * Au-delà, le chat répond avec la FAQ locale.
+     */
+    private function consumeGeminiQuota(): bool
+    {
+        $limit = (int) config('services.gemini.daily_limit', 200);
+
+        if ($limit < 1) {
+            return false;
+        }
+
+        $key = 'ai-chat:gemini:'.now()->toDateString();
+
+        if (RateLimiter::tooManyAttempts($key, $limit)) {
+            return false;
+        }
+
+        RateLimiter::hit($key, 60 * 60 * 48);
+
+        return true;
+    }
+
     private function localReply(string $message, Collection $projects): string
     {
         $normalized = Str::lower(Str::ascii($message));
@@ -226,7 +269,8 @@ class AiChatController extends Controller
 
         if ($this->matchesAny($normalized, ['contact', 'email', 'mail', 'whatsapp', 'ecrire', 'joindre', 'telephone', 'phone'])) {
             $email = (string) config('portfolio.email');
-            $phones = config('portfolio.phone_bj.display').' ou '.config('portfolio.phone_bf.display');
+            $settings = PortfolioSetting::current();
+            $phones = $settings->phoneBjDisplay().' ou '.$settings->phoneBfDisplay();
 
             return 'Pour le joindre : formulaire /contact, e-mail '.$email.', téléphone '.$phones.' (le second est aussi sur WhatsApp). Réponse habituelle sous 24–48 h.';
         }
@@ -317,7 +361,9 @@ class AiChatController extends Controller
             $projectLines = '- Aucun projet publié pour le moment.';
         }
 
-        $phones = config('portfolio.phone_bj.display').' et '.config('portfolio.phone_bf.display');
+        $settings = PortfolioSetting::current();
+        $phones = $settings->phoneBjDisplay().' et '.$settings->phoneBfDisplay();
+        $address = $settings->addressDisplay();
 
         return <<<PROMPT
 Tu es l’assistant du portfolio de Narcisse OGOUDIKPE, développeur Laravel (Laravel, PHP, MySQL, Filament).
@@ -327,7 +373,7 @@ Profil :
 - Il code des applications Laravel pour des problèmes précis : une caisse reliée au stock, un suivi de colis pour le transport.
 - Il a fondé Nessium Academy, où il enseigne la programmation.
 - Disponible pour des missions et des collaborations.
-- Adresse affichée sur le site : Bénin. Ne cite pas de ville, ni un lieu de travail actuel.
+- Adresse affichée sur le site : {$address}. Ne cite pas de ville, ni un lieu de travail actuel.
 - Contact : formulaire /contact, e-mail affiché, téléphones {$phones}. Le second est aussi le WhatsApp.
 
 Projets publiés :
