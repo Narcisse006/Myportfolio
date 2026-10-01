@@ -176,6 +176,8 @@ FrankenPHP sert les fichiers statiques et PHP sans ajouter Octane ni une dépend
 
 Un déploiement est nécessaire pour que la production quitte `php artisan serve`. En local, `php artisan serve` reste la commande de développement.
 
+Le binaire FrankenPHP est livré avec la capacité `cap_net_bind_service` (pour écouter sur les ports 80 et 443). Render interdit à `www-data` d’exécuter un binaire qui a cette capacité : le conteneur s’arrête avec `Operation not permitted`. Le `Dockerfile` retire cette capacité (`setcap -r`). Le service écoute sur le port `PORT` (10000), donc elle n’est pas nécessaire.
+
 ## 2026-10-01 — En-têtes HTTP et plafond du chat
 
 ### Contexte

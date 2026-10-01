@@ -37,7 +37,11 @@ WORKDIR /app
 COPY --from=vendor /app /app
 COPY docker/start.sh /usr/local/bin/portfolio-start
 COPY docker/php-security.ini /usr/local/etc/php/conf.d/zz-security.ini
+# Le binaire officiel a cap_net_bind_service. Sous Render, www-data ne peut
+# pas l'exécuter (Operation not permitted). Le port est 10000, cette capacité
+# ne sert pas : on la retire avant de passer à www-data.
 RUN chmod +x /usr/local/bin/portfolio-start \
+    && setcap -r /usr/local/bin/frankenphp \
     && mkdir -p /data /config \
     && chown -R www-data:www-data storage bootstrap/cache database /data /config \
     && chmod -R ug+rwx storage bootstrap/cache database /data /config

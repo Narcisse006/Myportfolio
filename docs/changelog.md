@@ -11,7 +11,7 @@ Les petits correctifs de build ne sont pas listés un par un. Le détail des com
 - Le seeder admin ne réécrit plus le mot de passe d’un compte déjà créé.
 - Le seeder projets ne republie plus un projet masqué.
 - Images de projets : JPEG, PNG ou WebP uniquement.
-- Le conteneur Render sert le site avec FrankenPHP, plus avec `php artisan serve`.
+- Le conteneur Render sert le site avec FrankenPHP, plus avec `php artisan serve`. La capacité `cap_net_bind_service` du binaire est retirée pour que `www-data` puisse le lancer sur Render.
 - E-mail du formulaire limité à 255 caractères.
 
 ### Ajouté
