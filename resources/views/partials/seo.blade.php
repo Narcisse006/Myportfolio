@@ -1,9 +1,9 @@
 @php
 	$siteName = 'Narcisse OGOUDIKPE';
 	$pageTitle = $seoTitle ?? $siteName;
-	$pageDescription = $seoDescription ?? 'Portfolio de Narcisse OGOUDIKPE, Full-Stack Developer. Applications web métier, API REST, projets et collaborations.';
+	$pageDescription = $seoDescription ?? 'Narcisse OGOUDIKPE, développeur Laravel. Bénin. Applications métier en PHP et MySQL.';
 	$canonical = $seoCanonical ?? url()->current();
-	$ogImage = $seoImage ?? asset('images/Moi2.jpg');
+	$ogImage = $seoImage ?? asset('images/profile/Nessi.jpg');
 	$ogType = $seoType ?? 'website';
 @endphp
 
@@ -33,15 +33,10 @@
 	'@type' => 'Person',
 	'name' => 'Narcisse OGOUDIKPE',
 	'url' => url('/'),
-	'image' => asset('images/Moi2.jpg'),
+	'image' => asset('images/profile/Nessi.jpg'),
 	'jobTitle' => 'Full-Stack Developer',
-	'description' => 'Full-Stack Developer : applications web métier, API REST, Laravel, sécurité et bases de données.',
+	'description' => 'Narcisse OGOUDIKPE, développeur Laravel. Bénin. Applications métier en PHP et MySQL.',
 	'email' => 'mailto:ogoudikpenarcisse@gmail.com',
-	'address' => [
-		'@type' => 'PostalAddress',
-		'addressLocality' => 'Porto-Novo',
-		'addressCountry' => 'BJ',
-	],
 	'sameAs' => [
 		'https://github.com/Narcisse006',
 		'https://www.linkedin.com/in/narcisse-ogoudikpe-831bb8344/',

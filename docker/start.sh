@@ -22,4 +22,4 @@ php artisan db:seed --class=Database\\Seeders\\ProjectSeeder --force --no-intera
 php artisan route:cache
 php artisan view:cache
 
-exec php artisan serve --host=0.0.0.0 --port="${PORT:-10000}"
+exec frankenphp run --config /app/docker/Caddyfile

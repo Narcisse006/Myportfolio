@@ -6,9 +6,16 @@ return [
 
     'email' => env('MAIL_TO_ADDRESS', 'ogoudikpenarcisse@gmail.com'),
 
+    'address' => 'Bénin',
+
     'phone_bj' => [
         'display' => '+229 01 99 05 10 03',
         'tel' => '+2290199051003',
+    ],
+
+    'phone_bf' => [
+        'display' => '+226 77 50 30 15',
+        'tel' => '+22677503015',
     ],
 
     'whatsapp' => [

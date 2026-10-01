@@ -25,19 +25,19 @@
 				'highlights.card3.desc': 'Modélisation MySQL, migrations, relations Eloquent et requêtes optimisées.',
 				'highlights.card4.title': 'Mise en ligne',
 				'highlights.card4.desc': 'Versioning Git, tests manuels, déploiement et suivi après livraison.',
-				'hero.title': 'FULL-STACK DEVELOPER',
-				'hero.stack': 'Laravel · PHP · MySQL · Git',
+				'hero.title': 'Je construis des outils métier en Laravel.',
+				'hero.stack': 'Laravel · PHP · MySQL · Filament',
 				'hero.scroll': 'ENGAGE',
 				'hero.watermark': 'ENGINEERING · PRECISION · SYSTEMS',
 				'hero.missionLabel': 'MISSION',
-				'hero.mission': 'SHIP CLEAN SYSTEMS',
+				'hero.mission': 'BUILD USEFUL APPS',
 				'about.profile': 'À propos',
 				'about.heading': 'Qui je suis',
-				'about.lead': 'Full-Stack Developer : backends clairs, applications métier et livraison jusqu’en production.',
+				'about.lead': 'Du schéma MySQL jusqu’à la mise en ligne.',
 				'about.hello': 'Bonjour',
-				'about.roleLine': 'FULL-STACK DEVELOPER <br><span class="shell-profile__location">Disponible · remote ou présentiel</span>',
-				'about.intro1': 'Formé chez Simplon, j’ai construit des applications concrètes : gestion de stock, suivi de colis, forum. Mon fil rouge, c’est le backend Laravel.',
-				'about.intro2': 'Ce qui m’intéresse : comprendre le besoin, structurer la base de données, et livrer une interface claire jusqu’au déploiement.',
+				'about.roleLine': 'FULL-STACK DEVELOPER',
+				'about.intro1': 'Je code des applications Laravel pour des problèmes précis : une caisse reliée au stock, un suivi de colis pour le transport.',
+				'about.intro2': 'J’ai fondé Nessium Academy, où j’enseigne la programmation.',
 				'about.download': 'Voir mon CV',
 				'about.contact': 'Me contacter',
 				'about.offCodeHeading': 'En dehors du code',
@@ -49,7 +49,7 @@
 				'about.interest.movies': 'Films',
 				'about.interest.sports': 'Sports',
 				'pro.subheading': 'Ce que je propose',
-				'pro.available': 'Disponible pour missions & collaborations',
+				'pro.available': 'Disponible pour missions et collaborations',
 				'pro.heading': 'Des applications Laravel utiles pour votre métier',
 				'pro.lead': 'Je conçois des backends clairs et des outils concrets : gestion, suivi, espaces admin et API. Du besoin jusqu’à une base solide en production.',
 				'pro.point1': 'Applications métier (stock, suivi, administration)',
@@ -58,24 +58,25 @@
 				'pro.cv': 'Voir mes projets',
 				'pro.contact': 'Parler d’un projet',
 				'skills.subheading': 'Compétences',
-				'skills.heading': 'Ma stack technique',
-				'skills.paragraph': 'Le cœur de mon travail, c’est le backend Laravel. Le reste sert à livrer une interface claire et un projet propre jusqu’en production.',
+				'skills.heading': 'Outils que j’utilise au quotidien',
+				'skills.paragraph': 'Laravel, PHP, MySQL, et de quoi mettre en ligne.',
 				'skills.card1.title': 'Backend',
 				'skills.card2.title': 'Front & UI',
 				'skills.card3.title': 'Outils',
 				'projects.subheading': 'Réalisations',
 				'projects.heading': 'Projets sélectionnés',
-				'projects.paragraph': 'Surtout des applications Laravel métier. Le code est disponible sur GitHub.',
+				'projects.paragraph': 'Du stock, des colis, la scolarité, les présences, un scanner. Le code est sur GitHub.',
 				'projects.category.frontend': 'Front-end',
 				'projects.category.phpmysql': 'PHP · MySQL',
 				'projects.category.laravel': 'Laravel',
 				'projects.category.laravelAdmin': 'Laravel · Admin',
-				'projects.description.time': 'Site e-commerce vitrine pour montres haut de gamme, design soigné et navigation fluide.',
-				'projects.description.forum': 'Plateforme d’échange entre développeurs : publications, réponses et espace communautaire.',
-				'projects.description.stock': 'Application métier avec caisse intégrée, gestion des produits et suivi des ventes.',
-				'projects.description.colis': 'Système de tracking pour transporteur : statuts, tableau de bord et interface admin.',
-				'projects.view': 'Voir le projet',
+				'projects.description.time': 'Site de montres haut de gamme, avec fiches produit et navigation. Réalisé en HTML et CSS.',
+				'projects.description.forum': 'Un espace où les développeurs publient et se répondent. Chacun a un compte, et l’accès passe par une authentification.',
+				'projects.description.stock': 'La caisse, le catalogue et le stock sont dans la même application. Une vente met les quantités à jour tout de suite.',
+				'projects.description.colis': 'Suivi des colis pour une société de transport. Le statut de chaque envoi se lit sur un tableau de bord, et se met à jour depuis l’admin.',
+				'projects.view': 'En ligne',
 				'projects.github': 'GitHub',
+				'projects.gallery': 'Voir les captures',
 				'projects.more': 'Tous mes projets sur GitHub',
 				'casestudy.subheading': 'Étude de cas',
 				'casestudy.heading': 'Gestion de stock',
@@ -90,8 +91,8 @@
 				'casestudy.cta': 'Voir le code sur GitHub',
 				'casestudy.back': 'Voir les autres projets',
 				'contact.subheading': 'Contact',
-				'contact.heading': 'Parlons de votre projet',
-				'contact.paragraph': 'Mission, collaboration ou simple question : écrivez-moi via le formulaire ou contactez-moi directement sur WhatsApp.',
+				'contact.heading': 'Écrivez-moi.',
+				'contact.paragraph': 'Une mission, une collaboration, ou une question. Formulaire ou WhatsApp, je réponds sous 24 à 48 h.',
 				'contact.form.name': 'Nom',
 				'contact.form.name.placeholder': 'Votre nom',
 				'contact.form.email': 'Email',
@@ -101,15 +102,16 @@
 				'contact.form.message': 'Message',
 				'contact.form.message.placeholder': 'Décrivez votre besoin en quelques lignes…',
 				'contact.form.submit': 'Envoyer le message',
+				'contact.form.sending': 'Envoi en cours…',
 				'contact.sidebar.title': 'Coordonnées',
-				'contact.sidebar.location': 'Zone',
-				'contact.sidebar.locationValue': 'Afrique de l’Ouest · Remote',
+				'contact.sidebar.location': 'Adresse',
+				'contact.sidebar.locationValue': 'Bénin',
 				'contact.sidebar.email': 'Email',
 				'contact.sidebar.phone': 'Téléphone',
 				'contact.sidebar.github': 'GitHub',
 				'contact.whatsapp': 'Discuter sur WhatsApp',
 				'contact.note': 'Réponse habituelle sous 24–48 h.',
-				'footer.tagline': 'Full-Stack Developer : applications web métier, API REST et outils sécurisés. Ouvert aux missions et collaborations.',
+				'footer.tagline': 'Développeur Laravel. Pour une mission ou une collaboration, écrivez-moi.',
 				'footer.cv': 'Voir mon CV',
 				'footer.navigation': 'Navigation',
 				'footer.contactTitle': 'Me contacter',
@@ -118,6 +120,17 @@
 				'footer.copy': 'Tous droits réservés.',
 				'footer.designed': 'Conçu avec',
 				'footer.by': 'par',
+				'ai.toggle': 'Assistant',
+				'ai.title': 'Assistant Narcisse',
+				'ai.online': 'En ligne',
+				'ai.welcome': 'Bonjour ! Posez-moi une question sur le profil, les projets ou la disponibilité de Narcisse.',
+				'ai.inputLabel': 'Votre message',
+				'ai.placeholder': 'Écrivez votre message...',
+				'ai.send': 'Envoyer',
+				'ai.thinking': 'Analyse en cours…',
+				'ai.error': 'Une erreur est survenue. Réessayez ou utilisez le formulaire de contact.',
+				'ai.actionWhatsapp': 'Discuter sur WhatsApp',
+				'ai.actionsIntro': 'Vous pouvez contacter Narcisse sur WhatsApp.',
 				'cv.nav.portfolio': 'Portfolio',
 				'cv.nav.cv': 'CV',
 				'cv.nav.contact': 'Contact',
@@ -129,10 +142,10 @@
 				'cv.share': 'Partager',
 				'cv.back': 'Portfolio',
 				'cv.role': 'FULL-STACK DEVELOPER',
-				'cv.availability': 'Ouvert aux missions · remote ou présentiel',
+				'cv.availability': 'Ouvert aux missions',
 				'cv.profile': 'Profil',
 				'cv.profile.p1': 'Développeur web spécialisé en PHP et Laravel. Je construis des applications métier concrètes : stock, suivi de colis, forums, avec une base de données claire.',
-				'cv.profile.p2': 'Disponible pour missions, collaborations ou projets freelance : backend Laravel, remote ou présentiel.',
+				'cv.profile.p2': 'Disponible pour des missions et des collaborations, sur du Laravel.',
 				'cv.profile.p3': 'Formé chez Simplon Burkina (2024–2025). Projets et code disponibles sur GitHub.',
 				'cv.projects': 'Projets réalisés',
 				'cv.project.stock.title': 'Gestion de stock avec caisse',
@@ -141,17 +154,17 @@
 				'cv.project.time.title': 'TimeLux : site vitrine',
 				'cv.edu.simplon.title': 'Simplon Burkina',
 				'cv.edu.ltp.title': 'Lycée Technique Professionnel d’Agbokou',
-				'cv.project.stock': 'Système complet produits / ventes / caisse, logique métier (entrées, sorties, suivi), base de données et interface d’administration Laravel & Bootstrap.',
-				'cv.project.forum': 'Plateforme avec gestion des utilisateurs, publication de messages et système d’authentification.',
-				'cv.project.colis': 'Tracking transporteur : statuts, tableau de bord et interface d’administration.',
-				'cv.project.time': 'Site e-commerce vitrine pour montres, design soigné et navigation responsive.',
+				'cv.project.stock': 'La caisse, le catalogue et le stock sont dans la même application. Une vente met les quantités à jour tout de suite.',
+				'cv.project.forum': 'Un espace où les développeurs publient et se répondent. Chacun a un compte, et l’accès passe par une authentification.',
+				'cv.project.colis': 'Suivi des colis pour une société de transport. Le statut de chaque envoi se lit sur un tableau de bord, et se met à jour depuis l’admin.',
+				'cv.project.time': 'Site de montres haut de gamme, avec fiches produit et navigation. Réalisé en HTML et CSS.',
 				'cv.project.blog': 'CRUD complet, authentification sécurisée et interface d’administration.',
 				'cv.project.vitrine': 'Développement frontend + backend simple, intégration responsive.',
 				'cv.education': 'Formation',
 				'cv.edu.simplon.role': 'Certification en Développement Web',
 				'cv.edu.simplon.desc': 'PHP, Laravel, Python, Java, Dart, Flutter, WordPress, HTML, CSS, MySQL. Travail collaboratif (Git, Trello), responsive design et bonnes pratiques.',
 				'cv.edu.ltp.role': 'DTI : Installation & Maintenance Informatique',
-				'cv.edu.ltp.desc': 'Maintenance informatique, réseaux de base, initiation à la programmation. Porto-Novo, Bénin.',
+				'cv.edu.ltp.desc': 'Maintenance informatique, réseaux de base, initiation à la programmation.',
 				'cv.skills': 'Compétences',
 				'cv.skills.backend': 'Backend',
 				'cv.skills.frontend': 'Frontend',
@@ -212,19 +225,19 @@
 				'highlights.card3.desc': 'MySQL modeling, migrations, Eloquent relations and optimized queries.',
 				'highlights.card4.title': 'Deployment',
 				'highlights.card4.desc': 'Git versioning, manual testing, deployment and post-delivery monitoring.',
-				'hero.title': 'FULL-STACK DEVELOPER',
-				'hero.stack': 'Laravel · PHP · MySQL · Git',
+				'hero.title': 'I build business tools in Laravel.',
+				'hero.stack': 'Laravel · PHP · MySQL · Filament',
 				'hero.scroll': 'ENGAGE',
 				'hero.watermark': 'ENGINEERING · PRECISION · SYSTEMS',
 				'hero.missionLabel': 'MISSION',
-				'hero.mission': 'SHIP CLEAN SYSTEMS',
+				'hero.mission': 'BUILD USEFUL APPS',
 				'about.profile': 'About',
 				'about.heading': 'Who I am',
-				'about.lead': 'Full-Stack Developer: clear backends, business apps and delivery through to production.',
+				'about.lead': 'From the MySQL schema through to going live.',
 				'about.hello': 'Hello',
-				'about.roleLine': 'FULL-STACK DEVELOPER <br><span class="shell-profile__location">Available · remote or on-site</span>',
-				'about.intro1': 'Trained at Simplon, I have built concrete apps: stock management, parcel tracking, forums. Laravel backend is my focus.',
-				'about.intro2': 'What drives me: understanding the need, structuring the database, and shipping a clear interface through to deployment.',
+				'about.roleLine': 'FULL-STACK DEVELOPER',
+				'about.intro1': 'I code Laravel apps for specific problems: a register tied to stock, and parcel tracking for transport.',
+				'about.intro2': 'I founded Nessium Academy, where I teach programming.',
 				'about.download': 'View my resume',
 				'about.contact': 'Contact me',
 				'about.offCodeHeading': 'Outside of code',
@@ -236,7 +249,7 @@
 				'about.interest.movies': 'Movies',
 				'about.interest.sports': 'Sports',
 				'pro.subheading': 'What I offer',
-				'pro.available': 'Available for missions & collaborations',
+				'pro.available': 'Available for missions and collaborations',
 				'pro.heading': 'Laravel apps that serve your business',
 				'pro.lead': 'I build clear backends and concrete tools: management, tracking, admin spaces and APIs. From the need to a solid production foundation.',
 				'pro.point1': 'Business apps (stock, tracking, admin)',
@@ -245,24 +258,25 @@
 				'pro.cv': 'See my projects',
 				'pro.contact': 'Discuss a project',
 				'skills.subheading': 'Skills',
-				'skills.heading': 'My technical stack',
-				'skills.paragraph': 'Laravel backend is the core of my work. The rest helps me ship a clear interface and a clean project through to production.',
+				'skills.heading': 'Tools I use every day',
+				'skills.paragraph': 'Laravel, PHP, MySQL, and what it takes to ship.',
 				'skills.card1.title': 'Backend',
 				'skills.card2.title': 'Front & UI',
 				'skills.card3.title': 'Tools',
 				'projects.subheading': 'Achievements',
 				'projects.heading': 'Selected Projects',
-				'projects.paragraph': 'Mostly Laravel business apps. Code is available on GitHub.',
+				'projects.paragraph': 'Stock, parcels, school records, attendance, a scanner. The code is on GitHub.',
 				'projects.category.frontend': 'Front-end',
 				'projects.category.phpmysql': 'PHP · MySQL',
 				'projects.category.laravel': 'Laravel',
 				'projects.category.laravelAdmin': 'Laravel · Admin',
-				'projects.description.time': 'E-commerce showcase site for premium watches, clean design and smooth navigation.',
-				'projects.description.forum': 'Developer exchange platform: posts, replies and community space.',
-				'projects.description.stock': 'Business application with integrated checkout, product management and sales tracking.',
-				'projects.description.colis': 'Shipping tracking system for carriers: statuses, dashboard and admin interface.',
-				'projects.view': 'View project',
+				'projects.description.time': 'A site for high-end watches, with product pages and navigation. Built in HTML and CSS.',
+				'projects.description.forum': 'A place where developers post and reply to each other. Everyone has an account, and access goes through authentication.',
+				'projects.description.stock': 'The register, the catalog and the stock live in the same app. A sale updates the quantities right away.',
+				'projects.description.colis': 'Parcel tracking for a transport company. Each shipment status shows on a dashboard, and is updated from the admin.',
+				'projects.view': 'Live',
 				'projects.github': 'GitHub',
+				'projects.gallery': 'View screenshots',
 				'projects.more': 'All my projects on GitHub',
 				'casestudy.subheading': 'Case study',
 				'casestudy.heading': 'Stock management',
@@ -277,8 +291,8 @@
 				'casestudy.cta': 'View code on GitHub',
 				'casestudy.back': 'See other projects',
 				'contact.subheading': 'Contact',
-				'contact.heading': 'Let’s talk about your project',
-				'contact.paragraph': 'Mission, collaboration or a quick question: write via the form or reach me directly on WhatsApp.',
+				'contact.heading': 'Write to me.',
+				'contact.paragraph': 'A mission, a collaboration, or a question. Form or WhatsApp, I reply within 24 to 48 hours.',
 				'contact.form.name': 'Name',
 				'contact.form.name.placeholder': 'Your name',
 				'contact.form.email': 'Email',
@@ -288,15 +302,16 @@
 				'contact.form.message': 'Message',
 				'contact.form.message.placeholder': 'Describe your needs in a few lines…',
 				'contact.form.submit': 'Send message',
+				'contact.form.sending': 'Sending…',
 				'contact.sidebar.title': 'Contact details',
-				'contact.sidebar.location': 'Area',
-				'contact.sidebar.locationValue': 'West Africa · Remote',
+				'contact.sidebar.location': 'Address',
+				'contact.sidebar.locationValue': 'Benin',
 				'contact.sidebar.email': 'Email',
 				'contact.sidebar.phone': 'Phone',
 				'contact.sidebar.github': 'GitHub',
 				'contact.whatsapp': 'Chat on WhatsApp',
 				'contact.note': 'Typical response within 24–48h.',
-				'footer.tagline': 'Full-Stack Developer: business web apps, REST APIs and secure tools. Open to missions and collaborations.',
+				'footer.tagline': 'Laravel developer. For a mission or a collaboration, write to me.',
 				'footer.cv': 'View my resume',
 				'footer.navigation': 'Navigation',
 				'footer.contactTitle': 'Contact me',
@@ -305,6 +320,17 @@
 				'footer.copy': 'All rights reserved.',
 				'footer.designed': 'Designed with',
 				'footer.by': 'by',
+				'ai.toggle': 'Assistant',
+				'ai.title': 'Assistant Narcisse',
+				'ai.online': 'Online',
+				'ai.welcome': 'Hi! Ask me about Narcisse’s profile, projects or availability.',
+				'ai.inputLabel': 'Your message',
+				'ai.placeholder': 'Write your message...',
+				'ai.send': 'Send',
+				'ai.thinking': 'Thinking…',
+				'ai.error': 'Something went wrong. Try again or use the contact form.',
+				'ai.actionWhatsapp': 'Chat on WhatsApp',
+				'ai.actionsIntro': 'You can reach Narcisse on WhatsApp.',
 				'cv.nav.portfolio': 'Portfolio',
 				'cv.nav.cv': 'CV',
 				'cv.nav.contact': 'Contact',
@@ -316,10 +342,10 @@
 				'cv.share': 'Share',
 				'cv.back': 'Portfolio',
 				'cv.role': 'FULL-STACK DEVELOPER',
-				'cv.availability': 'Open to missions · remote or on-site',
+				'cv.availability': 'Open to missions',
 				'cv.profile': 'Profile',
 				'cv.profile.p1': 'Web developer specialized in PHP and Laravel. I build concrete business apps: stock, parcel tracking, forums, with a clear database.',
-				'cv.profile.p2': 'Available for missions, collaborations or freelance projects: Laravel backend, remote or on-site.',
+				'cv.profile.p2': 'Available for missions and collaborations, on Laravel.',
 				'cv.profile.p3': 'Trained at Simplon Burkina (2024–2025). Projects and code available on GitHub.',
 				'cv.projects': 'Selected projects',
 				'cv.project.stock.title': 'Stock management with checkout',
@@ -328,17 +354,17 @@
 				'cv.project.time.title': 'TimeLux: showcase site',
 				'cv.edu.simplon.title': 'Simplon Burkina',
 				'cv.edu.ltp.title': 'Agbokou Technical High School',
-				'cv.project.stock': 'Full products / sales / cash system, business logic (stock in/out/tracking), database design and Laravel & Bootstrap admin UI.',
-				'cv.project.forum': 'Platform with user management, posts and authentication.',
+				'cv.project.stock': 'The register, the catalog and the stock live in the same app. A sale updates the quantities right away.',
+				'cv.project.forum': 'A place where developers post and reply to each other. Everyone has an account, and access goes through authentication.',
 				'cv.project.blog': 'Full CRUD, secure authentication and admin interface.',
 				'cv.project.vitrine': 'Full frontend + simple backend, responsive integration.',
-				'cv.project.colis': 'Carrier tracking: statuses, dashboard and admin interface.',
-				'cv.project.time': 'Watch e-commerce showcase site, polished design and responsive navigation.',
+				'cv.project.colis': 'Parcel tracking for a transport company. Each shipment status shows on a dashboard, and is updated from the admin.',
+				'cv.project.time': 'A site for high-end watches, with product pages and navigation. Built in HTML and CSS.',
 				'cv.education': 'Education',
 				'cv.edu.simplon.role': 'Web Development Certification',
 				'cv.edu.simplon.desc': 'PHP, Laravel, Python, Java, Dart, Flutter, WordPress, HTML, CSS, MySQL. Collaborative work (Git, Trello), responsive design and best practices.',
 				'cv.edu.ltp.role': 'DTI : IT Installation & Maintenance',
-				'cv.edu.ltp.desc': 'Computer maintenance, basic networking, introduction to programming. Porto-Novo, Benin.',
+				'cv.edu.ltp.desc': 'Computer maintenance, basic networking, introduction to programming.',
 				'cv.skills': 'Skills',
 				'cv.skills.backend': 'Backend',
 				'cv.skills.frontend': 'Frontend',
@@ -422,10 +448,15 @@
 		var toggle = document.getElementById('lang-toggle');
 		if (toggle) {
 			var label = toggle.querySelector('.lang-toggle-label');
+			var flag = toggle.querySelector('.lang-toggle-flag');
 			if (label) {
 				label.textContent = translation.switchLabel;
 			} else {
 				toggle.textContent = translation.switchLabel;
+			}
+			if (flag) {
+				// Drapeau de la langue cible (FR → affiche UK, EN → affiche FR)
+				flag.textContent = lang === 'fr' ? '🇬🇧' : '🇫🇷';
 			}
 			toggle.title = translation.switchTitle;
 			toggle.setAttribute('aria-label', translation.switchTitle);
@@ -439,6 +470,12 @@
 				document.title = translation.documentTitle;
 			}
 		}
+
+		window.portfolioI18n = {
+			aiThinking: translation.labels['ai.thinking'] || 'Analyse en cours…',
+			aiError: translation.labels['ai.error'] || 'Une erreur est survenue. Réessayez ou utilisez le formulaire de contact.',
+			labels: translation.labels || {}
+		};
 	}
 
 	function initLanguageSwitcher() {
@@ -711,7 +748,6 @@
 			'.shell-about__intro > *',
 			'.shell-about__card',
 			'.shell-projects__header',
-			'.shell-project',
 			'.shell-case__header',
 			'.shell-case__visual',
 			'.shell-case__panel',
@@ -796,6 +832,17 @@
 			if (url.pathname === window.location.pathname && url.hash) return;
 			if (url.href === window.location.href) return;
 
+			var sectionPaths = {
+				'/': true,
+				'/about': true,
+				'/projects': true,
+				'/skills': true,
+				'/contact': true
+			};
+			var currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+			var nextPath = url.pathname.replace(/\/$/, '') || '/';
+			if (sectionPaths[currentPath] && sectionPaths[nextPath]) return;
+
 			var sameDocument = url.pathname === window.location.pathname
 				&& url.search === window.location.search
 				&& !url.hash;
@@ -815,6 +862,241 @@
 
 	initShellReveal();
 	initShellPageMotion();
+	initProjectGalleries();
+	initAiChat();
+
+	function initProjectGalleries() {
+		if (typeof window.jQuery === 'undefined' || !window.jQuery.fn || !window.jQuery.fn.magnificPopup) {
+			return;
+		}
+
+		var $ = window.jQuery;
+		$('.shell-project__media').each(function () {
+			var $media = $(this);
+			if (! $media.find('a.shell-project__gallery-item').length) {
+				return;
+			}
+
+			$media.magnificPopup({
+				delegate: 'a.shell-project__gallery-item',
+				type: 'image',
+				tLoading: 'Chargement…',
+				mainClass: 'mfp-fade shell-project-lightbox',
+				removalDelay: 200,
+				gallery: {
+					enabled: true,
+					navigateByImgClick: true,
+					preload: [1, 1]
+				},
+				image: {
+					tError: 'Impossible de charger cette capture.'
+				}
+			});
+		});
+	}
+
+	function initAiChat() {
+		var root = document.getElementById('ai-chat');
+		if (!root) return;
+
+		var toggle = document.getElementById('ai-chat-toggle');
+		var panel = document.getElementById('ai-chat-panel');
+		var closeBtn = document.getElementById('ai-chat-close');
+		var form = document.getElementById('ai-chat-form');
+		var input = document.getElementById('ai-chat-input');
+		var messages = document.getElementById('ai-chat-messages');
+		var sendBtn = form ? form.querySelector('.ai-chat__send') : null;
+		var endpoint = root.getAttribute('data-endpoint');
+		var busy = false;
+
+		function csrfToken() {
+			var meta = document.querySelector('meta[name="csrf-token"]');
+			return meta ? meta.getAttribute('content') : '';
+		}
+
+		function openChat() {
+			root.classList.add('is-open');
+			panel.hidden = false;
+			toggle.setAttribute('aria-expanded', 'true');
+			window.setTimeout(function () {
+				if (input) input.focus();
+			}, 40);
+		}
+
+		function closeChat() {
+			root.classList.remove('is-open');
+			panel.hidden = true;
+			toggle.setAttribute('aria-expanded', 'false');
+			toggle.focus();
+		}
+
+		function appendBubble(text, kind, actions) {
+			var bubble = document.createElement('div');
+			bubble.className = 'ai-chat__bubble ai-chat__bubble--' + kind;
+
+			var textNode = document.createElement('div');
+			textNode.className = 'ai-chat__bubble-text';
+			textNode.textContent = text;
+			bubble.appendChild(textNode);
+
+			if (kind === 'bot' && actions && actions.length) {
+				appendActions(bubble, actions);
+			}
+
+			messages.appendChild(bubble);
+			messages.scrollTop = messages.scrollHeight;
+			return bubble;
+		}
+
+		function appendActions(bubble, actions, intro) {
+			var existing = bubble.querySelector('.ai-chat__actions');
+			if (existing) {
+				existing.remove();
+			}
+			var existingIntro = bubble.querySelector('.ai-chat__actions-intro');
+			if (existingIntro) {
+				existingIntro.remove();
+			}
+
+			var labels = (window.portfolioI18n && window.portfolioI18n.labels) || {};
+			var introText = labels['ai.actionsIntro'] || intro || 'Vous pouvez contacter Narcisse sur WhatsApp.';
+
+			if (introText) {
+				var introNode = document.createElement('p');
+				introNode.className = 'ai-chat__actions-intro';
+				introNode.textContent = introText;
+				bubble.appendChild(introNode);
+			}
+
+			var row = document.createElement('div');
+			row.className = 'ai-chat__actions';
+
+			actions.forEach(function (action) {
+				if (!action || !action.url) return;
+
+				var link = document.createElement('a');
+				link.className = 'ai-chat__action';
+				if (action.type) {
+					link.className += ' ai-chat__action--' + action.type;
+				}
+				link.href = action.url;
+
+				if (action.type === 'whatsapp') {
+					var icon = document.createElement('i');
+					icon.className = 'fab fa-whatsapp';
+					icon.setAttribute('aria-hidden', 'true');
+					link.appendChild(icon);
+					link.appendChild(document.createTextNode(
+						' ' + (labels['ai.actionWhatsapp'] || action.label || 'Discuter sur WhatsApp')
+					));
+				} else {
+					link.textContent = action.label || action.type || 'Lien';
+				}
+
+				if (action.external || action.type === 'whatsapp') {
+					link.target = '_blank';
+					link.rel = 'noopener noreferrer';
+				}
+
+				row.appendChild(link);
+			});
+
+			if (row.childNodes.length) {
+				bubble.appendChild(row);
+			}
+		}
+
+		function setBubbleContent(bubble, text, actions, isError, actionsIntro) {
+			bubble.textContent = '';
+			var textNode = document.createElement('div');
+			textNode.className = 'ai-chat__bubble-text';
+			textNode.textContent = text;
+			bubble.appendChild(textNode);
+
+			if (actions && actions.length) {
+				appendActions(bubble, actions, actionsIntro);
+			}
+
+			if (isError) {
+				bubble.classList.add('ai-chat__bubble--error');
+			} else {
+				bubble.classList.remove('ai-chat__bubble--error');
+			}
+		}
+
+		toggle.addEventListener('click', function () {
+			if (root.classList.contains('is-open')) {
+				closeChat();
+			} else {
+				openChat();
+			}
+		});
+
+		closeBtn.addEventListener('click', closeChat);
+
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape' && root.classList.contains('is-open')) {
+				closeChat();
+			}
+		});
+
+		form.addEventListener('submit', function (event) {
+			event.preventDefault();
+			if (busy || !endpoint) return;
+
+			var text = (input.value || '').trim();
+			if (text.length < 2) return;
+
+			busy = true;
+			if (sendBtn) sendBtn.disabled = true;
+			appendBubble(text, 'user');
+			input.value = '';
+			var thinking = appendBubble(
+				(window.portfolioI18n && window.portfolioI18n.aiThinking) || 'Analyse en cours…',
+				'bot'
+			);
+
+			fetch(endpoint, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Accept': 'application/json',
+					'X-CSRF-TOKEN': csrfToken(),
+					'X-Requested-With': 'XMLHttpRequest'
+				},
+				credentials: 'same-origin',
+				body: JSON.stringify({ message: text })
+			})
+				.then(function (response) {
+					return response.json().then(function (payload) {
+						return { ok: response.ok, status: response.status, payload: payload };
+					});
+				})
+				.then(function (result) {
+					var reply = (result.payload && result.payload.reply) ||
+						(result.payload && result.payload.message) ||
+						((window.portfolioI18n && window.portfolioI18n.aiError) || 'Une erreur est survenue. Réessayez ou utilisez le formulaire de contact.');
+					var actions = (result.ok && result.payload && result.payload.actions) || null;
+					var actionsIntro = (result.ok && result.payload && result.payload.actions_intro) || null;
+					setBubbleContent(thinking, reply, actions, !result.ok, actionsIntro);
+				})
+				.catch(function () {
+					setBubbleContent(
+						thinking,
+						(window.portfolioI18n && window.portfolioI18n.aiError) ||
+							'Une erreur est survenue. Réessayez ou utilisez le formulaire de contact.',
+						null,
+						true
+					);
+				})
+				.finally(function () {
+					busy = false;
+					if (sendBtn) sendBtn.disabled = false;
+					messages.scrollTop = messages.scrollHeight;
+					input.focus();
+				});
+		});
+	}
 
 	var isTouchLayout = window.matchMedia('(max-width: 991.98px), (hover: none)').matches;
 
@@ -898,6 +1180,9 @@
 
 	    var target = $(href);
 	    if (!target.length) return;
+
+	    // Les sections à data-page-title sont gérées par page-title.js (URLs propres).
+	    if (target[0].hasAttribute('data-page-title')) return;
 
 	    event.preventDefault();
 

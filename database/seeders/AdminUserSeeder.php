@@ -16,12 +16,14 @@ class AdminUserSeeder extends Seeder
             return;
         }
 
-        User::query()->updateOrCreate(
-            ['email' => $email],
-            [
-                'name' => env('ADMIN_NAME', 'Narcisse OGOUDIKPE'),
-                'password' => $password,
-            ],
-        );
+        if (User::query()->where('email', $email)->exists()) {
+            return;
+        }
+
+        User::query()->create([
+            'name' => env('ADMIN_NAME', 'Narcisse OGOUDIKPE'),
+            'email' => $email,
+            'password' => $password,
+        ]);
     }
 }

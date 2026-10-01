@@ -19,6 +19,7 @@ class ProjectListingTest extends TestCase
             'tech_stack' => ['PHP'],
             'order' => 1,
             'is_published' => false,
+            'status' => 'archived',
         ]);
 
         Project::query()->create([
@@ -27,6 +28,8 @@ class ProjectListingTest extends TestCase
             'tech_stack' => ['MySQL'],
             'order' => 2,
             'is_published' => true,
+            'status' => 'testing',
+            'github_url' => 'https://github.com/Narcisse006/forum',
         ]);
 
         Project::query()->create([
@@ -35,6 +38,10 @@ class ProjectListingTest extends TestCase
             'tech_stack' => ['Laravel'],
             'order' => 1,
             'is_published' => true,
+            'status' => 'online',
+            'url' => 'https://example.com/demo',
+            'image' => 'images/stock.jpg',
+            'gallery' => ['images/stock.jpg', 'images/profile/Nessi.webp'],
         ]);
 
         $response = $this->get(route('home'));
@@ -42,6 +49,15 @@ class ProjectListingTest extends TestCase
         $response->assertOk();
         $response->assertSeeInOrder(['Premier publié', 'Second publié']);
         $response->assertDontSee('Projet masqué');
+        $response->assertSee('En ligne');
+        $response->assertSee('En test');
+        $response->assertSee('En ligne');
+        $response->assertSee('GitHub');
+        $response->assertSee('shell-project__overlay-btn', false);
+        $response->assertSee('fa-plus', false);
+        $response->assertSee('shell-project__gallery-item', false);
+        $response->assertDontSee('data-project-tilt');
+        $response->assertSee('https://example.com/demo', false);
     }
 
     public function test_admin_login_page_is_available(): void

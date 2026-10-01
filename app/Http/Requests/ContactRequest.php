@@ -22,7 +22,7 @@ class ContactRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', 'min:2', 'max:100'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'max:255'],
             'subject' => ['required', 'string', 'min:3', 'max:150'],
             'message' => ['required', 'string', 'min:10', 'max:2000'],
         ];
@@ -36,6 +36,7 @@ class ContactRequest extends FormRequest
             'name.max' => 'Le nom ne peut pas dépasser 100 caractères.',
             'email.required' => 'Veuillez indiquer votre adresse email.',
             'email.email' => 'Cette adresse email n\'est pas valide (exemple : prenom@gmail.com).',
+            'email.max' => 'Cette adresse email est trop longue.',
             'subject.required' => 'Veuillez indiquer un sujet.',
             'subject.min' => 'Le sujet doit contenir au moins 3 caractères.',
             'subject.max' => 'Le sujet ne peut pas dépasser 150 caractères.',
@@ -47,10 +48,19 @@ class ContactRequest extends FormRequest
 
     protected function failedValidation(Validator $validator): void
     {
+        if ($this->expectsJson() || $this->ajax()) {
+            throw new HttpResponseException(
+                response()->json([
+                    'ok' => false,
+                    'message' => 'Le formulaire contient des erreurs.',
+                    'errors' => $validator->errors(),
+                ], 422)
+            );
+        }
+
         throw new HttpResponseException(
             redirect()
-                ->route('home')
-                ->withFragment('contact-section')
+                ->route('contact')
                 ->withInput()
                 ->withErrors($validator)
         );

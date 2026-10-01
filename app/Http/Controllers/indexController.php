@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
 use App\Models\Contact;
+use App\Models\PortfolioSetting;
 use App\Models\Project;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 
 class indexController extends Controller
@@ -17,7 +20,9 @@ class indexController extends Controller
             ->orderBy('order')
             ->get();
 
-        return view('index', compact('projects'));
+        $portfolio = PortfolioSetting::current();
+
+        return view('index', compact('projects', 'portfolio'));
     }
 
     public function cv()
@@ -25,17 +30,20 @@ class indexController extends Controller
         return view('cv', [
             'pdfUrl' => asset('CV-Narcisse.pdf'),
             'pageUrl' => route('cv'),
+            'portfolio' => PortfolioSetting::current(),
         ]);
     }
 
-    public function store(ContactRequest $request)
+    public function store(ContactRequest $request): JsonResponse|RedirectResponse
     {
+        $wantsJson = $request->expectsJson() || $request->ajax();
+
         // Honeypot rempli = bot : faux succès, aucun mail envoyé
         if ($request->filled('company_website')) {
-            return redirect()
-                ->route('home')
-                ->withFragment('contact-section')
-                ->with('success', 'Message envoyé avec succès ! Je vous réponds dès que possible.');
+            return $this->contactSuccess(
+                $wantsJson,
+                'Message envoyé avec succès ! Je vous réponds dès que possible.'
+            );
         }
 
         $data = $request->validated();
@@ -52,30 +60,25 @@ class indexController extends Controller
         if (blank($recipient)) {
             report(new \RuntimeException('MAIL_TO_ADDRESS manquant.'));
 
-            return redirect()
-                ->route('home')
-                ->withFragment('contact-section')
-                ->withInput()
-                ->with('error', 'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.');
+            return $this->contactError(
+                $wantsJson,
+                'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.'
+            );
         }
 
-        if (app()->environment('production')) {
-            $mailer = config('mail.default');
-            $resendMissing = $mailer === 'resend' && empty(config('services.resend.key'));
+        $mailer = $this->resolveContactMailer();
 
-            if ($mailer === 'log' || $resendMissing) {
-                report(new \RuntimeException('Configuration mail manquante en production (Resend).'));
+        if ($mailer === null) {
+            report(new \RuntimeException('Configuration mail manquante pour le formulaire de contact.'));
 
-                return redirect()
-                    ->route('home')
-                    ->withFragment('contact-section')
-                    ->withInput()
-                    ->with('error', 'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.');
-            }
+            return $this->contactError(
+                $wantsJson,
+                'L\'envoi est temporairement indisponible. Contactez-moi plutôt sur WhatsApp.'
+            );
         }
 
         try {
-            Mail::mailer(config('mail.default'))
+            Mail::mailer($mailer)
                 ->to($recipient)
                 ->send(new ContactMail($data));
         } catch (\Throwable $e) {
@@ -86,16 +89,72 @@ class indexController extends Controller
                 $message .= ' ('.$e->getMessage().')';
             }
 
-            return redirect()
-                ->route('home')
-                ->withFragment('contact-section')
-                ->withInput()
-                ->with('error', $message);
+            return $this->contactError($wantsJson, $message);
+        }
+
+        return $this->contactSuccess(
+            $wantsJson,
+            'Message envoyé avec succès ! Je vous réponds dès que possible.'
+        );
+    }
+
+    /**
+     * Choisit un mailer utilisable. Si SMTP est configuré sans mot de passe
+     * mais qu’une clé Resend est présente, bascule sur Resend.
+     */
+    private function resolveContactMailer(): ?string
+    {
+        $mailer = (string) config('mail.default');
+
+        if ($mailer === 'smtp' && blank(config('mail.mailers.smtp.password')) && filled(config('services.resend.key'))) {
+            $mailer = 'resend';
+        }
+
+        if ($mailer === 'resend' && blank(config('services.resend.key'))) {
+            return null;
+        }
+
+        if ($mailer === 'smtp' && (
+            blank(config('mail.mailers.smtp.host'))
+            || blank(config('mail.mailers.smtp.username'))
+            || blank(config('mail.mailers.smtp.password'))
+        )) {
+            return null;
+        }
+
+        if ($mailer === 'log' && app()->environment('production')) {
+            return null;
+        }
+
+        return $mailer;
+    }
+
+    private function contactSuccess(bool $wantsJson, string $message): JsonResponse|RedirectResponse
+    {
+        if ($wantsJson) {
+            return response()->json([
+                'ok' => true,
+                'message' => $message,
+            ]);
         }
 
         return redirect()
-            ->route('home')
-            ->withFragment('contact-section')
-            ->with('success', 'Message envoyé avec succès ! Je vous réponds dès que possible.');
+            ->route('contact')
+            ->with('success', $message);
+    }
+
+    private function contactError(bool $wantsJson, string $message): JsonResponse|RedirectResponse
+    {
+        if ($wantsJson) {
+            return response()->json([
+                'ok' => false,
+                'message' => $message,
+            ], 422);
+        }
+
+        return redirect()
+            ->route('contact')
+            ->withInput()
+            ->with('error', $message);
     }
 }

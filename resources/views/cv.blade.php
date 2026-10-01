@@ -12,10 +12,10 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel="stylesheet" href="{{ asset('css/style.css') }}?v=25">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}?v=39">
 </head>
 <body class="cv-page-body shell-cv">
 
@@ -31,9 +31,10 @@
 				<ul class="navbar-nav nav ml-auto site-nav__list">
 					<li class="nav-item"><a href="{{ route('home') }}" class="nav-link site-nav__link"><span data-i18n="cv.nav.portfolio">Portfolio</span></a></li>
 					<li class="nav-item active"><a href="{{ route('cv') }}" class="nav-link site-nav__link"><span data-i18n="cv.nav.cv">CV</span></a></li>
-					<li class="nav-item"><a href="{{ route('home') }}#contact-section" class="nav-link site-nav__link"><span data-i18n="cv.nav.contact">Contact</span></a></li>
+					<li class="nav-item"><a href="{{ route('contact') }}" class="nav-link site-nav__link"><span data-i18n="cv.nav.contact">Contact</span></a></li>
 					<li class="nav-item nav-item-lang">
-						<a href="#" id="lang-toggle" class="nav-link lang-toggle site-nav__lang" title="English" aria-label="Changer de langue">
+						<a href="#" id="lang-toggle" class="nav-link lang-toggle site-nav__lang" title="English" aria-label="Passer en anglais">
+							<span class="lang-toggle-flag" aria-hidden="true">🇬🇧</span>
 							<span class="lang-toggle-label">EN</span>
 						</a>
 					</li>
@@ -74,14 +75,15 @@
 				<div class="shell-cv__identity">
 					<figure class="shell-cv__media">
 						<span class="shell-cv__corners" aria-hidden="true"></span>
+						<span class="shell-cv__glow" aria-hidden="true"></span>
 						<picture>
-							<source srcset="{{ asset('images/profile/moi2.webp') }}" type="image/webp">
+							<source srcset="{{ asset('images/profile/Nessi.webp') }}" type="image/webp">
 							<img
 								class="shell-cv__photo"
-								src="{{ asset('images/profile/moi2.jpg') }}"
+								src="{{ asset('images/profile/Nessi.jpg') }}"
 								alt="Portrait de Narcisse OGOUDIKPE"
-								width="360"
-								height="450"
+								width="960"
+								height="960"
 								loading="eager"
 								decoding="async"
 							>
@@ -92,7 +94,7 @@
 						<div class="shell-cv__id-meta">
 							<span class="shell-cv__badge">
 								<span class="shell-cv__badge-dot" aria-hidden="true"></span>
-								<span data-i18n="cv.availability">Ouvert aux missions · remote ou présentiel</span>
+								<span data-i18n="cv.availability">Ouvert aux missions</span>
 							</span>
 							<p class="shell-cv__role" data-i18n="cv.role">FULL-STACK DEVELOPER</p>
 							<h1 class="shell-cv__name">Narcisse OGOUDIKPE</h1>
@@ -106,15 +108,15 @@
 								</a>
 							</li>
 							<li>
-								<a href="tel:{{ config('portfolio.phone_bj.tel') }}">
+								<a href="tel:{{ $portfolio->phoneBjTel() }}">
 									<span class="shell-cv__contact-icon" aria-hidden="true"><i class="fa fa-phone"></i></span>
-									<span>{{ config('portfolio.phone_bj.display') }}</span>
+									<span>{{ $portfolio->phoneBjDisplay() }}</span>
 								</a>
 							</li>
 							<li>
-								<a href="{{ config('portfolio.whatsapp.url') }}" target="_blank" rel="noopener">
+								<a href="{{ $portfolio->whatsappUrl() }}" target="_blank" rel="noopener">
 									<span class="shell-cv__contact-icon" aria-hidden="true"><i class="fab fa-whatsapp"></i></span>
-									<span>{{ config('portfolio.whatsapp.display') }}</span>
+									<span>{{ $portfolio->whatsappDisplay() }}</span>
 								</a>
 							</li>
 							<li>
@@ -137,8 +139,7 @@
 									concrètes : stock, suivi de colis, forums, avec une base de données claire.
 								</p>
 								<p data-i18n="cv.profile.p2">
-									Disponible pour missions, collaborations ou projets freelance :
-									backend Laravel, remote ou présentiel.
+									Disponible pour des missions et des collaborations, sur du Laravel.
 								</p>
 								<p class="mb-0" data-i18n="cv.profile.p3">
 									Formé chez Simplon Burkina (2024–2025). Projets et code disponibles sur GitHub.
@@ -155,8 +156,8 @@
 									<span class="shell-cv__tag">Laravel</span>
 								</div>
 								<p class="shell-cv__entry-text" data-i18n="cv.project.stock">
-									Système complet produits / ventes / caisse, logique métier (entrées, sorties, suivi),
-									base de données et interface d’administration Laravel & Bootstrap.
+									La caisse, le catalogue et le stock sont dans la même application.
+									Une vente met les quantités à jour tout de suite.
 								</p>
 							</article>
 
@@ -166,7 +167,8 @@
 									<span class="shell-cv__tag">Laravel · Admin</span>
 								</div>
 								<p class="shell-cv__entry-text" data-i18n="cv.project.colis">
-									Tracking transporteur : statuts, tableau de bord et interface d’administration.
+									Suivi des colis pour une société de transport.
+									Le statut de chaque envoi se lit sur un tableau de bord, et se met à jour depuis l’admin.
 								</p>
 							</article>
 
@@ -176,8 +178,8 @@
 									<span class="shell-cv__tag">PHP · MySQL</span>
 								</div>
 								<p class="shell-cv__entry-text" data-i18n="cv.project.forum">
-									Plateforme avec gestion des utilisateurs, publication de messages
-									et système d’authentification.
+									Un espace où les développeurs publient et se répondent.
+									Chacun a un compte, et l’accès passe par une authentification.
 								</p>
 							</article>
 
@@ -187,7 +189,8 @@
 									<span class="shell-cv__tag">HTML · CSS</span>
 								</div>
 								<p class="shell-cv__entry-text mb-0" data-i18n="cv.project.time">
-									Site e-commerce vitrine pour montres, design soigné et navigation responsive.
+									Site de montres haut de gamme, avec fiches produit et navigation.
+									Réalisé en HTML et CSS.
 								</p>
 							</article>
 						</section>
@@ -215,7 +218,6 @@
 								<p class="shell-cv__entry-role" data-i18n="cv.edu.ltp.role">DTI : Installation & Maintenance Informatique</p>
 								<p class="shell-cv__entry-text mb-0" data-i18n="cv.edu.ltp.desc">
 									Maintenance informatique, réseaux de base, initiation à la programmation.
-									Porto-Novo, Bénin.
 								</p>
 							</article>
 						</section>
@@ -281,7 +283,7 @@
 
 			<div class="shell-cv__cta">
 				<p data-i18n="cv.interested">Intéressé par mon profil ?</p>
-				<a href="{{ route('home') }}#contact-section" class="shell-btn shell-btn--primary" data-i18n="cv.contact">
+				<a href="{{ route('contact') }}" class="shell-btn shell-btn--primary" data-i18n="cv.contact">
 					Me contacter
 				</a>
 			</div>
@@ -297,7 +299,7 @@
 				<p class="site-footer__credits mb-0">
 					<a href="{{ route('home') }}">Portfolio</a>
 					<span class="site-footer__heart" aria-hidden="true">·</span>
-					<a href="{{ route('home') }}#contact-section"><span data-i18n="cv.nav.contact">Contact</span></a>
+					<a href="{{ route('contact') }}"><span data-i18n="cv.nav.contact">Contact</span></a>
 				</p>
 			</div>
 		</div>
@@ -311,7 +313,7 @@
 	<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
 	<script src="{{ asset('js/popper.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('js/main.js') }}?v=11"></script>
+	<script src="{{ asset('js/main.js') }}?v=22"></script>
 	<script src="{{ asset('js/custom-cursor.js') }}?v=3"></script>
 	<script>
 	(function () {

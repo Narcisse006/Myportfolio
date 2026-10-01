@@ -50,9 +50,24 @@ Dans **Environment** du service, ajoutez ou vérifiez :
 | `CACHE_STORE` | `file` |
 | `QUEUE_CONNECTION` | `sync` |
 
-### Email (formulaire de contact) — Resend
+### Email (formulaire de contact)
 
-Sans `RESEND_KEY`, le contact ne part pas (mode `log` ou erreur).
+**Local (recommandé)** : Gmail SMTP avec un mot de passe d’application.
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=ton@gmail.com
+MAIL_PASSWORD=xxxx-xxxx-xxxx-xxxx
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=ton@gmail.com
+MAIL_TO_ADDRESS=ton@gmail.com
+```
+
+**Render (option)** : Resend.
+
+Sans `RESEND_KEY`, le contact ne part pas si `MAIL_MAILER=resend`.
 
 1. Créez un compte sur [resend.com](https://resend.com) (gratuit : ~100 emails/jour).
 2. **API Keys** → créez une clé → copiez `re_...`
@@ -157,8 +172,8 @@ Astuces pour apparaître sur « Narcisse OGOUDIKPE » :
 | CSS/JS cassés | `APP_URL` doit être l’URL HTTPS Render exacte |
 | Contact ne part pas | Vérifier toutes les variables `MAIL_*` |
 | Build échoue | Vérifier que `composer.lock` est sur GitHub |
-| `PHP version ">= 8.4.1"` au démarrage | Le conteneur doit être `php:8.4-cli`. Symfony 8.1 du lock ne tourne pas sur PHP 8.2 |
-| Build Composer et runtime divergents | Les deux étapes du Dockerfile utilisent `php:8.4-cli`, avec `intl` installé avant `composer install` |
+| `PHP version ">= 8.4.1"` au démarrage | Le runtime doit rester PHP 8.4 (image FrankenPHP `1-php8.4`). Symfony 8.1 du lock ne tourne pas sur PHP 8.2 |
+| Build Composer et runtime divergents | L’étape Composer reste `php:8.4-cli` avec `intl`. Le runtime est FrankenPHP, mêmes extensions `intl`, `pdo_sqlite`, `zip` |
 | Build échoue sur `docker-php-ext-install` | Ne pas installer `fileinfo` (déjà inclus) ; le Dockerfile utilise `$PHPIZE_DEPS` |
 | Build échoue sur `package:discover` | Normal au build sans `.env` — exécuté au démarrage dans `docker/start.sh` |
 

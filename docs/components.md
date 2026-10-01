@@ -9,15 +9,15 @@ Avant d’ajouter un partial, un widget ou un bouton d’admin, regarder cette l
 - Emplacement : `resources/views/partials/seo.blade.php`
 - Rôle : balise `title`, description, canonical, Open Graph, Twitter, JSON-LD de la personne.
 - Paramètres optionnels passés par `@include` : `seoTitle`, `seoDescription`, `seoCanonical`, `seoImage`, `seoType`.
-- Défauts écrits dans le partial : nom « Narcisse OGOUDIKPE », image `images/Moi2.jpg`.
+- Défauts écrits dans le partial : nom « Narcisse OGOUDIKPE », image `images/profile/Nessi.jpg`.
 - Réutiliser sur toute nouvelle page publique. L’accueil et le CV le font déjà.
 - La balise `google-site-verification` est dans ce fichier.
-- Portrait À propos de l’accueil : `images/profile/moi2.webp` (+ fallback `moi2.jpg`). L’asset SEO peut rester sur `Moi2.jpg`.
+- Portrait À propos et CV : `images/profile/Nessi.webp`, repli `Nessi.jpg`. La même image sert au partage SEO.
 
 ### `partials.favicon`
 
 - Emplacement : `resources/views/partials/favicon.blade.php`
-- Rôle : favicon `.ico`, PNG 32 et 64, icône Apple, `theme-color` `#52a6c4`.
+- Rôle : favicon `.ico`, PNG 32 et 64, icône Apple. Lettres « NO » or sur fond sombre, coins cyan et point réacteur. `theme-color` `#080a10`.
 - Pas de paramètre.
 - Réutiliser dans le `<head>` de toute page publique.
 
@@ -45,17 +45,18 @@ Avant d’ajouter un partial, un widget ou un bouton d’admin, regarder cette l
 
 ### `config/portfolio.php`
 
-- Clés : `github`, `email`, `phone_bj.display`, `phone_bj.tel`, `whatsapp.display`, `whatsapp.url`, `projects.timelux`, `projects.forum`, `projects.stock`, `projects.colis`.
-- `email` lit `MAIL_TO_ADDRESS`.
+- Clés : `github`, `email`, `address`, `phone_bj.display`, `phone_bj.tel`, `phone_bf.display`, `phone_bf.tel`, `whatsapp.display`, `whatsapp.url`, `projects.timelux`, `projects.forum`, `projects.stock`, `projects.colis`.
+- `address`, téléphones et WhatsApp sont le repli si `portfolio_settings` est vide. L’admin « Réglages » écrit en base via `PortfolioSetting`.
+- `email` lit `MAIL_TO_ADDRESS` (hors page Réglages).
 - Les quatre URL `projects.*` ne servent pas à l’affichage du site. `ProjectSeeder` les lit seulement si elles ne se terminent pas par `Narcisse006`. Sinon il utilise les dépôts écrits dans le seeder.
-- Réutiliser `config('portfolio...')` pour un nouveau lien de contact, plutôt que coller l’URL dans un Blade.
+- Pour l’affichage public, préférer `PortfolioSetting::current()` plutôt que coller un numéro dans un Blade.
 
 ## Formulaire et e-mail
 
 ### `ContactRequest`
 
 - Emplacement : `app/Http/Requests/ContactRequest.php`
-- Rôle : autoriser tout le monde, valider nom / e-mail / sujet / message, messages français, redirection vers `#contact-section`.
+- Rôle : autoriser tout le monde, valider nom / e-mail / sujet / message, messages français, redirection vers `/contact`.
 - Le champ `company_website` court-circuite les règles.
 - Réutiliser cette classe pour le `POST /contact`. Ne pas dupliquer les règles dans le contrôleur.
 
@@ -113,7 +114,7 @@ Ils sont listés dans `Dashboard::getWidgets()`. `$isLazy = false` sur les trois
 
 | Fichier | Rôle | Quand le réutiliser |
 |---------|------|---------------------|
-| `public/js/main.js` | Navigation, animations du thème, traductions FR/EN, `initHeroHud()`, `initSkillsMarquee()`, `initShellReveal()`, `initShellPageMotion()` | Toute page qui a `data-i18n` ou le menu du thème. `initHeroHud` ne s’active que si `#home-section.hero-hud` est présent |
+| `public/js/main.js` | Navigation, animations du thème, traductions FR/EN, `initHeroHud()`, `initSkillsMarquee()`, `initShellReveal()`, `initShellPageMotion()`, `initAiChat()` | Toute page qui a `data-i18n` ou le menu du thème. `initHeroHud` ne s’active que si `#home-section.hero-hud` est présent ; `initAiChat` si `#ai-chat` |
 | `public/js/page-title.js` | Titre d’onglet et hash selon `[data-page-title]` | Une page longue à sections, comme l’accueil. Le CV ne le charge pas |
 | `public/js/custom-cursor.js` | Curseur réticule + traînée | Avec le partial `custom-cursor` |
 | `public/js/jquery.min.js`, `bootstrap.min.js`, Stellar, Waypoints, Magnific Popup | Librairies du thème Colorlib | Déjà enchaînées en bas de `index.blade.php`. Ne pas en charger une deuxième copie |
@@ -124,11 +125,12 @@ Ils sont listés dans `Dashboard::getWidgets()`. `$isLazy = false` sur les trois
 - Bloc `SECTIONS SOMBRES PREMIUM` : variables `--section-*`, sections post-Hero.
 - Bloc `SITE SHELL NAV + FOOTER` : nav glass (`#ftco-navbar.site-nav`), footer `.site-footer`, boutons `.shell-btn` (ADN Hero sans toucher le HUD).
 - Marquee compétences : `.skills-marquee` + `.skill-tile` ; `initSkillsMarquee()` dans `main.js` clone les groupes pour une boucle sans trou.
-- Profil public : `.shell-about` (À propos fusionnée : intro, photo, 4 cards expertise) ; boutons `.shell-btn--primary` / `--ghost`.
-- Projets : `.shell-projects` / `.shell-project` (media, tags, liens url / github).
+- Profil public : `.shell-about` (À propos fusionnée : intro, photo, 4 cards expertise avec icône Font Awesome) ; boutons `.shell-btn--primary` / `--ghost`.
+- Projets : `.shell-projects` / `.shell-project` (hover lift + overlay `+` lightbox, liens En ligne / GitHub).
 - Étude de cas : `.shell-case` (visual + panel contexte / livrables).
 - Compétences : `.shell-skills` (en-tête shell) + marquee existant.
 - Contact : `.shell-contact` (formulaire + aside, alerts / honeypot inchangés).
+- Assistant chat : `.ai-chat` (toggle icône seule, header Avatar Iron Man + statut en ligne, CTA WhatsApp après réponse avec phrase de transition).
 - Page CV : `body.shell-cv` / `shell-cv__*` (identité photo, panneaux, entries rail cyan).
 - Motion shell : `.shell-reveal` (IntersectionObserver) + transition page (View Transitions / fade fallback). `prefers-reduced-motion` désactive le tout.
 - Fil HUD : `.shell-readout` + `.hud-scroll` (pont Hero → About) ; accent warm `--section-accent-warm`.
@@ -137,6 +139,15 @@ Ils sont listés dans `Dashboard::getWidgets()`. `$isLazy = false` sur les trois
 Owl Carousel et Scrollax ne sont plus chargés sur l’accueil (l’ancien Hero carrousel a été remplacé par le Hero HUD). Les fichiers restent dans `public/js/` et `public/css/` mais ne sont plus référencés.
 
 Les fichiers `public/js/filament/` et `public/css/filament/` sont les assets publiés de Filament (`php artisan filament:upgrade` dans `composer.json`). On ne les édite pas à la main.
+
+## Middleware
+
+### `SecurityHeaders`
+
+- Emplacement : `app/Http/Middleware/SecurityHeaders.php`
+- Branché dans `bootstrap/app.php` sur toutes les réponses, site public et admin.
+- Pose `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy` et une politique de contenu. `Strict-Transport-Security` seulement si la requête est en HTTPS.
+- Ne pas en créer un second. Étendre celui-ci si un nouvel en-tête est nécessaire.
 
 ## Ce qui ressemble à un composant mais n’en est pas un
 

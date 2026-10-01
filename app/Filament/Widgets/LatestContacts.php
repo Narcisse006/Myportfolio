@@ -44,6 +44,13 @@ class LatestContacts extends BaseWidget
             ])
             ->emptyStateHeading('Aucun message')
             ->emptyStateDescription('Les messages du formulaire apparaîtront ici.')
-            ->emptyStateIcon('heroicon-o-envelope');
+            ->emptyStateIcon('heroicon-o-envelope')
+            ->actions([
+                Tables\Actions\Action::make('reply')
+                    ->label('Répondre')
+                    ->icon('heroicon-o-paper-airplane')
+                    ->url(fn (Contact $record): string => $record->gmailReplyUrl())
+                    ->openUrlInNewTab(),
+            ]);
     }
 }

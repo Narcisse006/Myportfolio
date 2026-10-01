@@ -19,6 +19,8 @@ services:
         value: error
       - key: SESSION_DRIVER
         value: file
+      - key: SESSION_SECURE_COOKIE
+        value: "true"
       - key: CACHE_STORE
         value: file
       - key: QUEUE_CONNECTION
@@ -34,8 +36,12 @@ services:
       - key: RESEND_KEY
         sync: false
       - key: MAIL_FROM_ADDRESS
-        sync: false
+        value: onboarding@resend.dev
       - key: MAIL_FROM_NAME
         value: Narcisse Portfolio
       - key: MAIL_TO_ADDRESS
         value: ogoudikpenarcisse@gmail.com
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-flash-lite-latest

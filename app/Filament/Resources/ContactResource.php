@@ -85,9 +85,21 @@ class ContactResource extends Resource
                     ->modalSubmitAction(false)
                     ->modalCancelActionLabel('Fermer')
                     ->modalContent(fn (Contact $record) => view('filament.contacts.message', ['record' => $record]))
+                    ->extraModalFooterActions([
+                        Tables\Actions\Action::make('replyFromModal')
+                            ->label('Répondre')
+                            ->icon('heroicon-o-paper-airplane')
+                            ->url(fn (Contact $record): string => $record->gmailReplyUrl())
+                            ->openUrlInNewTab(),
+                    ])
                     ->mountUsing(function (Contact $record): void {
                         $record->markAsRead();
                     }),
+                Tables\Actions\Action::make('reply')
+                    ->label('Répondre')
+                    ->icon('heroicon-o-paper-airplane')
+                    ->url(fn (Contact $record): string => $record->gmailReplyUrl())
+                    ->openUrlInNewTab(),
                 Tables\Actions\Action::make('markAsRead')
                     ->label('Marquer comme lu')
                     ->icon('heroicon-o-check')

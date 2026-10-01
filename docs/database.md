@@ -19,17 +19,19 @@ Modèle : `app/Models/Project.php`.
 | `title` | Titre affiché sur le site et dans l’admin |
 | `description` | Texte de la carte |
 | `tech_stack` | JSON, liste de chaînes. Nullable. Le modèle le cast en tableau |
-| `image` | Nullable. Chemin ou URL, voir l’accesseur `imageUrl` |
-| `url` | Nullable. Lien du projet s’il n’y a pas de lien GitHub |
-| `github_url` | Nullable. Lien préféré sur la carte |
+| `image` | Nullable. Couverture de la carte. Chemin ou URL, voir `imageUrl` |
+| `gallery` | JSON nullable. Liste de chemins/URL de captures pour la lightbox |
+| `url` | Nullable. Lien du site déployé (« Voir le site ») |
+| `github_url` | Nullable. Lien GitHub |
 | `order` | Entier, défaut 0. Tri de la page d’accueil |
 | `is_published` | Booléen, défaut vrai. Faux = masqué sur le site |
+| `status` | Chaîne : `online`, `in_progress`, `testing`, `archived`. Défaut `in_progress`. Badge sur la carte publique |
 | `created_at`, `updated_at` | Horodatage Laravel |
 
 Règles :
 
 - Seuls les projets `is_published` apparaissent sur `/`, triés par `order`.
-- Le seeder `ProjectSeeder` fait un `firstOrCreate` sur le titre. Relancer le seed ne duplique pas TimeLux, Forum Dev, Gestion de stock et Suivi de colis. Changer le titre dans l’admin puis reseeder recrée l’ancien titre.
+- Le seeder `ProjectSeeder` fait un `updateOrCreate` sur le titre. Relancer le seed ne duplique pas TimeLux, Forum Dev, Gestion de stock, Suivi de colis, Scolaris, Gestion Présence et Scanner Multi-Fonctions. Un projet déjà en base garde sa valeur `is_published` (un projet masqué le reste). Changer le titre dans l’admin puis reseeder recrée l’ancien titre.
 - La colonne s’appelle `order`. C’est un mot réservé SQL. Eloquent l’échappe. Dans une requête SQL écrite à la main, il faudra des guillemets adaptés au moteur.
 
 ## `contacts`
@@ -46,7 +48,22 @@ Modèle : `app/Models/Contact.php`.
 
 `markAsRead()` n’écrit la date qu’une fois. Rappeler la méthode ne change pas `read_at`.
 
-Le modèle n’a pas de colonne « répondu » ni de lien vers un utilisateur.
+`gmailReplyUrl()` construit un lien Gmail prérempli (destinataire, sujet `Re: …`, corps cité). Aucune colonne « répondu » en base.
+
+## `portfolio_settings`
+
+Migration : `database/migrations/2026_10_01_100000_create_portfolio_settings_table.php`.  
+Modèle : `app/Models/PortfolioSetting.php`.
+
+| Colonne | Rôle |
+|---------|------|
+| `id` | Clé primaire. Une seule ligne attendue |
+| `phone_bj`, `phone_bf` | Numéros affichés (texte libre, ex. `+229 …`) |
+| `address` | Adresse courte affichée (ex. `Bénin`) |
+| `whatsapp` | Numéro WhatsApp (le lien `wa.me` est calculé) |
+| `created_at`, `updated_at` | Horodatage Laravel |
+
+`PortfolioSetting::current()` retourne la ligne ou un modèle vide. Les méthodes `phoneBjDisplay()`, `phoneBfDisplay()`, `addressDisplay()`, `whatsappDisplay()`, `phoneBjTel()`, `phoneBfTel()`, `whatsappUrl()` retombent sur `config/portfolio.php` si le champ est vide.
 
 ## `users`
 
@@ -68,7 +85,7 @@ Modèle : `app/Models/User.php`.
 | `last_login_at` | Nullable. Écrite à chaque événement `Login` dans `AppServiceProvider` |
 | `created_at`, `updated_at` | Horodatage Laravel |
 
-`AdminUserSeeder` fait un `updateOrCreate` sur l’e-mail, avec `ADMIN_EMAIL`, `ADMIN_PASSWORD` et `ADMIN_NAME`. Si l’e-mail ou le mot de passe est vide, le seeder ne fait rien. Le mot de passe en clair dans `.env` est hashé par le cast du modèle.
+`AdminUserSeeder` crée le compte seulement s’il n’existe pas encore, avec `ADMIN_EMAIL`, `ADMIN_PASSWORD` et `ADMIN_NAME`. Si l’e-mail ou le mot de passe est vide, le seeder ne fait rien. Un redémarrage ne remplace pas le mot de passe changé dans le profil. Le mot de passe en clair dans `.env` est hashé par le cast du modèle.
 
 `canAccessPanel()` retourne `true` pour n’importe quel utilisateur de cette table. Il n’y a pas de colonne rôle.
 
