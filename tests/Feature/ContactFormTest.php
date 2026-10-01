@@ -27,7 +27,7 @@ class ContactFormTest extends TestCase
         $response = $this->from(route('home'))
             ->post(route('contact.store'), $this->validPayload());
 
-        $response->assertRedirect(route('home').'#contact-section');
+        $response->assertRedirect(route('contact'));
         $response->assertSessionHas('success');
 
         Mail::assertSent(ContactMail::class, function (ContactMail $mail) {
@@ -37,6 +37,26 @@ class ContactFormTest extends TestCase
         $this->assertDatabaseHas(Contact::class, [
             'email' => 'jean@example.com',
             'subject' => 'Proposition de stage',
+        ]);
+    }
+
+    public function test_contact_form_sends_mail_via_ajax_without_redirect(): void
+    {
+        Mail::fake();
+
+        $response = $this->postJson(route('contact.store'), $this->validPayload([
+            'email' => 'ajax@example.com',
+        ]));
+
+        $response->assertOk()
+            ->assertJson([
+                'ok' => true,
+                'message' => 'Message envoyé avec succès ! Je vous réponds dès que possible.',
+            ]);
+
+        Mail::assertSent(ContactMail::class);
+        $this->assertDatabaseHas(Contact::class, [
+            'email' => 'ajax@example.com',
         ]);
     }
 
@@ -52,10 +72,30 @@ class ContactFormTest extends TestCase
                 'message' => 'court',
             ]);
 
-        $response->assertRedirect(route('home').'#contact-section');
+        $response->assertRedirect(route('contact'));
         $response->assertSessionHasErrors(['name', 'email', 'subject', 'message']);
         Mail::assertNothingSent();
         $this->assertDatabaseCount(Contact::class, 0);
+    }
+
+    public function test_contact_form_validates_via_ajax(): void
+    {
+        Mail::fake();
+
+        $response = $this->postJson(route('contact.store'), [
+            'name' => '',
+            'email' => 'bad',
+            'subject' => 'ab',
+            'message' => 'court',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJson([
+                'ok' => false,
+            ])
+            ->assertJsonValidationErrors(['name', 'email', 'subject', 'message']);
+
+        Mail::assertNothingSent();
     }
 
     public function test_honeypot_returns_fake_success_without_sending_mail(): void
@@ -67,7 +107,7 @@ class ContactFormTest extends TestCase
                 'company_website' => 'https://spam.example',
             ]));
 
-        $response->assertRedirect(route('home').'#contact-section');
+        $response->assertRedirect(route('contact'));
         $response->assertSessionHas('success');
         Mail::assertNothingSent();
         $this->assertDatabaseCount(Contact::class, 0);
@@ -88,7 +128,57 @@ class ContactFormTest extends TestCase
                 'email' => 'limited@example.com',
             ]));
 
-        $response->assertRedirect(route('home').'#contact-section');
+        $response->assertRedirect(route('contact'));
         $response->assertSessionHas('error');
+    }
+
+    public function test_contact_form_keeps_message_when_mail_fails(): void
+    {
+        Mail::fake();
+        Mail::shouldReceive('mailer')->andReturnSelf();
+        Mail::shouldReceive('to')->andReturnSelf();
+        Mail::shouldReceive('send')->andThrow(new \RuntimeException('SMTP unavailable'));
+
+        $response = $this->from(route('home'))
+            ->post(route('contact.store'), $this->validPayload([
+                'email' => 'fail@example.com',
+            ]));
+
+        $response->assertRedirect(route('contact'));
+        $response->assertSessionHas('error');
+        $response->assertSessionMissing('success');
+
+        $this->assertDatabaseHas(Contact::class, [
+            'email' => 'fail@example.com',
+            'subject' => 'Proposition de stage',
+        ]);
+    }
+
+    public function test_contact_form_falls_back_to_resend_when_smtp_password_missing(): void
+    {
+        Mail::fake();
+
+        config([
+            'mail.default' => 'smtp',
+            'mail.mailers.smtp.password' => null,
+            'services.resend.key' => 'test-resend-key',
+        ]);
+
+        $response = $this->postJson(route('contact.store'), $this->validPayload([
+            'email' => 'fallback@example.com',
+        ]));
+
+        $response->assertOk()->assertJson(['ok' => true]);
+        Mail::assertSent(ContactMail::class);
+        $this->assertDatabaseHas(Contact::class, [
+            'email' => 'fallback@example.com',
+        ]);
+    }
+
+    public function test_section_routes_render_home_page(): void
+    {
+        foreach (['about', 'projects', 'skills', 'contact'] as $name) {
+            $this->get(route($name))->assertOk()->assertSee('NARCISSE OGOUDIKPE', false);
+        }
     }
 }

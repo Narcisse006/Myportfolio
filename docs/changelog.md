@@ -2,6 +2,41 @@
 
 Les petits correctifs de build ne sont pas listés un par un. Le détail des commits reste dans Git.
 
+## 2026-10-01
+
+### Ajouté
+
+- Trois projets publiés : Scolaris, Gestion Présence, Scanner Multi-Fonctions.
+
+## 2026-09-30
+
+### Ajouté
+
+- Routes de section `/about`, `/projects`, `/skills`, `/contact` (même vue que l’accueil).
+- Test d’échec d’envoi du formulaire : le message reste en base, session `error`.
+- Statut projet (`online` / `in_progress` / `testing` / `archived`) en base, Select Filament et badge sur les cartes.
+- Overlay de liens + tilt 3D sur les cartes projets.
+- Portrait détouré (PNG/WebP transparent) et cadre HUD renforcé.
+- Polices Rajdhani / DM Sans (Share Tech Mono conservé sur le Hero).
+- Section expérience timeline préparée (`hidden`).
+- Assistant IA flottant (`POST /ai/chat`) : FAQ locale + Gemini optionnel (clé hors dépôt).
+- Basculeur de langue FR/EN avec drapeaux (🇬🇧 / 🇫🇷) dans la navbar.
+- Raffinement UI chat : toggle icône seule, titre « Assistant Narcisse », avatar Iron Man + statut en ligne.
+
+### Modifié
+
+- URL de section via History API (`page-title.js`) à la place des fragments `#…-section`.
+- Formulaire de contact en AJAX (pas de rechargement) ; faux succès `sessionStorage` retiré.
+- Bouton d’envoi contact : état loading (« Envoi en cours… ») pendant la requête.
+- Mail de contact via Resend (`onboarding@resend.dev` tant qu’aucun domaine n’est vérifié) ; bascule auto SMTP→Resend si mot de passe SMTP absent.
+- Redirection classique du formulaire vers `/contact` conservée pour les POST non-AJAX.
+- Navbar : lien Compétences. Sitemap mis à jour.
+- Grille projets : 3 colonnes desktop, 2 tablette, 1 mobile.
+- Textes publics réécrits (Hero, À propos, projets, contact, footer, meta). Adresse limitée à « Bénin », sans ville.
+- Portrait du site remplacé par `images/profile/Nessi` (accueil, CV, partage).
+- Les deux numéros (Bénin et Burkina Faso) apparaissent dans les coordonnées et le pied de page.
+- Cartes À propos : icônes à la place des numéros, fondu décalé, soulèvement et lueur au survol.
+
 ## 2026-05-20
 
 ### Ajouté

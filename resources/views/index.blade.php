@@ -3,16 +3,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	@include('partials.seo', [
 		'seoTitle' => 'Narcisse OGOUDIKPE | Full-Stack Developer - Portfolio',
-		'seoDescription' => 'Narcisse OGOUDIKPE, Full-Stack Developer à Porto-Novo. Applications web métier, API REST, Laravel, sécurité et collaborations. Portfolio et CV.',
+		'seoDescription' => 'Narcisse OGOUDIKPE, développeur Laravel. Bénin. Applications métier en PHP et MySQL.',
 		'seoCanonical' => url('/'),
 	])
 	@include('partials.favicon')
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 	<link rel="preconnect" href="https://stackpath.bootstrapcdn.com">
 	<link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -29,7 +30,7 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-	<link rel="stylesheet" href="{{ asset('css/style.css') }}?v=26">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}?v=39">
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
@@ -37,19 +38,21 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target site-nav" id="ftco-navbar">
 		<div class="container site-nav__inner">
-			<a class="navbar-brand site-nav__brand" href="#home-section">Narcisse<span class="site-nav__dot">.</span></a>
+			<a class="navbar-brand site-nav__brand" href="{{ route('home') }}">Narcisse<span class="site-nav__dot">.</span></a>
 			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle site-nav__toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Ouvrir le menu">
 				<span class="site-nav__burger" aria-hidden="true"><span></span><span></span><span></span></span>
 			</button>
 
 			<div class="collapse navbar-collapse site-nav__collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto site-nav__list">
-					<li class="nav-item"><a href="#home-section" class="nav-link site-nav__link"><span data-i18n="nav.home">Accueil</span></a></li>
-					<li class="nav-item"><a href="#about-section" class="nav-link site-nav__link"><span data-i18n="nav.about">À propos</span></a></li>
-					<li class="nav-item"><a href="#projects-section" class="nav-link site-nav__link"><span data-i18n="nav.projects">Projets</span></a></li>
-					<li class="nav-item"><a href="#contact-section" class="nav-link site-nav__link"><span data-i18n="nav.contact">Contact</span></a></li>
+					<li class="nav-item"><a href="{{ route('home') }}" class="nav-link site-nav__link"><span data-i18n="nav.home">Accueil</span></a></li>
+					<li class="nav-item"><a href="{{ route('about') }}" class="nav-link site-nav__link"><span data-i18n="nav.about">À propos</span></a></li>
+					<li class="nav-item"><a href="{{ route('projects') }}" class="nav-link site-nav__link"><span data-i18n="nav.projects">Projets</span></a></li>
+					<li class="nav-item"><a href="{{ route('skills') }}" class="nav-link site-nav__link"><span data-i18n="nav.skills">Compétences</span></a></li>
+					<li class="nav-item"><a href="{{ route('contact') }}" class="nav-link site-nav__link"><span data-i18n="nav.contact">Contact</span></a></li>
 					<li class="nav-item nav-item-lang">
-						<a href="#" id="lang-toggle" class="nav-link lang-toggle site-nav__lang" title="English" aria-label="Changer de langue">
+						<a href="#" id="lang-toggle" class="nav-link lang-toggle site-nav__lang" title="English" aria-label="Passer en anglais">
+							<span class="lang-toggle-flag" aria-hidden="true">🇬🇧</span>
 							<span class="lang-toggle-label">EN</span>
 						</a>
 					</li>
@@ -154,21 +157,21 @@
 
 		<aside class="hud-mission" aria-hidden="true">
 			<span class="hud-panel-label" data-i18n="hero.missionLabel">MISSION</span>
-			<span class="hud-panel-value" data-i18n="hero.mission">SHIP CLEAN SYSTEMS</span>
+			<span class="hud-panel-value" data-i18n="hero.mission">BUILD USEFUL APPS</span>
 		</aside>
 
 		{{-- Calque 10 : identité + CTA (toujours devant) --}}
 		<div class="hud-identity">
 			<h1 class="hud-name">NARCISSE OGOUDIKPE</h1>
-			<p class="hud-title" data-i18n="hero.title">FULL-STACK DEVELOPER</p>
-			<p class="hud-stack" data-i18n="hero.stack">Laravel · PHP · MySQL · Git</p>
+			<p class="hud-title" data-i18n="hero.title">Je construis des outils métier en Laravel.</p>
+			<p class="hud-stack" data-i18n="hero.stack">Laravel · PHP · MySQL · Filament</p>
 			<div class="hud-actions">
-				<a href="#projects-section" class="hud-btn hud-btn--primary" data-i18n="pro.cv">Voir mes projets</a>
-				<a href="#contact-section" class="hud-btn hud-btn--ghost" data-i18n="about.contact">Me contacter</a>
+				<a href="{{ route('projects') }}" class="hud-btn hud-btn--primary" data-i18n="pro.cv">Voir mes projets</a>
+				<a href="{{ route('contact') }}" class="hud-btn hud-btn--ghost" data-i18n="about.contact">Me contacter</a>
 			</div>
 		</div>
 
-		<a href="#about-section" class="hud-scroll" aria-label="Continuer vers À propos">
+		<a href="{{ route('about') }}" class="hud-scroll" aria-label="Continuer vers À propos">
 			<span class="hud-scroll__code" aria-hidden="true">01</span>
 			<span class="hud-scroll__label" data-i18n="hero.scroll">ENGAGE</span>
 			<span class="hud-scroll__chevron" aria-hidden="true"></span>
@@ -188,7 +191,7 @@
 				<span class="shell-about__eyebrow" data-i18n="about.profile">À propos</span>
 				<h2 class="shell-about__heading" data-i18n="about.heading">Qui je suis</h2>
 				<p class="shell-about__lead" data-i18n="about.lead">
-					Full-Stack Developer : backends clairs, applications métier et livraison jusqu’en production.
+					Du schéma MySQL jusqu’à la mise en ligne.
 				</p>
 			</header>
 
@@ -197,37 +200,35 @@
 					<span class="shell-about__hello" data-i18n="about.hello">Bonjour</span>
 					<p class="shell-about__badge">
 						<span class="shell-about__badge-dot" aria-hidden="true"></span>
-						<span data-i18n="pro.available">Disponible pour missions & collaborations</span>
+						<span data-i18n="pro.available">Disponible pour missions et collaborations</span>
 					</p>
 					<h3 class="shell-about__name">Narcisse OGOUDIKPE</h3>
 					<p class="shell-about__role" data-i18n-html="about.roleLine">
-						FULL-STACK DEVELOPER <br>
-						<span class="shell-profile__location">Disponible · remote ou présentiel</span>
+						FULL-STACK DEVELOPER
 					</p>
 					<p class="shell-about__text" data-i18n="about.intro1">
-						Formé chez Simplon, j’ai construit des applications concrètes :
-						gestion de stock, suivi de colis, forum. Mon fil rouge, c’est le backend Laravel.
+						Je code des applications Laravel pour des problèmes précis : une caisse reliée au stock, un suivi de colis pour le transport.
 					</p>
 					<p class="shell-about__text" data-i18n="about.intro2">
-						Ce qui m’intéresse : comprendre le besoin, structurer la base de données,
-						et livrer une interface claire jusqu’au déploiement.
+						J’ai fondé Nessium Academy, où j’enseigne la programmation.
 					</p>
 					<div class="shell-about__actions">
-						<a href="#projects-section" class="shell-btn shell-btn--primary" data-i18n="pro.cv">Voir mes projets</a>
+						<a href="{{ route('projects') }}" class="shell-btn shell-btn--primary" data-i18n="pro.cv">Voir mes projets</a>
 						<a href="{{ route('cv') }}" class="shell-btn shell-btn--ghost" data-i18n="about.download">Voir mon CV</a>
 					</div>
 				</div>
 
 				<figure class="shell-about__media mb-0">
 					<span class="shell-about__corners" aria-hidden="true"></span>
+					<span class="shell-about__glow" aria-hidden="true"></span>
 					<picture>
-						<source srcset="{{ asset('images/profile/moi2.webp') }}" type="image/webp">
+						<source srcset="{{ asset('images/profile/Nessi.webp') }}" type="image/webp">
 						<img
-							src="{{ asset('images/profile/moi2.jpg') }}"
+							src="{{ asset('images/profile/Nessi.jpg') }}"
 							alt="Narcisse OGOUDIKPE"
 							class="shell-about__img"
-							width="400"
-							height="520"
+							width="960"
+							height="960"
 							loading="lazy"
 							decoding="async"
 						>
@@ -237,26 +238,75 @@
 
 			<div class="shell-about__cards">
 				<article class="shell-about__card">
-					<span class="shell-about__card-num" aria-hidden="true">01</span>
+					<span class="shell-about__card-icon" aria-hidden="true"><i class="fa-solid fa-code"></i></span>
 					<h3 class="shell-about__card-title" data-i18n="highlights.card1.title">Backend Laravel</h3>
 					<p class="shell-about__card-text" data-i18n="highlights.card1.desc">Architecture MVC, routes REST, logique métier structurée et code maintenable.</p>
 				</article>
 				<article class="shell-about__card">
-					<span class="shell-about__card-num" aria-hidden="true">02</span>
+					<span class="shell-about__card-icon" aria-hidden="true"><i class="fa-solid fa-user-shield"></i></span>
 					<h3 class="shell-about__card-title" data-i18n="highlights.card2.title">Sécurité & rôles</h3>
 					<p class="shell-about__card-text" data-i18n="highlights.card2.desc">Authentification, middleware, permissions et validation des données côté serveur.</p>
 				</article>
 				<article class="shell-about__card">
-					<span class="shell-about__card-num" aria-hidden="true">03</span>
+					<span class="shell-about__card-icon" aria-hidden="true"><i class="fa-solid fa-database"></i></span>
 					<h3 class="shell-about__card-title" data-i18n="highlights.card3.title">Données fiables</h3>
 					<p class="shell-about__card-text" data-i18n="highlights.card3.desc">Modélisation MySQL, migrations, relations Eloquent et requêtes optimisées.</p>
 				</article>
 				<article class="shell-about__card">
-					<span class="shell-about__card-num" aria-hidden="true">04</span>
+					<span class="shell-about__card-icon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></span>
 					<h3 class="shell-about__card-title" data-i18n="highlights.card4.title">Mise en ligne</h3>
 					<p class="shell-about__card-text" data-i18n="highlights.card4.desc">Versioning Git, tests manuels, déploiement et suivi après livraison.</p>
 				</article>
 			</div>
+		</div>
+	</section>
+
+	{{--
+		Section Expérience (timeline) — préparée, non affichée.
+		Pour activer : retirer l’attribut hidden, ajouter un lien navbar vers #experience-section
+		(ou une route /experience branchée comme les autres sections), et retirer ce commentaire.
+	--}}
+	<section class="shell-experience" id="experience-section" hidden aria-hidden="true">
+		@include('partials.shell-surface-icons')
+		<div class="container">
+			<header class="shell-experience__header">
+				<p class="shell-readout" aria-hidden="true">
+					<span class="shell-readout__code">01b</span>
+					<span class="shell-readout__sep">·</span>
+					<span class="shell-readout__key">LOG</span>
+					<span class="shell-readout__value">EXPERIENCE</span>
+				</p>
+				<span class="shell-experience__eyebrow">Parcours</span>
+				<h2 class="shell-experience__heading">Expérience</h2>
+				<p class="shell-experience__lead">
+					Timeline prête. Le contenu sera ajouté quand les dates et missions seront finalisées.
+				</p>
+			</header>
+
+			<ol class="shell-experience__timeline">
+				<li class="shell-experience__item">
+					<span class="shell-experience__dot" aria-hidden="true"></span>
+					<div class="shell-experience__card">
+						<p class="shell-experience__meta">
+							<span class="shell-experience__period">AAAA — AAAA</span>
+							<span class="shell-experience__place">Organisation</span>
+						</p>
+						<h3 class="shell-experience__role">Titre du poste</h3>
+						<p class="shell-experience__desc">Description courte de la mission (placeholder).</p>
+					</div>
+				</li>
+				<li class="shell-experience__item">
+					<span class="shell-experience__dot" aria-hidden="true"></span>
+					<div class="shell-experience__card">
+						<p class="shell-experience__meta">
+							<span class="shell-experience__period">AAAA — AAAA</span>
+							<span class="shell-experience__place">Organisation</span>
+						</p>
+						<h3 class="shell-experience__role">Titre du poste</h3>
+						<p class="shell-experience__desc">Description courte de la mission (placeholder).</p>
+					</div>
+				</li>
+			</ol>
 		</div>
 	</section>
 
@@ -273,15 +323,57 @@
 				<span class="shell-projects__eyebrow" data-i18n="projects.subheading">Réalisations</span>
 				<h2 class="shell-projects__heading" data-i18n="projects.heading">Projets sélectionnés</h2>
 				<p class="shell-projects__lead" data-i18n="projects.paragraph">
-					Surtout des applications Laravel métier. Le code est disponible sur GitHub.
+					Du stock, des colis, la scolarité, les présences, un scanner. Le code est sur GitHub.
 				</p>
 			</header>
 
 			<div class="shell-projects__grid">
 				@forelse ($projects as $project)
+				@php
+					$galleryUrls = $project->gallery_urls;
+					$hasGallery = count($galleryUrls) > 0;
+					$galleryId = 'project-gallery-'.$project->id;
+				@endphp
 				<article class="shell-project">
-					<div class="shell-project__media" @if ($project->image_url) style="background-image: url('{{ $project->image_url }}');" @endif>
-						<span class="shell-project__media-overlay" aria-hidden="true"></span>
+					<div class="shell-project__media">
+						@if ($project->image_url || $hasGallery)
+						<img
+							src="{{ $project->image_url ?? $galleryUrls[0] }}"
+							alt="{{ $project->title }}"
+							class="shell-project__img"
+							loading="lazy"
+							width="640"
+							height="360"
+						>
+						@else
+						<span class="shell-project__media-placeholder" aria-hidden="true"></span>
+						@endif
+
+						@if ($hasGallery)
+						<div class="shell-project__media-overlay">
+							<a
+								href="{{ $galleryUrls[0] }}"
+								class="shell-project__overlay-btn shell-project__gallery-item"
+								data-gallery="{{ $galleryId }}"
+								aria-label="Voir les captures"
+								title="{{ $project->title }}"
+							>
+								<i class="fa fa-plus" aria-hidden="true"></i>
+							</a>
+							@foreach (array_slice($galleryUrls, 1) as $galleryUrl)
+							<a
+								href="{{ $galleryUrl }}"
+								class="shell-project__gallery-item"
+								data-gallery="{{ $galleryId }}"
+								title="{{ $project->title }}"
+								hidden
+							></a>
+							@endforeach
+						</div>
+						@endif
+						<span class="shell-project__status shell-project__status--{{ $project->statusBadgeModifier() }}">
+							{{ $project->statusLabel() }}
+						</span>
 					</div>
 					<div class="shell-project__body">
 						<span class="shell-project__cat">{{ $project->tech_stack[0] ?? 'Projet' }}</span>
@@ -297,8 +389,8 @@
 						<div class="shell-project__actions">
 							@if ($project->url)
 							<a href="{{ $project->url }}" target="_blank" rel="noopener" class="shell-project__link">
-								<span data-i18n="projects.view">Voir le projet</span>
-								<i class="fa fa-arrow-right" aria-hidden="true"></i>
+								<span data-i18n="projects.view">En ligne</span>
+								<i class="fa fa-external-link" aria-hidden="true"></i>
 							</a>
 							@endif
 							@if ($project->github_url)
@@ -385,7 +477,7 @@
 							<i class="fab fa-github" aria-hidden="true"></i>
 							<span data-i18n="casestudy.cta">Voir le code sur GitHub</span>
 						</a>
-						<a href="#projects-section" class="shell-btn shell-btn--ghost" data-i18n="casestudy.back">
+						<a href="{{ route('projects') }}" class="shell-btn shell-btn--ghost" data-i18n="casestudy.back">
 							Voir les autres projets
 						</a>
 					</div>
@@ -406,10 +498,9 @@
 					<span class="shell-readout__value">SYSTEMS</span>
 				</p>
 				<span class="shell-skills__eyebrow" data-i18n="skills.subheading">Compétences</span>
-				<h2 class="shell-skills__heading" data-i18n="skills.heading">Ma stack technique</h2>
+				<h2 class="shell-skills__heading" data-i18n="skills.heading">Outils que j’utilise au quotidien</h2>
 				<p class="shell-skills__lead" data-i18n="skills.paragraph">
-					Le cœur de mon travail, c’est le backend Laravel.
-					Le reste sert à livrer une interface claire et un projet propre jusqu’en production.
+					Laravel, PHP, MySQL, et de quoi mettre en ligne.
 				</p>
 			</header>
 		</div>
@@ -480,10 +571,9 @@
 					<span class="shell-readout__value">CONTACT</span>
 				</p>
 				<span class="shell-contact__eyebrow" data-i18n="contact.subheading">Contact</span>
-				<h2 class="shell-contact__heading" data-i18n="contact.heading">Parlons de votre projet</h2>
+				<h2 class="shell-contact__heading" data-i18n="contact.heading">Écrivez-moi.</h2>
 				<p class="shell-contact__lead" data-i18n="contact.paragraph">
-					Mission, collaboration ou simple question : écrivez-moi via le formulaire
-					ou contactez-moi directement sur WhatsApp.
+					Une mission, une collaboration, ou une question. Formulaire ou WhatsApp, je réponds sous 24 à 48 h.
 				</p>
 			</header>
 
@@ -518,8 +608,8 @@
 						<li>
 							<span class="shell-contact__info-icon" aria-hidden="true"><i class="fa fa-map-marker"></i></span>
 							<div>
-								<span class="shell-contact__info-label" data-i18n="contact.sidebar.location">Zone</span>
-								<p data-i18n="contact.sidebar.locationValue">Afrique de l’Ouest · Remote</p>
+								<span class="shell-contact__info-label" data-i18n="contact.sidebar.location">Adresse</span>
+								<p data-i18n="contact.sidebar.locationValue">Bénin</p>
 							</div>
 						</li>
 						<li>
@@ -534,6 +624,7 @@
 							<div>
 								<span class="shell-contact__info-label" data-i18n="contact.sidebar.phone">Téléphone</span>
 								<p><a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a></p>
+								<p><a href="tel:{{ config('portfolio.phone_bf.tel') }}">{{ config('portfolio.phone_bf.display') }}</a></p>
 							</div>
 						</li>
 						<li>
@@ -556,7 +647,7 @@
 					</div>
 				</aside>
 
-				<form action="{{ route('contact.store') }}" method="POST" class="shell-contact__form contact-form" novalidate>
+				<form action="/contact" method="POST" class="shell-contact__form contact-form" id="contact-form" novalidate>
 					@csrf
 					<div class="contact-hp" aria-hidden="true">
 						<label for="company_website">Site web</label>
@@ -593,9 +684,15 @@
 							@enderror
 						</div>
 						<div class="shell-contact__field shell-contact__field--full shell-contact__submit">
-							<button type="submit" class="shell-btn shell-btn--primary">
-								<i class="fa fa-paper-plane" aria-hidden="true"></i>
-								<span data-i18n="contact.form.submit">Envoyer le message</span>
+							<button type="submit" class="shell-btn shell-btn--primary" id="contact-submit">
+								<span class="contact-submit__idle">
+									<i class="fa fa-paper-plane" aria-hidden="true"></i>
+									<span data-i18n="contact.form.submit">Envoyer le message</span>
+								</span>
+								<span class="contact-submit__busy" hidden>
+									<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+									<span data-i18n="contact.form.sending">Envoi en cours…</span>
+								</span>
 							</button>
 						</div>
 					</div>
@@ -609,10 +706,9 @@
 		<div class="container site-footer__inner">
 			<div class="site-footer__grid">
 				<div class="site-footer__brand">
-					<a class="site-footer__logo" href="#home-section">Narcisse<span class="site-footer__dot">.</span></a>
+					<a class="site-footer__logo" href="{{ route('home') }}">Narcisse<span class="site-footer__dot">.</span></a>
 					<p class="site-footer__tagline" data-i18n="footer.tagline">
-						Full-Stack Developer : applications web métier,
-						API REST et outils sécurisés. Ouvert aux missions et collaborations.
+						Développeur Laravel. Pour une mission ou une collaboration, écrivez-moi.
 					</p>
 					<a href="{{ route('cv') }}" class="shell-btn shell-btn--ghost" data-i18n="footer.cv">Voir mon CV</a>
 				</div>
@@ -620,10 +716,11 @@
 				<div class="site-footer__col">
 					<h2 class="site-footer__label" data-i18n="footer.navigation">Navigation</h2>
 					<ul class="site-footer__nav">
-						<li><a href="#home-section"><span data-i18n="nav.home">Accueil</span></a></li>
-						<li><a href="#about-section"><span data-i18n="nav.about">À propos</span></a></li>
-						<li><a href="#projects-section"><span data-i18n="nav.projects">Projets</span></a></li>
-						<li><a href="#contact-section"><span data-i18n="nav.contact">Contact</span></a></li>
+						<li><a href="{{ route('home') }}"><span data-i18n="nav.home">Accueil</span></a></li>
+						<li><a href="{{ route('about') }}"><span data-i18n="nav.about">À propos</span></a></li>
+						<li><a href="{{ route('projects') }}"><span data-i18n="nav.projects">Projets</span></a></li>
+						<li><a href="{{ route('skills') }}"><span data-i18n="nav.skills">Compétences</span></a></li>
+						<li><a href="{{ route('contact') }}"><span data-i18n="nav.contact">Contact</span></a></li>
 						<li><a href="{{ route('cv') }}"><span data-i18n="nav.cv">CV</span></a></li>
 					</ul>
 				</div>
@@ -631,12 +728,15 @@
 				<div class="site-footer__col">
 					<h2 class="site-footer__label" data-i18n="footer.contactTitle">Me contacter</h2>
 					<ul class="site-footer__contact">
-						<li data-i18n="contact.sidebar.locationValue">Afrique de l’Ouest · Remote</li>
+						<li data-i18n="contact.sidebar.locationValue">Bénin</li>
 						<li>
 							<a href="mailto:{{ config('portfolio.email') }}">{{ config('portfolio.email') }}</a>
 						</li>
 						<li>
 							<a href="tel:{{ config('portfolio.phone_bj.tel') }}">{{ config('portfolio.phone_bj.display') }}</a>
+						</li>
+						<li>
+							<a href="tel:{{ config('portfolio.phone_bf.tel') }}">{{ config('portfolio.phone_bf.display') }}</a>
 						</li>
 					</ul>
 					<ul class="site-footer__social">
@@ -667,11 +767,74 @@
 					<span data-i18n="footer.designed">Conçu avec</span>
 					<span class="site-footer__heart" aria-hidden="true">◆</span>
 					<span data-i18n="footer.by">par</span>
-					<a href="#home-section">Narcisse</a>
+					<a href="{{ route('home') }}">Narcisse</a>
 				</p>
 			</div>
 		</div>
 	</footer>
+
+	<div
+		class="ai-chat"
+		id="ai-chat"
+		data-endpoint="{{ route('ai.chat') }}"
+		data-contact-url="{{ route('contact') }}"
+		data-whatsapp-url="{{ config('portfolio.whatsapp.url') }}"
+	>
+		<button
+			type="button"
+			class="ai-chat__toggle"
+			id="ai-chat-toggle"
+			aria-expanded="false"
+			aria-controls="ai-chat-panel"
+			aria-label="Ouvrir le chat Assistant Narcisse"
+		>
+			<span class="ai-chat__toggle-icon" aria-hidden="true"><i class="fa fa-comments"></i></span>
+		</button>
+		<div class="ai-chat__panel" id="ai-chat-panel" role="dialog" aria-modal="true" aria-labelledby="ai-chat-title" hidden>
+			<header class="ai-chat__header">
+				<div class="ai-chat__identity">
+					<div class="ai-chat__avatar-wrap">
+						<img
+							class="ai-chat__avatar"
+							src="{{ asset('images/hero/ironman-hero-480.webp') }}"
+							alt=""
+							width="40"
+							height="40"
+							decoding="async"
+						>
+						<span class="ai-chat__presence" title="En ligne" aria-hidden="true"></span>
+					</div>
+					<div class="ai-chat__identity-text">
+						<h2 class="ai-chat__title" id="ai-chat-title" data-i18n="ai.title">Assistant Narcisse</h2>
+						<p class="ai-chat__online" data-i18n="ai.online">En ligne</p>
+					</div>
+				</div>
+				<button type="button" class="ai-chat__close" id="ai-chat-close" aria-label="Fermer">
+					&times;
+				</button>
+			</header>
+			<div class="ai-chat__messages" id="ai-chat-messages" aria-live="polite">
+				<div class="ai-chat__bubble ai-chat__bubble--bot">
+					<span data-i18n="ai.welcome">Bonjour ! Posez-moi une question sur le profil, les projets ou la disponibilité de Narcisse.</span>
+				</div>
+			</div>
+			<form class="ai-chat__form" id="ai-chat-form">
+				<label class="sr-only" for="ai-chat-input" data-i18n="ai.inputLabel">Votre message</label>
+				<input
+					type="text"
+					id="ai-chat-input"
+					class="ai-chat__input"
+					name="message"
+					autocomplete="off"
+					maxlength="1000"
+					required
+					data-i18n-placeholder="ai.placeholder"
+					placeholder="Écrivez votre message..."
+				>
+				<button type="submit" class="ai-chat__send" data-i18n="ai.send">Envoyer</button>
+			</form>
+		</div>
+	</div>
 		
 		
 
@@ -684,7 +847,7 @@
 		<script src="{{ asset('js/jquery.waypoints.min.js') }}" defer></script>
 		<script src="{{ asset('js/jquery.stellar.min.js') }}" defer></script>
 		<script src="{{ asset('js/jquery.magnific-popup.min.js') }}" defer></script>
-		<script src="{{ asset('js/main.js') }}?v=13" defer></script>
+		<script src="{{ asset('js/main.js') }}?v=23" defer></script>
 		<script src="{{ asset('js/custom-cursor.js') }}?v=3" defer></script>
 		<script src="{{ asset('js/page-title.js') }}" defer></script>
 
@@ -699,16 +862,22 @@
 
 		<script>
 		(function () {
-			var STORAGE_KEY = 'portfolioContactSuccess';
+			try { sessionStorage.removeItem('portfolioContactSuccess'); } catch (e) {}
+
+			function bootContactForm() {
 			var feedback = document.getElementById('contact-feedback');
-			if (!feedback) return;
+			var form = document.getElementById('contact-form');
+			if (!feedback || !form || form.dataset.ajaxBound === '1') return;
+			form.dataset.ajaxBound = '1';
+
+			function csrfToken() {
+				var meta = document.querySelector('meta[name="csrf-token"]');
+				var input = form.querySelector('input[name="_token"]');
+				return (meta && meta.getAttribute('content')) || (input && input.value) || '';
+			}
 
 			function dismissAlert(alertEl) {
-				if (!alertEl) return;
-				if (alertEl.getAttribute('data-contact-flash') === 'success' || alertEl.classList.contains('alert-success')) {
-					try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
-				}
-				alertEl.remove();
+				if (alertEl) alertEl.remove();
 			}
 
 			function bindDismiss(alertEl) {
@@ -718,44 +887,126 @@
 				}
 			}
 
-			function showPersistedSuccess(message) {
-				if (feedback.querySelector('.alert-success')) return;
-				var alertEl = document.createElement('div');
-				alertEl.className = 'alert alert-success contact-alert d-flex align-items-start justify-content-between';
-				alertEl.setAttribute('role', 'status');
-				alertEl.innerHTML =
-					'<span class="contact-alert-text"><i class="fa fa-check-circle mr-2" aria-hidden="true"></i></span>' +
-					'<button type="button" class="contact-alert-close" aria-label="Fermer" data-dismiss-contact-alert>&times;</button>';
-				alertEl.querySelector('.contact-alert-text').appendChild(document.createTextNode(message));
-				feedback.insertBefore(alertEl, feedback.firstChild);
-				bindDismiss(alertEl);
+			function clearFieldErrors() {
+				form.querySelectorAll('.contact-error').forEach(function (el) { el.remove(); });
+				form.querySelectorAll('.is-invalid').forEach(function (el) {
+					el.classList.remove('is-invalid');
+				});
 			}
 
-			var flashSuccess = feedback.querySelector('[data-contact-flash="success"]');
-			var flashError = feedback.querySelector('[data-contact-flash="error"]');
-			if (flashError) {
-				try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
+			function showAlert(type, message) {
+				feedback.innerHTML = '';
+				var alertEl = document.createElement('div');
+				var icon = type === 'success' ? 'fa-check-circle' : (type === 'warning' ? 'fa-exclamation-triangle' : 'fa-exclamation-circle');
+				var role = type === 'success' ? 'status' : 'alert';
+				alertEl.className = 'alert alert-' + (type === 'warning' ? 'warning' : (type === 'success' ? 'success' : 'danger')) +
+					' contact-alert d-flex align-items-start justify-content-between';
+				alertEl.setAttribute('role', role);
+				alertEl.innerHTML =
+					'<span class="contact-alert-text"><i class="fa ' + icon + ' mr-2" aria-hidden="true"></i></span>' +
+					'<button type="button" class="contact-alert-close" aria-label="Fermer" data-dismiss-contact-alert>&times;</button>';
+				alertEl.querySelector('.contact-alert-text').appendChild(document.createTextNode(message));
+				feedback.appendChild(alertEl);
+				bindDismiss(alertEl);
+				feedback.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 			}
-			if (flashSuccess) {
-				var msg = flashSuccess.getAttribute('data-contact-message') || flashSuccess.textContent.trim();
-				try { sessionStorage.setItem(STORAGE_KEY, msg); } catch (e) {}
-				bindDismiss(flashSuccess);
-			} else if (!flashError) {
-				try {
-					var saved = sessionStorage.getItem(STORAGE_KEY);
-					if (saved) {
-						showPersistedSuccess(saved);
-					}
-				} catch (e) {}
+
+			function showFieldErrors(errors) {
+				Object.keys(errors || {}).forEach(function (field) {
+					var input = form.querySelector('[name="' + field + '"]');
+					if (!input) return;
+					input.classList.add('is-invalid');
+					var wrap = input.closest('.shell-contact__field') || input.parentElement;
+					if (!wrap) return;
+					var span = document.createElement('span');
+					span.className = 'contact-error';
+					span.textContent = errors[field][0];
+					wrap.appendChild(span);
+				});
+			}
+
+			function setSubmitting(isSubmitting) {
+				var submitBtn = document.getElementById('contact-submit');
+				if (!submitBtn) return;
+				submitBtn.disabled = isSubmitting;
+				submitBtn.classList.toggle('is-loading', isSubmitting);
+				submitBtn.setAttribute('aria-busy', isSubmitting ? 'true' : 'false');
+				var idle = submitBtn.querySelector('.contact-submit__idle');
+				var busy = submitBtn.querySelector('.contact-submit__busy');
+				if (idle) idle.hidden = !!isSubmitting;
+				if (busy) busy.hidden = !isSubmitting;
 			}
 
 			feedback.querySelectorAll('.contact-alert').forEach(bindDismiss);
 
-			var form = document.querySelector('#contact-section .contact-form');
-			if (form) {
-				form.addEventListener('submit', function () {
-					try { sessionStorage.removeItem(STORAGE_KEY); } catch (e) {}
-				});
+			form.addEventListener('submit', function (event) {
+				event.preventDefault();
+				clearFieldErrors();
+				setSubmitting(true);
+
+				var body = new FormData(form);
+				var endpoint = form.getAttribute('action') || '/contact';
+
+				fetch(endpoint, {
+					method: 'POST',
+					headers: {
+						'Accept': 'application/json',
+						'X-Requested-With': 'XMLHttpRequest',
+						'X-CSRF-TOKEN': csrfToken()
+					},
+					credentials: 'same-origin',
+					body: body
+				})
+					.then(function (response) {
+						return response.json().then(function (payload) {
+							return { ok: response.ok, status: response.status, payload: payload };
+						}).catch(function () {
+							return {
+								ok: false,
+								status: response.status,
+								payload: { message: 'Réponse invalide du serveur.' }
+							};
+						});
+					})
+					.then(function (result) {
+						var payload = result.payload || {};
+						if (result.ok && payload.ok !== false) {
+							showAlert('success', payload.message || 'Message envoyé avec succès ! Je vous réponds dès que possible.');
+							form.reset();
+							return;
+						}
+
+						if (result.status === 419) {
+							showAlert('error', 'Session expirée. Rechargez la page puis réessayez.');
+							return;
+						}
+
+						if (result.status === 429) {
+							showAlert('error', payload.message || 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.');
+							return;
+						}
+
+						if (payload.errors) {
+							showAlert('warning', payload.message || 'Le formulaire contient des erreurs.');
+							showFieldErrors(payload.errors);
+							return;
+						}
+
+						showAlert('error', payload.message || 'L\'envoi a échoué. Réessayez plus tard ou contactez-moi sur WhatsApp.');
+					})
+					.catch(function () {
+						showAlert('error', 'Impossible d\'envoyer le message. Vérifiez votre connexion ou utilisez WhatsApp.');
+					})
+					.finally(function () {
+						setSubmitting(false);
+					});
+			});
+			}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', bootContactForm);
+			} else {
+				bootContactForm();
 			}
 		})();
 		</script>

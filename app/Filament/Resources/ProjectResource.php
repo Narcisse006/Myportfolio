@@ -49,23 +49,43 @@ class ProjectResource extends Resource
                     ->placeholder('Ajouter une techno')
                     ->columnSpanFull(),
                 Forms\Components\FileUpload::make('image')
-                    ->label('Image')
+                    ->label('Image de couverture')
                     ->image()
                     ->disk('public')
                     ->directory('projects')
                     ->visibility('public')
                     ->maxSize(2048)
+                    ->helperText('Affichée sur la carte. Un clic ouvre la lightbox des captures.')
+                    ->columnSpanFull(),
+                Forms\Components\FileUpload::make('gallery')
+                    ->label('Captures du site')
+                    ->image()
+                    ->multiple()
+                    ->reorderable()
+                    ->disk('public')
+                    ->directory('projects/gallery')
+                    ->visibility('public')
+                    ->maxSize(2048)
+                    ->maxFiles(12)
+                    ->helperText('Galerie lightbox (jusqu’à 12 images). La couverture est ajoutée en premier si besoin.')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('url')
-                    ->label('URL du projet')
+                    ->label('Site déployé')
                     ->url()
                     ->nullable()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->helperText('Lien public du site en ligne (bouton « Voir le site »).'),
                 Forms\Components\TextInput::make('github_url')
                     ->label('URL GitHub')
                     ->url()
                     ->nullable()
                     ->maxLength(255),
+                Forms\Components\Select::make('status')
+                    ->label('Statut')
+                    ->options(Project::STATUSES)
+                    ->default('in_progress')
+                    ->required()
+                    ->native(false),
                 Forms\Components\Toggle::make('is_published')
                     ->label('Publié')
                     ->default(true),
@@ -88,6 +108,16 @@ class ProjectResource extends Resource
                     ->label('Technologies')
                     ->badge()
                     ->separator(','),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Statut')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => Project::STATUSES[$state] ?? 'En cours')
+                    ->color(fn (?string $state): string => match ($state) {
+                        'online' => 'success',
+                        'testing' => 'info',
+                        'archived' => 'gray',
+                        default => 'warning',
+                    }),
                 Tables\Columns\TextColumn::make('is_published')
                     ->label('Publié')
                     ->badge()
@@ -107,6 +137,9 @@ class ProjectResource extends Resource
                     ->label('Publication')
                     ->trueLabel('Publiés')
                     ->falseLabel('Non publiés'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Statut')
+                    ->options(Project::STATUSES),
             ])
             ->actions([
                 Tables\Actions\Action::make('togglePublished')

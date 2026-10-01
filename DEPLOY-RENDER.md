@@ -50,9 +50,24 @@ Dans **Environment** du service, ajoutez ou vérifiez :
 | `CACHE_STORE` | `file` |
 | `QUEUE_CONNECTION` | `sync` |
 
-### Email (formulaire de contact) — Resend
+### Email (formulaire de contact)
 
-Sans `RESEND_KEY`, le contact ne part pas (mode `log` ou erreur).
+**Local (recommandé)** : Gmail SMTP avec un mot de passe d’application.
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=ton@gmail.com
+MAIL_PASSWORD=xxxx-xxxx-xxxx-xxxx
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=ton@gmail.com
+MAIL_TO_ADDRESS=ton@gmail.com
+```
+
+**Render (option)** : Resend.
+
+Sans `RESEND_KEY`, le contact ne part pas si `MAIL_MAILER=resend`.
 
 1. Créez un compte sur [resend.com](https://resend.com) (gratuit : ~100 emails/jour).
 2. **API Keys** → créez une clé → copiez `re_...`

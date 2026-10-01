@@ -19,17 +19,19 @@ Modèle : `app/Models/Project.php`.
 | `title` | Titre affiché sur le site et dans l’admin |
 | `description` | Texte de la carte |
 | `tech_stack` | JSON, liste de chaînes. Nullable. Le modèle le cast en tableau |
-| `image` | Nullable. Chemin ou URL, voir l’accesseur `imageUrl` |
-| `url` | Nullable. Lien du projet s’il n’y a pas de lien GitHub |
-| `github_url` | Nullable. Lien préféré sur la carte |
+| `image` | Nullable. Couverture de la carte. Chemin ou URL, voir `imageUrl` |
+| `gallery` | JSON nullable. Liste de chemins/URL de captures pour la lightbox |
+| `url` | Nullable. Lien du site déployé (« Voir le site ») |
+| `github_url` | Nullable. Lien GitHub |
 | `order` | Entier, défaut 0. Tri de la page d’accueil |
 | `is_published` | Booléen, défaut vrai. Faux = masqué sur le site |
+| `status` | Chaîne : `online`, `in_progress`, `testing`, `archived`. Défaut `in_progress`. Badge sur la carte publique |
 | `created_at`, `updated_at` | Horodatage Laravel |
 
 Règles :
 
 - Seuls les projets `is_published` apparaissent sur `/`, triés par `order`.
-- Le seeder `ProjectSeeder` fait un `firstOrCreate` sur le titre. Relancer le seed ne duplique pas TimeLux, Forum Dev, Gestion de stock et Suivi de colis. Changer le titre dans l’admin puis reseeder recrée l’ancien titre.
+- Le seeder `ProjectSeeder` fait un `updateOrCreate` sur le titre. Relancer le seed ne duplique pas TimeLux, Forum Dev, Gestion de stock, Suivi de colis, Scolaris, Gestion Présence et Scanner Multi-Fonctions. Changer le titre dans l’admin puis reseeder recrée l’ancien titre.
 - La colonne s’appelle `order`. C’est un mot réservé SQL. Eloquent l’échappe. Dans une requête SQL écrite à la main, il faudra des guillemets adaptés au moteur.
 
 ## `contacts`

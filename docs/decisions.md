@@ -70,7 +70,7 @@ Un seul endroit à modifier ensuite : l’écran « Projets ». Masquer un proje
 
 ### Conséquences
 
-Après un déploiement, le seeder recrée les quatre projets de démo s’ils n’existent pas (recherche par titre). Le contenu saisi dans l’admin sur Render est perdu si le fichier SQLite est recréé.
+Après un déploiement, le seeder recrée les projets de démo s’ils n’existent pas (recherche par titre). Le contenu saisi dans l’admin sur Render est perdu si le fichier SQLite est recréé.
 
 ## 2026-09-29 — Un seul type d’utilisateur
 
@@ -143,3 +143,35 @@ Le `Dockerfile` passe à `USER www-data` pour ne pas servir l’application en r
 ### Conséquences
 
 Un nouveau dossier écrit au runtime doit être ajouté au `chown` du `Dockerfile`, sinon le conteneur s’arrête au démarrage (`set -eu` dans `docker/start.sh`).
+
+## 2026-09-30 — Contact via Resend sans domaine vérifié
+
+### Contexte
+
+Gmail SMTP local exige un mot de passe d’application souvent absent. Resend refuse `MAIL_FROM_ADDRESS` sur `gmail.com` sans domaine vérifié.
+
+### Décision
+
+`MAIL_MAILER=resend` avec `MAIL_FROM_ADDRESS=onboarding@resend.dev` tant qu’aucun domaine n’est vérifié. Le destinataire reste `MAIL_TO_ADDRESS`. `indexController` bascule SMTP→Resend si le mot de passe SMTP est vide mais `RESEND_KEY` est présente. Les messages restent créés dans `contacts` avant l’envoi (admin Messages).
+
+### Conséquences
+
+Le formulaire fonctionne sans domaine custom. Quand un domaine sera vérifié chez Resend, remplacer `MAIL_FROM_ADDRESS` par une adresse de ce domaine (local et Render).
+
+## 2026-09-30 — Assistant portfolio (FAQ locale + Gemini optionnel)
+
+### Contexte
+
+Les visiteurs doivent pouvoir poser des questions sur le profil sans clé API côté client. Gemini (quota gratuit) est parfois saturé ou indisponible.
+
+### Décision
+
+`POST /ai/chat` géré par `AiChatController`. Tentative Gemini si `GEMINI_API_KEY` est présente, avec modèles de secours. Sinon (ou en échec) : assistant local FAQ + projets publiés. Historique en session fichier, plafonné. Pas de dossier `app/Services`.
+
+### Raisonnement
+
+Un portfolio a un jeu de questions borné. La FAQ locale garantit une réponse utile sans dépendre de Google. Gemini reste un bonus quand l’API répond.
+
+### Conséquences
+
+Le chat fonctionne sans clé. Sur Render, la clé reste optionnelle ; si elle est saisie, redéployer pour que `config:cache` la prenne.

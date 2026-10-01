@@ -11,7 +11,7 @@ Il n’y a pas de couche « service ». Le contrôleur public et les ressources 
 
 | Dossier ou fichier | Rôle |
 |--------------------|------|
-| `routes/web.php` | Les 3 routes du site public |
+| `routes/web.php` | Les routes du site public (accueil, sections, CV, contact) |
 | `app/Http/Controllers/indexController.php` | Accueil, CV, envoi du formulaire |
 | `app/Http/Requests/ContactRequest.php` | Règles de validation du formulaire |
 | `app/Models/` | `Project`, `Contact`, `User` |
@@ -25,7 +25,7 @@ Il n’y a pas de couche « service ». Le contrôleur public et les ressources 
 | `public/css/style.css` | Feuille de style réelle du site public |
 | `public/js/main.js` | Menu, animations, traduction FR/EN |
 | `database/migrations/` | Structure des tables |
-| `database/seeders/` | Compte admin et 4 projets de départ |
+| `database/seeders/` | Compte admin et 7 projets de départ |
 | `docker/start.sh` | Ce que le conteneur exécute à chaque démarrage Render |
 | `tests/Feature/` | Tests du formulaire, des projets et de l’admin |
 
@@ -38,8 +38,13 @@ Fichier : `routes/web.php`.
 | Méthode | URL | Nom | Action |
 |---------|-----|-----|--------|
 | GET | `/` | `home` | `indexController@index` |
+| GET | `/about` | `about` | `indexController@index` |
+| GET | `/projects` | `projects` | `indexController@index` |
+| GET | `/skills` | `skills` | `indexController@index` |
+| GET | `/contact` | `contact` | `indexController@index` |
 | GET | `/cv` | `cv` | `indexController@cv` |
 | POST | `/contact` | `contact.store` | `indexController@store`, limité à 5 requêtes par minute |
+| POST | `/ai/chat` | `ai.chat` | `AiChatController`, limité à 20 requêtes par minute |
 
 `bootstrap/app.php` ajoute aussi `GET /up`. C’est le contrôle de santé utilisé par Render (`healthCheckPath` dans `render.yaml`). Ce n’est pas une page du portfolio.
 
@@ -53,7 +58,7 @@ Les URL `/admin`, `/admin/login`, `/admin/profile`, `/admin/projects`, `/admin/c
 - `cv()` affiche `resources/views/cv.blade.php` et passe l’URL du PDF.
 - `store()` valide, enregistre, puis envoie l’e-mail.
 
-La page d’accueil est une longue page à ancres. Les sections ont un `id` (`home-section`, `about-section`, `projects-section`, `case-study-section`, `skills-section`, `contact-section`). Professionnel et Expertise sont fusionnés dans `#about-section`. Le texte de la plupart des sections est écrit en dur dans le Blade. Seule la liste de projets vient de la base.
+La page d’accueil est une longue page. Les sections gardent un `id` (`home-section`, `about-section`, `projects-section`, `case-study-section`, `skills-section`, `contact-section`). Les URL propres `/about`, `/projects`, `/skills` et `/contact` servent la même vue ; `public/js/page-title.js` fait défiler vers la section et met à jour le chemin via l’History API. L’étude de cas n’a pas d’URL propre : au scroll elle reste sous `/projects`. Professionnel et Expertise sont fusionnés dans `#about-section`. Le texte de la plupart des sections est écrit en dur dans le Blade. Seule la liste de projets vient de la base.
 
 Le Hero (`#home-section.hero-hud`) est la seule section immersive : calques HUD autour de l’image `public/images/hero/ironman-hero.png`, styles dans le bloc `HERO HUD` de `style.css`, comportement dans `initHeroHud()` de `main.js`. Les sections suivantes restent des blocs classiques du thème.
 
@@ -76,7 +81,7 @@ Une ressource Filament remplace, pour l’admin, le trio contrôleur + vue + for
 - Pas de dossier `app/Services`.
 - Pas de policies.
 - Pas de middleware écrit dans `app/Http/Middleware`. Le rate limit du contact est déclaré sur la route. Le panneau admin utilise les middleware fournis par Filament (session, CSRF, authentification).
-- Pas d’API JSON.
+- Pas d’API JSON publique hors `POST /ai/chat` (assistant portfolio).
 - `routes/console.php` ne contient que la commande d’exemple `inspire`.
 
 ## Flux
@@ -87,7 +92,7 @@ Une ressource Filament remplace, pour l’admin, le trio contrôleur + vue + for
 
 ### Envoyer un message
 
-`POST /contact` → middleware `throttle:5,1` → `ContactRequest` → `indexController@store` → si le champ piège est vide : ligne `contacts` puis `ContactMail` via le mailer configuré → redirection vers `/#contact-section`.
+`POST /contact` → middleware `throttle:5,1` → `ContactRequest` → `indexController@store` → si le champ piège est vide : ligne `contacts` puis `ContactMail` via le mailer configuré → redirection vers `/contact`.
 
 Si la validation échoue, `ContactRequest` redirige lui-même vers la même ancre avec les erreurs. Il n’y a pas de page d’erreur séparée.
 

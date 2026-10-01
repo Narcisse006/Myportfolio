@@ -47,10 +47,19 @@ class ContactRequest extends FormRequest
 
     protected function failedValidation(Validator $validator): void
     {
+        if ($this->expectsJson() || $this->ajax()) {
+            throw new HttpResponseException(
+                response()->json([
+                    'ok' => false,
+                    'message' => 'Le formulaire contient des erreurs.',
+                    'errors' => $validator->errors(),
+                ], 422)
+            );
+        }
+
         throw new HttpResponseException(
             redirect()
-                ->route('home')
-                ->withFragment('contact-section')
+                ->route('contact')
                 ->withInput()
                 ->withErrors($validator)
         );

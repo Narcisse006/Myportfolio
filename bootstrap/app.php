@@ -16,11 +16,19 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Illuminate\Http\Exceptions\ThrottleRequestsException $e, $request) {
             if ($request->routeIs('contact.store')) {
+                $message = 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.';
+
+                if ($request->expectsJson() || $request->ajax()) {
+                    return response()->json([
+                        'ok' => false,
+                        'message' => $message,
+                    ], 429);
+                }
+
                 return redirect()
-                    ->route('home')
-                    ->withFragment('contact-section')
+                    ->route('contact')
                     ->withInput()
-                    ->with('error', 'Trop de tentatives. Réessayez dans une minute ou contactez-moi sur WhatsApp.');
+                    ->with('error', $message);
             }
         });
     })->create();

@@ -4,11 +4,11 @@
 
 ### Objectif
 
-Présenter Narcisse OGOUDIKPE : accroche, parcours, projets, étude de cas, expertise, compétences, biographie et contact. La page est une seule URL avec des ancres.
+Présenter Narcisse OGOUDIKPE : accroche, parcours, projets, étude de cas, expertise, compétences, biographie et contact. Une seule vue Blade, des URL propres (`/`, `/about`, `/projects`, `/skills`, `/contact`) synchronisées au scroll.
 
 ### Point d’entrée
 
-`GET /`, nom de route `home`.
+`GET /`, nom de route `home`. Les routes `about`, `projects`, `skills` et `contact` servent la même action.
 
 ### Fichiers principaux
 
@@ -26,15 +26,15 @@ Présenter Narcisse OGOUDIKPE : accroche, parcours, projets, étude de cas, expe
 
 1. Le contrôleur lit les projets publiés.
 2. La vue affiche les sections dans l’ordre du fichier Blade.
-3. Le navigateur exécute `main.js` (menu, défilement, langue, Hero HUD) puis `page-title.js` (titre de l’onglet et ancre dans l’URL).
+3. Le navigateur exécute `main.js` (menu, défilement, langue, Hero HUD) puis `page-title.js` (titre de l’onglet et chemin d’URL de section).
 
 ### Hero HUD (`#home-section`)
 
-Section immersive unique de la page. Iron Man est centré (`public/images/hero/ironman-hero.png` + WebP 480/832). Autour : grille, radar, anneaux SVG rotatifs, lignes techniques, panneaux de données, particules canvas, lueur d’arc reactor. Watermark `.hud-watermark` (`ENGINEERING · PRECISION · SYSTEMS`) derrière la figure et panneau `.hud-mission` bas-droite pour lier la métaphore armure / code. L’identité (nom, titre FULL-STACK DEVELOPER, stack, boutons) est à gauche sur desktop, sous l’image sur tablette/mobile.
+Section immersive unique de la page. Iron Man est centré (`public/images/hero/ironman-hero.png` + WebP 480/832). Autour : grille, radar, anneaux SVG rotatifs, lignes techniques, panneaux de données, particules canvas, lueur d’arc reactor. Watermark `.hud-watermark` (`ENGINEERING · PRECISION · SYSTEMS`) derrière la figure et panneau `.hud-mission` bas-droite pour lier la métaphore armure / code. L’identité (nom, tagline, stack `Laravel · PHP · MySQL · Filament`, boutons) est à gauche sur desktop, sous l’image sur tablette/mobile.
 
 - Styles : bloc `/* === HERO HUD === */` dans `public/css/style.css` (variables `--hud-*`, `--mx`, `--my`).
 - Comportement : `initHeroHud()` dans `public/js/main.js` (parallaxe curseur, particules, pause hors écran / onglet caché).
-- Boutons : « Voir mes projets » (`#projects-section`, clé `pro.cv`) et « Me contacter » (`#contact-section`, clé `about.contact`). Pas de bouton CV dans le Hero.
+- Boutons : « Voir mes projets » (`/projects`, clé `pro.cv`) et « Me contacter » (`/contact`, clé `about.contact`). Pas de bouton CV dans le Hero.
 - Responsive : HUD complet > 1024px ; tablette simplifiée ; mobile sans anneaux ni panneaux.
 - Accessibilité : `prefers-reduced-motion: reduce` désactive rotations, parallaxe et particules.
 
@@ -52,11 +52,11 @@ En-tête centré `.shell-skills__header`, puis deux rangées marquee infinies (B
 
 ### Contact (`#contact-section`)
 
-Composition `.shell-contact` : en-tête centré, grille égale coordonnées (gauche) + formulaire (droite), CTA WhatsApp en `.shell-btn`. Honeypot, flash/alertes et validation inchangés.
+Composition `.shell-contact` : en-tête centré, grille égale coordonnées (gauche) + formulaire (droite), CTA WhatsApp en `.shell-btn`. Les deux numéros (`phone_bj`, `phone_bf`) sont listés sous Téléphone et dans le pied de page. Honeypot, flash/alertes et validation inchangés.
 
 ### À propos (fusionnée)
 
-Section unique `#about-section` (après le Hero) : en-tête centré, intro + photo `images/profile/moi2.webp`, puis 4 cards d’expertise (ex-`#highlights-section`). Les anciennes sections `#pro-section` et `#highlights-section` n’existent plus. Pas de timeline.
+Section unique `#about-section` (après le Hero) : en-tête centré, intro + photo `images/profile/Nessi.webp` (repli `Nessi.jpg`, cadre HUD), puis 4 cards d’expertise (icône, fondu décalé à l’apparition, survol : soulèvement et lueur cyan). Les anciennes sections `#pro-section` et `#highlights-section` n’existent plus. Une section `#experience-section` (timeline) est préparée en HTML/CSS mais reste `hidden` jusqu’à activation du contenu.
 
 ### Points d’attention
 
@@ -64,7 +64,7 @@ Section unique `#about-section` (après le Hero) : en-tête centré, intro + pho
 - Changer un texte visible demande souvent deux endroits : le HTML français dans le Blade, et la clé anglaise dans `public/js/main.js` (`data-i18n`). Pour le Hero : `hero.title`, `hero.stack`, plus `pro.cv` / `about.contact` pour les boutons.
 - `public/css/style.css` mélange Bootstrap et les styles du thème. Une modification CSS s’y fait, pas dans Tailwind. Le bloc Hero HUD et le bloc sections sombres restent séparés.
 - Owl Carousel et Scrollax ne sont plus chargés sur l’accueil : l’ancien carrousel Hero a été retiré.
-- Titre de rôle unique partout : « FULL-STACK DEVELOPER » (Hero, À propos, CV, footer, SEO / schema). Laravel reste dans la stack et les descriptions techniques.
+- Le libellé de rôle « FULL-STACK DEVELOPER » reste sur À propos et le CV. La tagline du Hero et le footer sont des phrases. L’adresse publique est « Bénin », sans ville.
 - Fil HUD hors Hero : readouts `.shell-readout` (STATUS / TARGET / …), cue scroll `ENGAGE` vers `#about-section`, accent orange `#ff6b00` discret. Pas d’anneaux / particules hors Hero.
 - Fonds sections : icônes portfolio discrètes (code, Laravel, DB, Git…) via `partials.shell-surface-icons`, + halos cyan/orange.
 
@@ -95,23 +95,24 @@ Section `#projects-section` de l’accueil.
 ### Flux
 
 1. Requête : `is_published = true`, tri `order` croissant.
-2. Chaque carte affiche la première techno, le titre, la description, toutes les technos, puis les liens.
-3. Liens conditionnels séparés : `url` → « Voir le projet » (`projects.view`) ; `github_url` → « GitHub » (`projects.github`). Les deux peuvent coexister. Sans aucun des deux, pas de lien.
-4. L’image de fond utilise `$project->image_url` (accesseur). Sans image, le bloc reste vide.
+2. Chaque carte affiche la capture, le badge de statut, la première techno, le titre, la description, toutes les technos, puis les liens.
+3. Liens en bas de carte : `url` → « En ligne » ; `github_url` → « GitHub ».
+4. Au survol (comme [Simon Avosse](https://simonavosse.com/portfolio)) : carte `translateY(-10px)` + ombre, image scale 1.1, overlay sombre avec bouton rond `+` (lightbox). Pas de tilt ni de reveal au scroll sur les cartes.
+5. Grille : 3 / 2 / 1 colonnes.
 
 ### Données
 
-Table `projects`.
+Table `projects` (`image`, `gallery`, `url`, `github_url`, `status`…).
 
 ### Composants réutilisés
 
-Aucun composant Blade séparé : le HTML de la carte est dans `index.blade.php`.
+Aucun composant Blade séparé. Lightbox : `jquery.magnific-popup.min.js` déjà chargé.
 
 ### Points d’attention
 
 - Un projet masqué (`is_published` à faux) disparaît du site mais reste dans l’admin.
-- L’image uploadée dans l’admin est un fichier du disque `public` (`storage/app/public/projects`). L’accesseur la transforme en URL `/storage/...`. Il faut `php artisan storage:link` en local. Sur Render, le disque du conteneur est recréé à chaque déploiement : les images uploadées ne survivent pas à un redéploiement.
-- Une valeur qui commence par `images/` est servie depuis `public/images`. Une valeur `http://` ou `https://` est utilisée telle quelle.
+- Les images uploadées sont sur le disque `public` (`projects`, `projects/gallery`). `php artisan storage:link` en local. Sur Render, les uploads ne survivent pas au redéploiement.
+- Remplir `url` (site déployé) dans Filament pour afficher le bouton sur chaque carte.
 
 ## Formulaire de contact
 
@@ -136,14 +137,16 @@ Recevoir un message, le garder dans l’admin, et l’envoyer par e-mail.
 ### Flux
 
 1. Le visiteur envoie le formulaire. Laravel vérifie le jeton CSRF.
-2. Le middleware `throttle:5,1` autorise 5 envois par minute et par client. Au-delà, redirection vers l’accueil avec le message « Trop de tentatives… ».
-3. Si le champ caché `company_website` est rempli, c’est traité comme un robot : redirection « succès », sans enregistrement et sans e-mail.
-4. Sinon `ContactRequest` exige nom, e-mail, sujet et message, avec des messages d’erreur en français. En cas d’échec, retour au formulaire avec les champs saisis.
-5. Une ligne est créée dans `contacts`.
-6. Le destinataire est `config('mail.contact.address')`, donc la variable `MAIL_TO_ADDRESS`.
-7. En production, l’envoi est refusé si le mailer est `log`, ou si le mailer est `resend` sans `RESEND_KEY`. Le message est quand même déjà enregistré en base.
-8. `ContactMail` part avec le sujet `Portfolio | {sujet}` et un reply-to égal à l’e-mail du visiteur.
-9. Succès ou erreur : redirection vers `/#contact-section`.
+2. En JavaScript, l’envoi part en `fetch` AJAX vers `/contact` (URL relative) : pas de rechargement. Le bouton bascule en loading (« Envoi en cours… »). Les alertes succès / erreur s’affichent dans `#contact-feedback`.
+3. Le middleware `throttle:5,1` autorise 5 envois par minute et par client. Au-delà, JSON 429 ou redirection selon le type de requête.
+4. Si le champ caché `company_website` est rempli, c’est traité comme un robot : réponse « succès », sans enregistrement et sans e-mail.
+5. Sinon `ContactRequest` exige nom, e-mail, sujet et message, avec des messages d’erreur en français.
+6. Une ligne est créée dans `contacts` (visible immédiatement dans l’admin Filament → Messages, badge non-lus).
+7. Le destinataire est `config('mail.contact.address')`, donc la variable `MAIL_TO_ADDRESS`.
+8. Le mailer prévu est `resend` (local et Render). Sans domaine vérifié chez Resend, `MAIL_FROM_ADDRESS` = `onboarding@resend.dev`. Gmail SMTP reste possible (`MAIL_MAILER=smtp` + mot de passe d’application).
+9. Si SMTP est choisi sans mot de passe mais qu’une `RESEND_KEY` est présente, le contrôleur bascule automatiquement sur Resend.
+10. `ContactMail` part avec le sujet `Portfolio | {sujet}` et un reply-to égal à l’e-mail du visiteur.
+11. Succès ou erreur : JSON `{ ok, message }` en AJAX, ou redirection vers `/contact` en POST classique.
 
 ### Données
 
@@ -191,7 +194,7 @@ Aucune table. Le contenu du CV est dans le Blade et dans `main.js`.
 
 Le contrôleur pointe vers `public/CV-Narcisse.pdf`. `DEPLOY-RENDER.md` citait un autre nom de fichier. Aucun PDF n’est présent dans `public/` au moment de cette documentation : le bouton de téléchargement vise un fichier absent du dépôt.
 
-Composition visuelle : dossier Premium tech (`shell-cv__*`) — bandeau identité photo + coins HUD, contacts en tuiles, colonnes profil/compétences en panneaux, grille d’ambiance. Nav glass + `.shell-btn`. Portrait `images/profile/moi2`.
+Composition visuelle : dossier Premium tech (`shell-cv__*`) — bandeau identité photo + coins HUD, contacts en tuiles, colonnes profil/compétences en panneaux, grille d’ambiance. Nav glass + `.shell-btn`. Portrait `images/profile/Nessi.webp`.
 
 ## Traduction français / anglais
 
@@ -201,16 +204,17 @@ Basculer les textes marqués sans recharger la page côté serveur.
 
 ### Point d’entrée
 
-Lien `#lang-toggle` dans la navigation de l’accueil et du CV.
+Lien `#lang-toggle` dans la navigation de l’accueil et du CV (drapeau + code de la langue cible : 🇬🇧 EN / 🇫🇷 FR).
 
 ### Fichiers principaux
 
 - `public/js/main.js`, objet `translations` et fonction `translatePage`
 - Attributs `data-i18n`, `data-i18n-html`, `data-i18n-placeholder` dans les vues
+- Styles `.lang-toggle` / `.lang-toggle-flag` dans `public/css/style.css`
 
 ### Flux
 
-1. Au clic, `translatePage` remplace le texte des nœuds marqués.
+1. Au clic, `translatePage` remplace le texte des nœuds marqués et met à jour le drapeau + le libellé du basculeur.
 2. La langue est gardée dans `localStorage` sous la clé `siteLang`.
 3. Les messages flash du formulaire (succès, erreur) viennent du serveur, en français. Ils ne passent pas par `data-i18n`.
 
@@ -286,7 +290,7 @@ Menu « Projets » : `/admin/projects`.
 
 ### Flux
 
-Le formulaire enregistre titre, ordre, description, technologies (liste de tags), image, URL, URL GitHub et interrupteur « Publié ». L’action « Masquer » ou « Publier » inverse `is_published` sans ouvrir le formulaire. Après création ou modification, une notification propose d’ouvrir le site.
+Le formulaire enregistre titre, ordre, description, technologies, image de couverture, captures (`gallery`), site déployé (`url`), GitHub, statut et interrupteur « Publié ». L’action « Masquer » ou « Publier » inverse `is_published` sans ouvrir le formulaire. Après création ou modification, une notification propose d’ouvrir le site.
 
 ### Données
 
@@ -366,3 +370,37 @@ Table `users`.
 ### Points d’attention
 
 La classe a `$isDiscovered = false` et elle est branchée explicitement par `->profile(EditProfile::class)` dans le provider. La découvrir automatiquement en plus créerait une deuxième page.
+
+## Assistant IA du portfolio
+
+### Objectif
+
+Répondre aux questions d’un visiteur sur le profil, les projets, la disponibilité et le contact, sans exposer la clé API. L’assistant reste utilisable même si Gemini est saturé ou absente.
+
+### Point d’entrée
+
+Bouton flottant bas droite sur l’accueil. `POST /ai/chat`, nom de route `ai.chat`.
+
+### Fichiers principaux
+
+- `app/Http/Controllers/AiChatController.php`
+- `resources/views/index.blade.php` (markup `.ai-chat`)
+- `public/css/style.css` (bloc AI CHAT HUD)
+- `public/js/main.js` (`initAiChat`)
+- `config/services.php` (`gemini.key`, `gemini.model`)
+
+### Flux
+
+1. Le visiteur ouvre le panneau, saisit une question.
+2. Le navigateur envoie un JSON vers `/ai/chat` avec le jeton CSRF.
+3. Avec `GEMINI_API_KEY`, le contrôleur tente Gemini (`generateContent`), avec quelques modèles de secours si le premier échoue.
+4. Sans clé, ou si Gemini échoue (surcharge, quota, timeout), réponse locale basée sur les projets publiés et une FAQ portfolio (`source: local`).
+5. Historique plafonné en session ; JSON `reply` (+ `source`). Si la question ou la réponse parle de contact / profil / dispo, le JSON inclut `actions_intro` et `actions` (bouton WhatsApp uniquement, via `config/portfolio.php`). Les boutons n’apparaissent que sous une réponse bot, pas sur le message d’accueil.
+
+### Données
+
+Session fichier (`ai_chat_history`). Aucune table dédiée. La FAQ locale lit `Project` publiés et `config/portfolio.php` (e-mail, les deux téléphones, WhatsApp).
+
+### Points d’attention
+
+La clé n’apparaît jamais dans le HTML. Créer `GEMINI_API_KEY` dans [Google AI Studio](https://aistudio.google.com/apikey), puis la poser en local et sur Render (`sync: false`). Défaut modèle : `gemini-flash-lite-latest`.

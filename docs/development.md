@@ -12,8 +12,11 @@ Copier `.env.example` vers `.env`. Les valeurs utiles :
 | `APP_URL` | URL utilisée pour les liens absolus et les images `/storage` |
 | `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | MySQL local. Base prévue : `portfolio_narcisse` |
 | `ADMIN_NAME`, `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Compte créé ou mis à jour par le seeder |
-| `MAIL_MAILER`, `RESEND_KEY`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` | Envoi Resend |
-| `MAIL_TO_ADDRESS` | Boîte qui reçoit les messages du formulaire |
+| `MAIL_MAILER`, `RESEND_KEY`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` | Envoi via Resend (`MAIL_FROM_ADDRESS=onboarding@resend.dev` tant qu’aucun domaine n’est vérifié) |
+| `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_ENCRYPTION` | Option Gmail SMTP si `MAIL_MAILER=smtp` (mot de passe d’application requis) |
+| `MAIL_TO_ADDRESS` | Boîte qui reçoit les messages du formulaire (et qui alimente aussi l’admin Messages) |
+| `GEMINI_API_KEY` | Clé API Google Gemini pour le chat (optionnelle ; fallback FAQ locale) |
+| `GEMINI_MODEL` | Modèle Gemini, défaut `gemini-flash-lite-latest` |
 
 `ADMIN_PASSWORD` reste vide dans `.env.example`. Le remplir en local, ne jamais committer `.env`.
 
@@ -42,8 +45,9 @@ php artisan test
 
 Tests utiles :
 
-- `tests/Feature/ContactFormTest.php` : envoi, validation, piège anti-robot, limite de 5 requêtes.
-- `tests/Feature/ProjectListingTest.php` : ordre des projets publiés, page de login, tableau de bord, mise à jour du profil.
+- `tests/Feature/ContactFormTest.php` : envoi, validation, piège anti-robot, limite de 5 requêtes, échec mail, routes de section.
+- `tests/Feature/ProjectListingTest.php` : ordre des projets publiés, badges de statut, page de login, tableau de bord, mise à jour du profil.
+- `tests/Feature/AiChatTest.php` : FAQ locale sans clé, proxy Gemini fake, fallback local si Gemini échoue, validation, absence de clé dans le HTML.
 - `tests/Feature/ExampleTest.php` et `tests/Unit/ExampleTest.php` : exemples livrés avec Laravel.
 
 ## Migrations et seeders

@@ -11,6 +11,11 @@ return [
         'tel' => '+2290199051003',
     ],
 
+    'phone_bf' => [
+        'display' => '+226 77 50 30 15',
+        'tel' => '+22677503015',
+    ],
+
     'whatsapp' => [
         'display' => '+226 77 50 30 15',
         'url' => 'https://wa.me/22677503015?text=' . rawurlencode('Bonjour Narcisse, je souhaite vous contacter concernant '),
